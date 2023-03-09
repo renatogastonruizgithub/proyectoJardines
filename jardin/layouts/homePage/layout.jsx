@@ -1,4 +1,5 @@
 import React from 'react'
+import Footer from '../../sections/footer'
 import Navbar from '../../sections/navbar'
 
 export const Layout = ({ children }) => {
@@ -11,7 +12,7 @@ export const Layout = ({ children }) => {
                 {children}
             </main>
             <footer>
-                {/*   <Footer /> */}
+               <Footer/>
             </footer>
         </>
 
