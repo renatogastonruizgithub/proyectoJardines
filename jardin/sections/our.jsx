@@ -21,7 +21,7 @@ export const Our = () => {
     const fontSize = "1.3rem"
     return (
         <>
-            <section className={our.contentSection} >
+            <section className={our.contentSection} id="nosotros" >
                 <Container maxWidth="lg">
                     <Grid container spacing={10}>
                         <Grid item md={6}  >

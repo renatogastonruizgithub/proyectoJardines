@@ -10,7 +10,7 @@ import { Box } from '@mui/system';
 
 export const Contact = () => {
     return (
-        <section >
+        <section id='contact'>
             <Container maxWidth="lg">
                 <Grid container spacing={10}  >
                     <Grid item sm={8} md={8} lg={8} xs={12} sx={{ display: "flex", alignItems: "center" }} >

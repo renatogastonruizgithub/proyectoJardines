@@ -119,3 +119,11 @@ p {
     color: rgb(27, 26, 26) !important;
 
 }
+
+a {
+    text-decoration: none;
+}
+
+html {
+    scroll-behavior: smooth !important;
+}

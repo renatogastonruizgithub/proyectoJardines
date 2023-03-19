@@ -18,11 +18,14 @@ import { Container } from '@mui/system';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import Link from 'next/link'
+import navb from "../styles/nabvar.module.scss"
 
 
 const Navbar = () => {
     const drawerWidth = 240;
-    const navItems = ['Home', 'Proyectos', 'Galeria', 'Noticias', 'Contactanos'];
+    const navItems = [{ title: "Home", url: "/" }, { title: "Proyectos", url: "/proyectos" }, { title: "Nosotros", url: "/#nosotros" }, { title: "Galeria", url: "/galeria" }, { title: "Noticias", url: "/noticias" }, { title: "Contactanos", url: "/#contact" }];
+
 
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -37,16 +40,22 @@ const Navbar = () => {
 
         >
             <List>
-                {navItems.map((item) => (
-                    <ListItem key={item} disablePadding>
-                        <ListItemButton sx={{ textAlign: 'center' }}>
-                            <ListItemText primary={item} />
-                        </ListItemButton>
-                    </ListItem>
-                ))}
-            </List>
-            <List>
+                {
+                    navItems.map((item) => {
+                        return (
 
+                            <ListItem key={item} disablePadding>
+                                <ListItemButton sx={{ textAlign: 'center' }}>
+
+                                    <Link className={navb.linkMobile} href={item.url}>{item.title} </Link>
+                                </ListItemButton>
+                            </ListItem>
+                        )
+                    })
+                }
+            </List>
+
+            <List>
                 <ListItem disablePadding>
                     <ListItemButton sx={{ textAlign: 'center' }}>
                         <InstagramIcon></InstagramIcon>
@@ -87,12 +96,19 @@ const Navbar = () => {
                             </Typography>
 
                             <Box sx={{ display: { xs: 'none', md: 'block' } }}>
-                                {navItems.map((item) => (
-                                    <Button key={item} sx={{ color: '#fff' }}>
-                                        {item}
-                                    </Button>
-                                ))}
+                                {
+                                    navItems.map((item) => {
+                                        return (
+                                            <Button key={item} sx={{ color: '#fff', textTransform: "none", letterSpacing: "1px" }}>
+
+                                                <Link className={navb.link} href={item.url}>{item.title} </Link>
+                                            </Button>
+                                        )
+                                    })
+                                }
+
                             </Box>
+
                             <Box sx={{ display: { xs: 'none', md: 'block' } }}>
                                 <Button size="small" sx={{ color: '#fff' }} > <InstagramIcon></InstagramIcon></Button>
                                 <Button size="small" sx={{ color: '#fff' }} ><FacebookIcon></FacebookIcon></Button>
