@@ -6,7 +6,7 @@ import ImageListItem from '@mui/material/ImageListItem';
 import { Container } from '@mui/system';
 import { Grid } from '@mui/material';
 import geleria from "../styles/galeria.module.scss"
-
+import { BannerLayouts } from '../sections/bannerLayouts'
 
 
 export default function Galeria() {
@@ -63,7 +63,8 @@ export default function Galeria() {
     return (
         <>
             <LayuotSecondary>
-                <Box sx={{ marginTop: "10rem", marginBottom: "4rem" }}>
+                 <BannerLayouts></BannerLayouts>   
+                <Box sx={{ marginTop: "5rem", marginBottom: "4rem" }}>
                     <Container maxWidth="lg">
                         <Grid container>
                             <Grid item xs={12}>
