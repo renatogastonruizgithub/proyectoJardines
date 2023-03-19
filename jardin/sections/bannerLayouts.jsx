@@ -5,7 +5,7 @@ import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 
 
-export const BannerLayouts = () => {
+export const BannerLayouts = ({ title }) => {
     const itemData = [
         {
             img: "/assets/secondariBanner.jpg",
@@ -23,9 +23,8 @@ export const BannerLayouts = () => {
                         <Link
                             underline="hover"
                             color="#fff"
-                            href="/material-ui/getting-started/installation/"
                         >
-                            Galeria
+                            {title}
                         </Link>
                     </Breadcrumbs>
                 </div>
