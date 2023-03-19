@@ -6,7 +6,7 @@ const Noticias = () => {
     return (
         <>
             <LayuotSecondary>
-                <BannerLayouts></BannerLayouts>
+                <BannerLayouts title={"Noticias"}></BannerLayouts>
                 <div>
                     <h1>Noticias</h1>
                 </div>
