@@ -63,7 +63,7 @@ export default function Galeria() {
     return (
         <>
             <LayuotSecondary>
-                 <BannerLayouts></BannerLayouts>   
+                <BannerLayouts title={"Galeria"}></BannerLayouts>
                 <Box sx={{ marginTop: "5rem", marginBottom: "4rem" }}>
                     <Container maxWidth="lg">
                         <Grid container>
