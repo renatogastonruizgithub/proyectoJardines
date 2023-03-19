@@ -6,10 +6,10 @@ const Projectos = () => {
     return (
         <>
             <LayuotSecondary>
-                <BannerLayouts>
-                    <h1>  proyectos</h1>
-                </BannerLayouts>
+                <BannerLayouts title={"Proyectos"}>
 
+                </BannerLayouts>
+                <h1>  proyectos</h1>
             </LayuotSecondary>
         </>
     )
