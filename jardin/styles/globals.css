@@ -146,3 +146,26 @@ html {
     color: rgb(27, 26, 26) !important;
 
 }
+
+
+.sideBar {
+    background-color: blueviolet;
+    width: 15%;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    height: 100vh;
+}
+
+.mainAdmin {
+    width: 85%;
+    background-color: rgb(209, 199, 199);
+    margin-left: 15%;
+    height: 100%;
+}
+
+.contentAdmin {
+    display: flex;
+
+}
