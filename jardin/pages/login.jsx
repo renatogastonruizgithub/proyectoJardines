@@ -17,24 +17,24 @@ export default function Login() {
     const [showPassword, setShowPassword] = useState(false);
 
     const send = () => {
-        router.push("/dashbord")
+        router.push("/dashboard")
     }
-     const recoverPassword = () => {
+    const recoverPassword = () => {
         router.push("/recover")
     };
     return (
         <>
             <Container className={login.container} maxWidth="lg">
-                  <Grid container spacing={5}>
-                        <Grid  className={login.contentImg} item md={6} xs={12}>
-                            <div >
-                                <Typography variant="h4" gutterBottom>
-                                    Hola, nos volvemos a ver!
-                                </Typography>
-                                <Image src={"/assets/illustration_login.png"} alt="asd" width={500}
-                                    height={400} />
-                            </div>
-                        </Grid>
+                <Grid container spacing={5}>
+                    <Grid className={login.contentImg} item md={6} xs={12}>
+                        <div >
+                            <Typography variant="h4" gutterBottom>
+                                Hola, nos volvemos a ver!
+                            </Typography>
+                            <Image src={"/assets/illustration_login.png"} alt="asd" width={500}
+                                height={400} />
+                        </div>
+                    </Grid>
                     <Grid className={login.contenFormulario} item md={6} xs={12}>
                         <Container maxWidth="xs">
                             <Typography variant="h4" gutterBottom>
@@ -72,11 +72,11 @@ export default function Login() {
                                 Iniciar
                             </Button>
                         </Container>
-                            
-                        </Grid>
-                       
+
+                    </Grid>
+
                 </Grid>
-            </Container>     
+            </Container>
         </>
     )
 }
