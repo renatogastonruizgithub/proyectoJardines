@@ -14,10 +14,12 @@ import WatchLaterIcon from '@mui/icons-material/WatchLater';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-
+import { usePortfolio } from "../context/contextHome"
 import bg from '../public/assets/footer-pattern.png'
 
 const Footer = () => {
+    const { empresa } = usePortfolio();
+
     const footerLinks = ['Home', 'Proyectos', 'Nosotros', 'Galeria', 'Noticias', 'Contactanos'];
     const today = new Date();
     const style = {
@@ -44,23 +46,28 @@ const Footer = () => {
                 <Container maxWidth="lg">
                     <Grid container spacing={5}>
                         <Grid item md={4} xs={12}>
-                            <Stack spacing={2}>
-                                <Image src={"/assets/logo.jpg"} alt="asd" width={80}
-                                    height={80} />
-                                <Typography variant="p" gutterBottom>
-                                    En nuestros programas de participación de adultos, para la mayoría de los estudiantes, es su primer programa en
-                                </Typography>
-                                <List>
-                                    <ListItem disablePadding>
-                                        <ListItemButton sx={{ textAlign: 'center' }}>
-                                            <InstagramIcon ></InstagramIcon>
-                                        </ListItemButton>
-                                        <ListItemButton> <FacebookIcon ></FacebookIcon></ListItemButton>
-                                        <ListItemButton><LinkedInIcon ></LinkedInIcon></ListItemButton>
-                                    </ListItem>
-                                </List>
-                            </Stack>
+                            {empresa.map((y) => {
+                                return (
+                                    <Stack key={y} spacing={2}>
 
+                                        <Image src={"/assets/logo.jpg"} alt="asd" width={80}
+                                            height={80} />
+                                        <Typography variant="p" gutterBottom>
+                                            En nuestros programas de participación de adultos, para la mayoría de los estudiantes, es su primer programa en
+                                        </Typography>
+                                        <List>
+                                            <ListItem disablePadding>
+                                                <ListItemButton sx={{ textAlign: 'center' }}>
+                                                    <InstagramIcon ></InstagramIcon>
+                                                </ListItemButton>
+                                                <ListItemButton href={`${y.linkFb}`} target={"_blank"} > <FacebookIcon ></FacebookIcon></ListItemButton>
+                                                <ListItemButton><LinkedInIcon ></LinkedInIcon></ListItemButton>
+                                            </ListItem>
+                                        </List>
+                                    </Stack>
+                                )
+                            })
+                            }
                         </Grid>
                         <Grid item md={4} xs={12}>
                             <Typography variant="h5" gutterBottom>
@@ -80,40 +87,49 @@ const Footer = () => {
                             <Typography variant="h5" gutterBottom>
                                 Contactanos!
                             </Typography>
-                            <List>
-                                <ListItem disablePadding>
-                                    <ListItemButton>
-                                        <ListItemIcon>
-                                            <RoomIcon sx={{ color: '#fff' }} />
-                                        </ListItemIcon>
-                                        <ListItemText primary="14/A, Kilix Home Tower," />
-                                    </ListItemButton>
-                                </ListItem>
-                                <ListItem disablePadding>
-                                    <ListItemButton>
-                                        <ListItemIcon>
-                                            <WhatsAppIcon sx={{ color: '#fff' }} />
-                                        </ListItemIcon>
-                                        <ListItemText primary="3515087900" />
-                                    </ListItemButton>
-                                </ListItem>
-                                <ListItem disablePadding>
-                                    <ListItemButton>
-                                        <ListItemIcon>
-                                            <DraftsIcon sx={{ color: '#fff' }} />
-                                        </ListItemIcon>
-                                        <ListItemText primary="Support@jardin.com" />
-                                    </ListItemButton>
-                                </ListItem>
-                                <ListItem disablePadding>
-                                    <ListItemButton>
-                                        <ListItemIcon>
-                                            <WatchLaterIcon sx={{ color: '#fff' }} />
-                                        </ListItemIcon>
-                                        <ListItemText primary="De lunes a viernes de 8 a 18hs" />
-                                    </ListItemButton>
-                                </ListItem>
-                            </List>
+
+                            {
+                                empresa.map((item) => {
+                                    return (<List>
+                                        <ListItem disablePadding>
+                                            <ListItemButton>
+                                                <ListItemIcon>
+                                                    <RoomIcon sx={{ color: '#fff' }} />
+                                                </ListItemIcon>
+                                                <ListItemText primary={item.ubicacion} />
+                                            </ListItemButton>
+                                        </ListItem>
+                                        <ListItem disablePadding>
+                                            <ListItemButton>
+                                                <ListItemIcon>
+                                                    <WhatsAppIcon sx={{ color: '#fff' }} />
+                                                </ListItemIcon>
+                                                <ListItemText primary={item.telefono} />
+                                            </ListItemButton>
+                                        </ListItem>
+                                        <ListItem disablePadding>
+                                            <ListItemButton>
+                                                <ListItemIcon>
+                                                    <DraftsIcon sx={{ color: '#fff' }} />
+                                                </ListItemIcon>
+                                                <ListItemText primary={item.email} />
+                                            </ListItemButton>
+                                        </ListItem>
+                                        <ListItem disablePadding>
+                                            <ListItemButton>
+                                                <ListItemIcon>
+                                                    <WatchLaterIcon sx={{ color: '#fff' }} />
+                                                </ListItemIcon>
+                                                <ListItemText primary={item.horarios} />
+                                            </ListItemButton>
+                                        </ListItem>
+                                    </List>
+                                    )
+                                })
+                            }
+
+
+
                         </Grid>
                     </Grid>
 
