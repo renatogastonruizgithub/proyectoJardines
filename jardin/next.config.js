@@ -2,11 +2,11 @@
 const path = require('path')
 const nextConfig = {
   reactStrictMode: true,
-    sassOptions: {
+  sassOptions: {
     includePaths: [path.join(__dirname, "styles")],
   },
-     images: {
-    domains: ['localhost']
+  images: {
+    domains: ['localhost', 'firebasestorage.googleapis.com']
   },
 }
 
