@@ -4,62 +4,34 @@ import Box from '@mui/material/Box';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import { Container } from '@mui/system';
-import { Grid } from '@mui/material';
+import { Grid, Pagination, Stack, CircularProgress } from '@mui/material';
 import geleria from "../styles/galeria.module.scss"
 import { BannerLayouts } from '../sections/bannerLayouts'
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 
 export default function Galeria() {
-    const itemData = [
-        {
-            img: 'https://images.unsplash.com/photo-1549388604-817d15aa0110',
-            title: 'Bed',
-        },
-        {
-            img: 'https://images.unsplash.com/photo-1525097487452-6278ff080c31',
-            title: 'Books',
-        },
-        {
-            img: 'https://images.unsplash.com/photo-1523413651479-597eb2da0ad6',
-            title: 'Sink',
-        },
-        {
-            img: 'https://images.unsplash.com/photo-1563298723-dcfebaa392e3',
-            title: 'Kitchen',
-        },
-        {
-            img: 'https://images.unsplash.com/photo-1588436706487-9d55d73a39e3',
-            title: 'Blinds',
-        },
-        {
-            img: 'https://images.unsplash.com/photo-1574180045827-681f8a1a9622',
-            title: 'Chairs',
-        },
-        {
-            img: 'https://images.unsplash.com/photo-1530731141654-5993c3016c77',
-            title: 'Laptop',
-        },
-        {
-            img: 'https://images.unsplash.com/photo-1481277542470-605612bd2d61',
-            title: 'Doors',
-        },
-        {
-            img: 'https://images.unsplash.com/photo-1517487881594-2787fef5ebf7',
-            title: 'Coffee',
-        },
-        {
-            img: 'https://images.unsplash.com/photo-1516455207990-7a41ce80f7ee',
-            title: 'Storage',
-        },
-        {
-            img: 'https://images.unsplash.com/photo-1597262975002-c5c3b14bbd62',
-            title: 'Candle',
-        },
-        {
-            img: 'https://images.unsplash.com/photo-1519710164239-da123dc03ef4',
-            title: 'Coffee table',
-        },
-    ];
+
+    const [loading, setLoading] = useState(true);
+    const [itemData, setItemData] = useState([]);
+    const [page, setPage] = useState(0);
+
+    useEffect(() => {
+        axios.get(`http://localhost:8080/galeria?page=${page}`).then((res) => {
+            setItemData(res.data)
+            setTimeout(() => setLoading(false), 1000)
+            console.log(res.data)
+
+        }).catch((error) => {
+            console.log(error)
+        });
+    }, [itemData], [page], [loading]);
+
+    const handleChange = (event, value) => {
+        setPage(value);
+    };
+
     return (
         <>
             <LayuotSecondary>
@@ -68,30 +40,38 @@ export default function Galeria() {
                     <Container maxWidth="lg">
                         <Grid container>
                             <Grid item xs={12}>
+                                {
+                                    loading ? (
+                                        <Box sx={{ display: "grid", placeItems: "center" }}>
+                                            <CircularProgress />
+                                        </Box>
+                                    ) : (
+                                        <ImageList variant="masonry" sx={{
+                                            columnCount: {
+                                                xs: '1 !important',
+                                                sm: '2 !important',
+                                                md: '3 !important',
+                                                lg: '4 !important',
+                                                xl: '5 !important',
+                                            },
+                                        }} gap={12}>
+                                            {itemData.map((item) => (
+                                                <ImageListItem className={geleria.imgGaleria} sx={{ position: "relative" }} key={item.img} >
+                                                    <img
+                                                        className={geleria.imgGaleria}
+                                                        src={item.imagen}
+                                                        alt={item.alternativo}
+                                                        loading="lazy"
+                                                    />
+                                                </ImageListItem>
+                                            ))}
+                                        </ImageList>
+                                    )
+                                }
 
-                                <ImageList variant="masonry" sx={{
-                                    columnCount: {
-                                        xs: '1 !important',
-                                        sm: '2 !important',
-                                        md: '3 !important',
-                                        lg: '4 !important',
-                                        xl: '5 !important',
-                                    },
-                                }} gap={12}>
-                                    {itemData.map((item) => (
-                                        <ImageListItem className={geleria.imgGaleria} sx={{ position: "relative" }} key={item.img} >
-                                            <img
-                                                className={geleria.imgGaleria}
-                                                src={`${item.img}?w=248&fit=crop&auto=format`}
-                                                srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                                                alt={item.title}
-                                                loading="lazy"
-                                            />
-                                        </ImageListItem>
-                                    ))}
-                                </ImageList>
-
-
+                                <Stack sx={{ marginTop: "3rem", display: "grid", placeItems: "center" }}>
+                                    <Pagination page={page} onChange={handleChange} count={1} shape="rounded" />
+                                </Stack>
                             </Grid>
                         </Grid>
                     </Container>
