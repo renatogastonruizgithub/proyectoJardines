@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Container, Grid, Input, TextField, Typography, Divider, Paper } from '@mui/material';
-import { storage } from "../config/firebase/firebase"
+import { storage } from "../../config/firebase/firebase"
 import { ref, uploadBytes, getDownloadURL, } from "firebase/storage";
 import { useState } from 'react';
 import { Box, Stack } from '@mui/system';
