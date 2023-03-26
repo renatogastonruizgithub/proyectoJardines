@@ -10,6 +10,7 @@ import {
     uploadBytes,
     getDownloadURL,
 } from "firebase/storage";
+import AdminGeleria from './adminGaleria';
 
 
 const Dashboard = () => {
@@ -18,7 +19,7 @@ const Dashboard = () => {
         <>
             <LayoutDashboard>
                 <section className='mainAdmin'>
-
+                    <AdminGeleria></AdminGeleria>
                 </section>
             </LayoutDashboard>
         </>

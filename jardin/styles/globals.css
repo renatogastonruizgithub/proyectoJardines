@@ -160,12 +160,13 @@ html {
 
 .mainAdmin {
     width: 85%;
-    background-color: rgb(209, 199, 199);
+    background-color: rgb(238, 242, 246);
     margin-left: 15%;
-    height: 100%;
+    height: calc(100% + 10%);
 }
 
 .contentAdmin {
-    display: flex;
+
+    height: calc(100vh + 40%);
 
 }
