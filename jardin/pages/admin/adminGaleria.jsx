@@ -6,6 +6,9 @@ import { useState } from 'react';
 import { Box, Stack } from '@mui/system';
 import { Formik, Form, useFormik } from 'formik';
 import axios from "axios";
+import LayoutDashboard from "../../layouts/adminPages/layoutDashboard"
+
+
 
 const AdminGeleria = () => {
     const [file, setFile] = useState([])
@@ -30,6 +33,7 @@ const AdminGeleria = () => {
 
 
     return (
+
         <section style={{ height: "100vh", paddingBottom: "2rem" }} >
 
             <Container maxWidth="lg">
@@ -64,18 +68,20 @@ const AdminGeleria = () => {
                                     ({ handleSubmit, errors, touched, values, handleChange, handleBlur }) => (
                                         <Form >
                                             <Stack spacing={3}>
-                                                <Typography variant='p'>Selecciona tu imagen </Typography>
+                                                <Typography color="GrayText" variant='body1' >Selecciona tu imagen </Typography>
                                                 <Input
+                                                    size="small"
                                                     placeholder="Placeholder"
                                                     type="file"
                                                     name='imagen'
                                                     onChange={(e) => { vistaPrevia(e) }}
                                                 />
-                                                <Typography variant='body1' >vista previa</Typography>
-                                                <Box component="div">
-                                                    <img src={preview} style={{ objectFit: "contain", width: "100%", height: "200px" }} />
+                                                <Typography variant='body1' color="GrayText">vista previa</Typography>
+                                                <Box component="div" sx={{ height: "100px" }}>
+                                                    <img src={preview} style={{ objectFit: "contain", width: "100%", height: "100px" }} />
                                                 </Box>
                                                 <TextField
+                                                    size="small"
                                                     name='descripcion'
                                                     id="filled-basic"
                                                     label="Descripcion de la foto"
@@ -84,6 +90,7 @@ const AdminGeleria = () => {
                                                     onChange={handleChange}
                                                 />
                                                 <TextField
+                                                    size="small"
                                                     name='alternativo'
                                                     id="filled-basic"
                                                     label="texto alternativo (alt)"
@@ -106,7 +113,18 @@ const AdminGeleria = () => {
                 </Grid>
             </Container>
         </section>
+
     )
+
+
 }
 
 export default AdminGeleria
+
+AdminGeleria.getLayout = function getLayout(page) {
+    return (
+        <LayoutDashboard>
+            {page}
+        </LayoutDashboard>
+    )
+}

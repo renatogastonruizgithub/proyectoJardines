@@ -25,7 +25,7 @@ export const ProviderComponent = ({ children }) => {
         });
 
 
-    }, [setEmpresa], [loading]);
+    }, [empresa], [loading]);
 
 
 
