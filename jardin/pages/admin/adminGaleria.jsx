@@ -6,6 +6,9 @@ import { useState } from 'react';
 import { Box, Stack } from '@mui/system';
 import { Formik, Form, useFormik } from 'formik';
 import axios from "axios";
+import LayoutDashboard from "../../layouts/adminPages/layoutDashboard"
+
+
 
 const AdminGeleria = () => {
     const [file, setFile] = useState([])
@@ -30,6 +33,7 @@ const AdminGeleria = () => {
 
 
     return (
+
         <section style={{ height: "100vh", paddingBottom: "2rem" }} >
 
             <Container maxWidth="lg">
@@ -109,7 +113,18 @@ const AdminGeleria = () => {
                 </Grid>
             </Container>
         </section>
+
     )
+
+
 }
 
 export default AdminGeleria
+
+AdminGeleria.getLayout = function getLayout(page) {
+    return (
+        <LayoutDashboard>
+            {page}
+        </LayoutDashboard>
+    )
+}

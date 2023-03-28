@@ -1,19 +1,25 @@
 import React from 'react'
 import LayoutDashboard from '../../layouts/adminPages/layoutDashboard'
-import AdminGeleria from './adminGaleria';
+
 
 
 const Dashboard = () => {
 
     return (
         <>
-            <LayoutDashboard>
-                <section className='mainAdmin'>
-                    <AdminGeleria></AdminGeleria>
-                </section>
-            </LayoutDashboard>
+            <section className='mainAdmin'>
+                Inicio dashboard
+            </section>
         </>
     )
 }
 
 export default Dashboard
+
+Dashboard.getLayout = function getLayout(page) {
+    return (
+        <LayoutDashboard>
+            {page}
+        </LayoutDashboard>
+    )
+}
