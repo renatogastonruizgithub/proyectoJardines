@@ -11,10 +11,10 @@ import TabPanel from '@mui/lab/TabPanel';
 import { Titles } from '../components/titles';
 
 const Projectos = () => {
-    const [value, setValue] = React.useState('1');
+    const [value, setValue] = React.useState("1");
 
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
+    const handleChange = (event, value) => {
+        setValue(value);
     };
     return (
         <>
