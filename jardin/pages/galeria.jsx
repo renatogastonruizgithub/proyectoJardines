@@ -41,7 +41,6 @@ export default function Galeria() {
                 <Box sx={{ marginTop: "5rem", marginBottom: "4rem" }}>
                     <Container maxWidth="lg">
                         <Grid container>
-                            {page}
                             <Grid item xs={12}>
                                 {
                                     loading ? (
@@ -57,12 +56,12 @@ export default function Galeria() {
                                             xl: '5 !important',
                                         },
                                     }} gap={12}>
-                                        {itemData.map((item) => (
-                                            <ImageListItem className={geleria.imgGaleria} sx={{ position: "relative" }} key={item.img} >
+                                        {itemData.map((itemdata, g) => (
+                                            <ImageListItem className={geleria.imgGaleria} sx={{ position: "relative" }} key={g} >
                                                 <img
                                                     className={geleria.imgGaleria}
-                                                    src={item.imagen}
-                                                    alt={item.alternativo} />
+                                                    src={itemdata.imagen}
+                                                    alt={itemdata.alternativo} />
                                             </ImageListItem>
                                         ))}
                                     </ImageList>

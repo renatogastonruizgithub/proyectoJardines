@@ -15,11 +15,7 @@ import "swiper/css/navigation";
 
 
 const Noticias = () => {
-    const [value, setValue] = React.useState('1');
 
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
     return (
         <>
             <LayuotSecondary>
@@ -95,7 +91,6 @@ const Noticias = () => {
                                         prevEl: ".swiper-button-prev",
 
                                     }}
-                                    Navigation={true}
                                     modules={[Autoplay, Navigation]}
                                     initialSlide={0}
 
