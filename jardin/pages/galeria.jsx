@@ -13,25 +13,28 @@ export default function Galeria() {
 
     const [loading, setLoading] = useState(true);
     const [itemData, setItemData] = useState([]);
-    const [totalPage, setTotalPage] = useState(0);
-    const [page, setPage] = useState(0);
+    const [CurrentPage, setCurrentPage] = useState(0);
+    const [totalPages, setTotalPages] = useState();
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/galeria/page?page=${page}`).then((res) => {
+        const imgs = async () => {
+            const results = await axios.get(`http://localhost:8080/galeria/page?page=${CurrentPage}`).then((res) => {
+                setLoading(false)
+                setItemData(res.data.content)
+                setTotalPages(res.data.totalPages)
+            }).catch((error) => {
+                console.log(error)
+            });
+            return results
+        }
 
-            setItemData(res.data.content)
-            setTotalPage(res.data.totalPages)
-            setTimeout(() => setLoading(false), 2000)
+        imgs()
 
-        }).catch((error) => {
-            console.log(error)
-        });
-    }, [itemData], [page], [loading], [totalPage]);
+    }, [CurrentPage]);
 
     const handleChange = (e, value) => {
-
-        setPage(value);
-        console.log(value)
+        setCurrentPage(value - 1);
+        setLoading(true)
     };
 
     return (
@@ -56,6 +59,7 @@ export default function Galeria() {
                                             xl: '5 !important',
                                         },
                                     }} gap={12}>
+
                                         {itemData.map((itemdata, g) => (
                                             <ImageListItem className={geleria.imgGaleria} sx={{ position: "relative" }} key={g} >
                                                 <img
@@ -70,7 +74,7 @@ export default function Galeria() {
 
 
                                 <Stack sx={{ marginTop: "3rem", display: "grid", placeItems: "center" }}>
-                                    <Pagination page={page} onChange={handleChange} count={totalPage - 1} shape="rounded" />
+                                    <Pagination defaultPage={1} onChange={handleChange} count={totalPages} shape="rounded" />
                                 </Stack>
                             </Grid>
                         </Grid>
