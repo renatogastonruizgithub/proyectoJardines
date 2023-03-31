@@ -149,8 +149,8 @@ html {
 
 
 .sideBar {
-    background-color: blueviolet;
-    width: 15%;
+    background-color: rgb(74, 125, 196);
+    width: 20%;
     position: fixed;
     z-index: 1000;
     top: 0;
@@ -159,9 +159,9 @@ html {
 }
 
 .mainAdmin {
-    width: 85%;
-    background-color: rgb(238, 242, 246);
-    margin-left: 15%;
+    width: 80%;
+    background-color: rgb(228, 228, 228);
+    margin-left: 20%;
     height: calc(100% + 10%);
 }
 
