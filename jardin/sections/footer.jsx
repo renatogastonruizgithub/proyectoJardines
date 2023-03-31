@@ -46,25 +46,28 @@ const Footer = () => {
                 <Container maxWidth="lg">
                     <Grid container spacing={5}>
                         <Grid item md={4} xs={12}>
-                            {empresa.map((y) => {
+                            {empresa.map((y, inde) => {
                                 return (
-                                    <Stack key={y} spacing={2}>
+                                    <div key={inde} >
+                                        <Stack spacing={2}>
 
-                                        <Image src={"/assets/logo.jpg"} alt="asd" width={80}
-                                            height={80} />
-                                        <Typography variant="p" gutterBottom>
-                                            En nuestros programas de participación de adultos, para la mayoría de los estudiantes, es su primer programa en
-                                        </Typography>
-                                        <List>
-                                            <ListItem disablePadding>
-                                                <ListItemButton sx={{ textAlign: 'center' }}>
-                                                    <InstagramIcon ></InstagramIcon>
-                                                </ListItemButton>
-                                                <ListItemButton href={`${y.linkFb}`} target={"_blank"} > <FacebookIcon ></FacebookIcon></ListItemButton>
-                                                <ListItemButton><LinkedInIcon ></LinkedInIcon></ListItemButton>
-                                            </ListItem>
-                                        </List>
-                                    </Stack>
+                                            <Image src={"/assets/logo.jpg"} alt="asd" width={80}
+                                                height={80} />
+                                            <Typography variant="p" gutterBottom>
+                                                En nuestros programas de participación de adultos, para la mayoría de los estudiantes, es su primer programa en
+                                            </Typography>
+                                            <List>
+                                                <ListItem disablePadding>
+                                                    <ListItemButton sx={{ textAlign: 'center' }}>
+                                                        <InstagramIcon ></InstagramIcon>
+                                                    </ListItemButton>
+                                                    <ListItemButton href={`${y.linkFb}`} target={"_blank"} > <FacebookIcon ></FacebookIcon></ListItemButton>
+                                                    <ListItemButton><LinkedInIcon ></LinkedInIcon></ListItemButton>
+                                                </ListItem>
+                                            </List>
+                                        </Stack>
+                                    </div>
+
                                 )
                             })
                             }
@@ -74,12 +77,15 @@ const Footer = () => {
                                 Links
                             </Typography>
                             <List>
-                                {footerLinks.map((item) => (
-                                    <ListItem key={item} disablePadding>
-                                        <ListItemButton >
-                                            <ListItemText primary={item} />
-                                        </ListItemButton>
-                                    </ListItem>
+                                {footerLinks.map((item, ii) => (
+                                    <div key={ii}>
+                                        <ListItem disablePadding>
+                                            <ListItemButton >
+                                                <ListItemText primary={item} />
+                                            </ListItemButton>
+                                        </ListItem>
+                                    </div>
+
                                 ))}
                             </List>
                         </Grid>
@@ -89,41 +95,45 @@ const Footer = () => {
                             </Typography>
 
                             {
-                                empresa.map((item) => {
-                                    return (<List>
-                                        <ListItem disablePadding>
-                                            <ListItemButton>
-                                                <ListItemIcon>
-                                                    <RoomIcon sx={{ color: '#fff' }} />
-                                                </ListItemIcon>
-                                                <ListItemText primary={item.ubicacion} />
-                                            </ListItemButton>
-                                        </ListItem>
-                                        <ListItem disablePadding>
-                                            <ListItemButton>
-                                                <ListItemIcon>
-                                                    <WhatsAppIcon sx={{ color: '#fff' }} />
-                                                </ListItemIcon>
-                                                <ListItemText primary={item.telefono} />
-                                            </ListItemButton>
-                                        </ListItem>
-                                        <ListItem disablePadding>
-                                            <ListItemButton>
-                                                <ListItemIcon>
-                                                    <DraftsIcon sx={{ color: '#fff' }} />
-                                                </ListItemIcon>
-                                                <ListItemText primary={item.email} />
-                                            </ListItemButton>
-                                        </ListItem>
-                                        <ListItem disablePadding>
-                                            <ListItemButton>
-                                                <ListItemIcon>
-                                                    <WatchLaterIcon sx={{ color: '#fff' }} />
-                                                </ListItemIcon>
-                                                <ListItemText primary={item.horarios} />
-                                            </ListItemButton>
-                                        </ListItem>
-                                    </List>
+                                empresa.map((links, l) => {
+                                    return (
+                                        <div key={l}>
+                                            <List>
+                                                <ListItem disablePadding>
+                                                    <ListItemButton>
+                                                        <ListItemIcon>
+                                                            <RoomIcon sx={{ color: '#fff' }} />
+                                                        </ListItemIcon>
+                                                        <ListItemText primary={links.ubicacion} />
+                                                    </ListItemButton>
+                                                </ListItem>
+                                                <ListItem disablePadding>
+                                                    <ListItemButton>
+                                                        <ListItemIcon>
+                                                            <WhatsAppIcon sx={{ color: '#fff' }} />
+                                                        </ListItemIcon>
+                                                        <ListItemText primary={links.telefono} />
+                                                    </ListItemButton>
+                                                </ListItem>
+                                                <ListItem disablePadding>
+                                                    <ListItemButton>
+                                                        <ListItemIcon>
+                                                            <DraftsIcon sx={{ color: '#fff' }} />
+                                                        </ListItemIcon>
+                                                        <ListItemText primary={links.email} />
+                                                    </ListItemButton>
+                                                </ListItem>
+                                                <ListItem disablePadding>
+                                                    <ListItemButton>
+                                                        <ListItemIcon>
+                                                            <WatchLaterIcon sx={{ color: '#fff' }} />
+                                                        </ListItemIcon>
+                                                        <ListItemText primary={links.horarios} />
+                                                    </ListItemButton>
+                                                </ListItem>
+                                            </List>
+                                        </div>
+
                                     )
                                 })
                             }

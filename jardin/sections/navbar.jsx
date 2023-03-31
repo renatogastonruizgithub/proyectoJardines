@@ -41,10 +41,10 @@ const Navbar = () => {
         >
             <List>
                 {
-                    navItems.map((item) => {
+                    navItems.map((item, i) => {
                         return (
 
-                            <ListItem key={item} disablePadding>
+                            <ListItem key={i} disablePadding>
                                 <ListItemButton sx={{ textAlign: 'center' }}>
 
                                     <Link className={navb.linkMobile} href={item.url}>{item.title} </Link>
@@ -97,11 +97,11 @@ const Navbar = () => {
 
                             <Box sx={{ display: { xs: 'none', md: 'block' } }}>
                                 {
-                                    navItems.map((item) => {
+                                    navItems.map((items, y) => {
                                         return (
-                                            <Button key={item} sx={{ color: '#fff', textTransform: "none", letterSpacing: "1px" }}>
+                                            <Button key={y} sx={{ color: '#fff', textTransform: "none", letterSpacing: "1px" }}>
 
-                                                <Link className={navb.link} href={item.url}>{item.title} </Link>
+                                                <Link className={navb.link} href={items.url}>{items.title} </Link>
                                             </Button>
                                         )
                                     })
