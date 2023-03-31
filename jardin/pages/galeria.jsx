@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import { LayuotSecondary } from '../layouts/secondaryPages/layuotSecondary'
 import Box from '@mui/material/Box';
 import ImageList from '@mui/material/ImageList';
@@ -15,6 +15,7 @@ export default function Galeria() {
     const [itemData, setItemData] = useState([]);
     const [CurrentPage, setCurrentPage] = useState(0);
     const [totalPages, setTotalPages] = useState();
+
 
     useEffect(() => {
         const imgs = async () => {

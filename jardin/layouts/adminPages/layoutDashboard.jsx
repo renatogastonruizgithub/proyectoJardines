@@ -6,8 +6,8 @@ const LayoutDashboard = ({ children }) => {
     return (
         <>
             <Navbar></Navbar>
-            <main>
-                <section className='contentAdmin'>
+            <main >
+                <section className='mainAdmin'>
                     <Sidebar></Sidebar>
                     {children}
                 </section>
