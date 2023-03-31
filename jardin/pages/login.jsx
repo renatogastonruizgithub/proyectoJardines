@@ -17,7 +17,7 @@ export default function Login() {
     const [showPassword, setShowPassword] = useState(false);
 
     const send = () => {
-        router.push("/dashboard")
+        router.push("/admin/dashboard")
     }
     const recoverPassword = () => {
         router.push("/recover")
