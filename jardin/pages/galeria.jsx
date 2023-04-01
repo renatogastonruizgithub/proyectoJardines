@@ -19,10 +19,11 @@ export default function Galeria() {
 
     useEffect(() => {
         const imgs = async () => {
-            const results = await axios.get(`http://localhost:8080/galeria/page?page=${CurrentPage}`).then((res) => {
+            const results = await axios.get(`http://localhost:8080/gallery/page?page=${CurrentPage}`).then((res) => {
                 setLoading(false)
                 setItemData(res.data.content)
                 setTotalPages(res.data.totalPages)
+
             }).catch((error) => {
                 console.log(error)
             });
@@ -31,7 +32,7 @@ export default function Galeria() {
 
         imgs()
 
-    }, [CurrentPage]);
+    }, [CurrentPage], [itemData]);
 
     const handleChange = (e, value) => {
         setCurrentPage(value - 1);
@@ -65,8 +66,8 @@ export default function Galeria() {
                                             <ImageListItem className={geleria.imgGaleria} sx={{ position: "relative" }} key={g} >
                                                 <img
                                                     className={geleria.imgGaleria}
-                                                    src={itemdata.imagen}
-                                                    alt={itemdata.alternativo} />
+                                                    src={itemdata.image}
+                                                    alt={itemdata.alternative} />
                                             </ImageListItem>
                                         ))}
                                     </ImageList>
