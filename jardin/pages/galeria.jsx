@@ -4,11 +4,13 @@ import Box from '@mui/material/Box';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import { Container } from '@mui/system';
-import { Grid, CircularProgress, Stack, Pagination } from '@mui/material';
+import { Grid, CircularProgress, Stack, Pagination, Button } from '@mui/material';
 import geleria from "../styles/galeria.module.scss"
 import { BannerLayouts } from '../sections/bannerLayouts'
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Lightbox from '../components/lightbox';
+
 export default function Galeria() {
 
     const [loading, setLoading] = useState(true);
@@ -16,11 +18,24 @@ export default function Galeria() {
     const [CurrentPage, setCurrentPage] = useState(0);
     const [totalPages, setTotalPages] = useState();
 
+    const [open, setOpen] = useState(false)
+
+    const [src, setSrc] = useState()
+    const [description, setDescription] = useState()
+    const swowImage = (src, data) => {
+        setOpen(true)
+        setSrc(src)
+        setDescription(data)
+    }
+    const closed = () => {
+        setOpen(false)
+    }
 
     useEffect(() => {
         const imgs = async () => {
             const results = await axios.get(`http://localhost:8080/gallery/page?page=${CurrentPage}`).then((res) => {
-                setLoading(false)
+                setTimeout(() => setLoading(false), 500)
+                /*  setLoading(false) */
                 setItemData(res.data.content)
                 setTotalPages(res.data.totalPages)
 
@@ -67,7 +82,9 @@ export default function Galeria() {
                                                 <img
                                                     className={geleria.imgGaleria}
                                                     src={itemdata.image}
-                                                    alt={itemdata.alternative} />
+                                                    alt={itemdata.alternative}
+                                                />
+                                                <span onClick={() => swowImage(itemdata.image, itemdata.description)}>Ver</span>
                                             </ImageListItem>
                                         ))}
                                     </ImageList>
@@ -83,6 +100,13 @@ export default function Galeria() {
                     </Container>
                 </Box >
 
+
+                <Lightbox
+                    open={open}
+                    src={src}
+                    data={description}
+                    onClosed={closed}
+                ></Lightbox>
 
             </LayuotSecondary>
         </>
