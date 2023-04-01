@@ -104,7 +104,7 @@ const Footer = () => {
                                                         <ListItemIcon>
                                                             <RoomIcon sx={{ color: '#fff' }} />
                                                         </ListItemIcon>
-                                                        <ListItemText primary={links.ubicacion} />
+                                                        <ListItemText primary={links.location} />
                                                     </ListItemButton>
                                                 </ListItem>
                                                 <ListItem disablePadding>
@@ -112,7 +112,7 @@ const Footer = () => {
                                                         <ListItemIcon>
                                                             <WhatsAppIcon sx={{ color: '#fff' }} />
                                                         </ListItemIcon>
-                                                        <ListItemText primary={links.telefono} />
+                                                        <ListItemText primary={links.phone} />
                                                     </ListItemButton>
                                                 </ListItem>
                                                 <ListItem disablePadding>
@@ -128,7 +128,7 @@ const Footer = () => {
                                                         <ListItemIcon>
                                                             <WatchLaterIcon sx={{ color: '#fff' }} />
                                                         </ListItemIcon>
-                                                        <ListItemText primary={links.horarios} />
+                                                        <ListItemText primary={links.schedules} />
                                                     </ListItemButton>
                                                 </ListItem>
                                             </List>

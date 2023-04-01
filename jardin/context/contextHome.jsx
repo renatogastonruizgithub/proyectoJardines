@@ -17,7 +17,7 @@ export const ProviderComponent = ({ children }) => {
 
 
     useEffect(() => {
-        axios.get("http://localhost:8080/empresa/all").then((res) => {
+        axios.get("http://localhost:8080/company/all").then((res) => {
             setEmpresa(res.data);
             setLoading(false);
         }).catch((error) => {
