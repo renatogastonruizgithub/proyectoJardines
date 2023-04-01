@@ -32,14 +32,14 @@ export const Our = () => {
                                             <CardContent>
                                                 <Titles colorTitle={"#000"} color={"#ff3366"} variant={"h3"} text={`${our.name}`} ></Titles>
                                                 <Typography variant="p" sx={{ fontSize: fontSize }}>
-                                                    {our.biografia}
+                                                    {our.biography}
                                                 </Typography>
                                             </CardContent>
 
                                         </Grid>
                                         <Grid item md={6} sx={{ width: "100%" }}>
                                             <CardMedia component="img" alt='alt' className={our.containerImg}
-                                                image={our.imagen}
+                                                image={our.image}
                                             />
                                         </Grid>
 
@@ -73,7 +73,7 @@ export const Our = () => {
                                                 <CardContent>
                                                     <Titles colorTitle={"#000"} color={"#ff3366"} variant={"h3"} text={"Mision"} ></Titles>
                                                     <Typography variant="p" sx={{ fontSize: fontSize }} >
-                                                        {empresa.mision}
+                                                        {empresa.mission}
                                                     </Typography>
                                                 </CardContent>
                                             </Card>

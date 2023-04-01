@@ -42,18 +42,18 @@ const AdminGeleria = () => {
                         <Paper elevation={5} sx={{ padding: "2rem", borderRadius: "15px" }}>
                             <Formik
                                 initialValues={{
-                                    imagen: " ",
-                                    descripcion: "",
-                                    alternativo: ""
+                                    image: " ",
+                                    description: "",
+                                    alternative: ""
 
                                 }}
                                 onSubmit={(values, { resetForm }) => {
                                     const valuess = {
-                                        imagen: url,
-                                        descripcion: values.descripcion,
-                                        alternativo: values.alternativo
+                                        image: url,
+                                        description: values.description,
+                                        alternative: values.alternative
                                     }
-                                    axios.post(`http://localhost:8080/galeria`, valuess)
+                                    axios.post(`http://localhost:8080/gallery`, valuess)
                                         .then((res) => {
                                             resetForm()
                                             alert("enviado con exito")
@@ -73,7 +73,7 @@ const AdminGeleria = () => {
                                                     size="small"
                                                     placeholder="Placeholder"
                                                     type="file"
-                                                    name='imagen'
+                                                    name='image'
                                                     onChange={(e) => { vistaPrevia(e) }}
                                                 />
                                                 <Typography variant='body1' color="GrayText">vista previa</Typography>
@@ -82,20 +82,20 @@ const AdminGeleria = () => {
                                                 </Box>
                                                 <TextField
                                                     size="small"
-                                                    name='descripcion'
+                                                    name='description'
                                                     id="filled-basic"
                                                     label="Descripcion de la foto"
                                                     variant="filled"
-                                                    value={values.descripcion}
+                                                    value={values.description}
                                                     onChange={handleChange}
                                                 />
                                                 <TextField
                                                     size="small"
-                                                    name='alternativo'
+                                                    name='alternative'
                                                     id="filled-basic"
                                                     label="texto alternativo (alt)"
                                                     variant="filled"
-                                                    value={values.alternativo}
+                                                    value={values.alternative}
                                                     onChange={handleChange}
                                                 />
 
