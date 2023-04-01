@@ -34,8 +34,8 @@ export default function Galeria() {
     useEffect(() => {
         const imgs = async () => {
             const results = await axios.get(`http://localhost:8080/gallery/page?page=${CurrentPage}`).then((res) => {
-                setTimeout(() => setLoading(false), 500)
-                /*  setLoading(false) */
+                /*  setTimeout(() => setLoading(false), 500) */
+                setLoading(false)
                 setItemData(res.data.content)
                 setTotalPages(res.data.totalPages)
 

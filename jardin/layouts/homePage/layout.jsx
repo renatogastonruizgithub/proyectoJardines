@@ -6,17 +6,19 @@ import { ProviderComponent } from "../../context/contextHome";
 export const LayoutHome = ({ children }) => {
     return (
         <>
-            <ProviderComponent>
-                <nav>
-                    <Navbar />
-                </nav>
-                <main>
-                    {children}
-                </main>
-                <footer>
+
+            <nav>
+                <Navbar />
+            </nav>
+            <main>
+                {children}
+            </main>
+            <footer>
+                <ProviderComponent>
                     <Footer />
-                </footer>
-            </ProviderComponent>
+                </ProviderComponent>
+            </footer>
+
 
         </>
 

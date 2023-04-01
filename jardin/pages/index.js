@@ -4,7 +4,7 @@ import Banner from '../sections/banner'
 import { Contact } from '../sections/contact'
 import { Our } from '../sections/our'
 import { LayoutHome } from '../layouts/homePage/layout'
-
+import { ProviderComponent } from "../context/contextHome";
 export default function Home() {
   return (
     <>
@@ -22,9 +22,9 @@ export default function Home() {
 Home.getLayout = function getLayout(page) {
   return (
     <LayoutHome>
-
-      {page}
-
+      <ProviderComponent>
+        {page}
+      </ProviderComponent>
     </LayoutHome>
   )
 }
