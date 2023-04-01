@@ -8,18 +8,21 @@ import { ProviderComponent } from "../../context/contextHome";
 export const LayuotSecondary = ({ children }) => {
     return (
         <>
-            <ProviderComponent>
-                <nav>
-                    <Navbar />
-                </nav>
-                <main>
-                    {children}
-                </main>
-                <footer>
-                    <Contact></Contact>
+
+            <nav>
+                <Navbar />
+            </nav>
+            <main>
+                {children}
+            </main>
+            <footer>
+                <Contact></Contact>
+                <ProviderComponent>
                     <Footer />
-                </footer>
-            </ProviderComponent>
+                </ProviderComponent>
+
+            </footer>
+
         </>
     )
 }
