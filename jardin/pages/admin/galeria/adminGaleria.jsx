@@ -7,30 +7,21 @@ import { Box, Stack } from '@mui/system';
 import { Formik, Form, useFormik } from 'formik';
 import axios from "axios";
 import LayoutDashboard from "../../../layouts/adminPages/layoutDashboard"
+import { async } from '@firebase/util';
 
 
 
 const AdminGeleria = () => {
     const [file, setFile] = useState([])
-    const [url, setUrl] = useState([])
+    const [url, setUrl] = useState()
     const [preview, setPreview] = useState([])
 
-    const subir = async () => {
-        const metadata = {
-            contentType: `${file.type}`
-        }
-        const idImagen = Date.now() + "-" + Math.round(Math.random() * 1e9);
-        const storageRef = ref(storage, `galeria/${idImagen}`);
-        await uploadBytes(storageRef, file, metadata)
-        let string = setUrl(await getDownloadURL(storageRef))
-        return string
-    }
-
     const vistaPrevia = async (e) => {
-        setPreview(URL.createObjectURL(e.target.files[0]))
+        e.preventDefault()
         setFile(e.target.files[0])
-    }
+        setPreview(URL.createObjectURL(e.target.files[0]))
 
+    }
 
     return (
 
@@ -47,13 +38,22 @@ const AdminGeleria = () => {
                                     alternative: ""
 
                                 }}
-                                onSubmit={(values, { resetForm }) => {
-                                    const valuess = {
-                                        image: url,
+                                onSubmit={async (values, { resetForm }) => {
+                                    const metadata = {
+                                        contentType: `${file.type}`
+                                    }
+                                    const idImagen = Date.now() + "-" + Math.round(Math.random() * 1e9);
+                                    const storageRef = ref(storage, `galeria/${idImagen}`);
+                                    await uploadBytes(storageRef, file, metadata)
+                                    const urlFirebase = await getDownloadURL(storageRef)
+                                    setUrl(urlFirebase)
+                                    const endValues = {
+                                        image: urlFirebase,
                                         description: values.description,
                                         alternative: values.alternative
                                     }
-                                    axios.post(`http://localhost:8080/gallery`, valuess)
+                                    console.log(endValues)
+                                    axios.post(`http://localhost:8080/gallery`, endValues)
                                         .then((res) => {
                                             resetForm()
                                             alert("enviado con exito")
@@ -65,7 +65,7 @@ const AdminGeleria = () => {
                                 }}
                             >
                                 {
-                                    ({ handleSubmit, errors, touched, values, handleChange, handleBlur }) => (
+                                    ({ handleSubmit, errors, touched, values, handleChange, setFieldValue }) => (
                                         <Form >
                                             <Stack spacing={3}>
                                                 <Typography color="GrayText" variant='body1' >Selecciona tu imagen </Typography>
@@ -74,7 +74,8 @@ const AdminGeleria = () => {
                                                     placeholder="Placeholder"
                                                     type="file"
                                                     name='image'
-                                                    onChange={(e) => { vistaPrevia(e) }}
+
+                                                    onChange={(e) => { vistaPrevia(e); }}
                                                 />
                                                 <Typography variant='body1' color="GrayText">vista previa</Typography>
                                                 <Box component="div" sx={{ height: "100px" }}>
@@ -101,7 +102,7 @@ const AdminGeleria = () => {
 
                                             </Stack>
                                             <Stack >
-                                                <Button onClick={() => subir()} type="submit" sx={{ marginTop: "4rem" }} variant="contained" >subir</Button>
+                                                <Button type="submit" sx={{ marginTop: "4rem" }} variant="contained" >subir</Button>
                                             </Stack>
 
                                         </Form>
