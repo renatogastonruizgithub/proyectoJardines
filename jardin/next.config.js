@@ -6,7 +6,7 @@ const nextConfig = {
     includePaths: [path.join(__dirname, "styles")],
   },
   images: {
-    domains: ['localhost', 'firebasestorage.googleapis.com']
+    domains: ['localhost', 'firebasestorage.googleapis.com', "res.cloudinary.com"]
   },
 }
 

@@ -33,7 +33,7 @@ export default function Galeria() {
 
     useEffect(() => {
         const imgs = async () => {
-            const results = await axios.get(`http://localhost:8080/gallery/page?page=${CurrentPage}`).then((res) => {
+            const results = await axios.get(`https://proyecto-jardin.fly.dev/gallery/page?page=${CurrentPage}`).then((res) => {
                 /*  setTimeout(() => setLoading(false), 500) */
                 setLoading(false)
                 setItemData(res.data.content)
@@ -81,10 +81,10 @@ export default function Galeria() {
                                             <ImageListItem className={geleria.imgGaleria} sx={{ position: "relative" }} key={g} >
                                                 <img
                                                     className={geleria.imgGaleria}
-                                                    src={itemdata.image}
+                                                    src={itemdata.imageUrl}
                                                     alt={itemdata.alternative}
                                                 />
-                                                <span onClick={() => swowImage(itemdata.image, itemdata.description)}>Ver</span>
+                                                <span onClick={() => swowImage(itemdata.imageUrl, itemdata.description)}>Ver</span>
                                             </ImageListItem>
                                         ))}
                                     </ImageList>

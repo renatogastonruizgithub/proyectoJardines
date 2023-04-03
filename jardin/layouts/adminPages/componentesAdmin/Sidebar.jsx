@@ -42,7 +42,7 @@ const Sidebar = () => {
         router.push("/admin/proyectos/proyecto")
     };
     const Galeria = () => {
-        router.push("/admin/galeria/adminGaleria")
+        router.push("/admin/galeria/addPhotos")
     };
     return (
         <>
