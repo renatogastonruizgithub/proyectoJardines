@@ -1,4 +1,5 @@
 import React from 'react'
+import { ProviderComponentGallery } from '../../context/contexGallery'
 import Navbar from './componentesAdmin/navbar'
 import Sidebar from './componentesAdmin/Sidebar'
 
@@ -9,7 +10,10 @@ const LayoutDashboard = ({ children }) => {
             <main >
                 <section className='mainAdmin'>
                     <Sidebar></Sidebar>
-                    {children}
+                    <ProviderComponentGallery>
+                        {children}
+                    </ProviderComponentGallery>
+
                 </section>
 
             </main>

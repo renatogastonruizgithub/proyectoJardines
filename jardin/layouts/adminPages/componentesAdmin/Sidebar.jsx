@@ -42,7 +42,10 @@ const Sidebar = () => {
         router.push("/admin/proyectos/proyecto")
     };
     const Galeria = () => {
-        router.push("/admin/galeria/addPhotos")
+        router.push("/admin/gallery/addPhotos")
+    };
+    const viewPhotos = () => {
+        router.push("/admin/gallery/viewPhotos")
     };
     return (
         <>
@@ -99,7 +102,7 @@ const Sidebar = () => {
                                 </ListItemIcon>
                                 <ListItemText primary="agregar fotos" />
                             </ListItemButton>
-                            <ListItemButton sx={{ pl: 4 }}>
+                            <ListItemButton onClick={viewPhotos} sx={{ pl: 4 }}>
                                 <ListItemIcon>
                                     <PhotoIcon />
                                 </ListItemIcon>
