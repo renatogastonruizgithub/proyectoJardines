@@ -10,28 +10,35 @@ import LayoutDashboard from "../../../layouts/adminPages/layoutDashboard"
 
 
 
+
 const AdminGeleria = () => {
     const [preview, setPreview] = useState([])
+    const [image, setimage] = useState(" ")
 
     const vistaPrevia = async (e) => {
         setPreview(URL.createObjectURL(e.target.files[0]))
+        setimage(e.target.files[0])
     }
 
     const formik = useFormik({
         initialValues: {
-            multipartFile: " ",
-            /*  description: "",
-             alternative: "" */
+            data_gallery: {
+                description: " ",
+                alternative: " "
+            }
         },
-
         onSubmit: (values, { resetForm }) => {
-            const { multipartFile } = values
             const formData = new FormData()
+            formData.append("image", new Blob([image], { type: "form-data" }))
+            formData.append("data_gallery", new Blob([JSON.stringify(values.data_gallery)], { type: "application/json" }))
 
-            formData.append("multipartFile", multipartFile)
-
-            console.log(multipartFile)
-            axios.post(`https://proyecto-jardin.fly.dev/gallery`, formData)
+            axios.post(`https://proyecto-jardin.fly.dev/gallery`, formData,
+                {
+                    Headers: {
+                        "Content-Type": "multipart/form-data"
+                    }
+                }
+            )
                 .then((res) => {
                     resetForm()
                     alert("ssucces")
@@ -62,32 +69,31 @@ const AdminGeleria = () => {
                                             size="small"
                                             placeholder="Placeholder"
                                             type="file"
-                                            name='multipartFile'
-
-                                            onChange={(e) => { formik.setFieldValue("multipartFile", e.target.files[0]); vistaPrevia(e) }}
+                                            name='image'
+                                            onChange={(e) => { vistaPrevia(e) }}
                                         />
                                         <Typography variant='body1' color="GrayText">vista previa</Typography>
                                         <Box component="div" sx={{ height: "100px" }}>
                                             <img src={preview} style={{ objectFit: "contain", width: "100%", height: "100px" }} />
                                         </Box>
-                                        {/*    <TextField
+                                        <TextField
                                             size="small"
-                                            name='description'
+                                            name='data_gallery.description'
                                             id="filled-basic"
                                             label="Descripcion de la foto"
                                             variant="filled"
-                                            value={formik.values.description}
+                                            value={formik.values.data_gallery.description}
                                             onChange={formik.handleChange}
                                         />
                                         <TextField
                                             size="small"
-                                            name='alternative'
+                                            name='data_gallery.alternative'
                                             id="filled-basic"
                                             label="texto alternativo (alt)"
                                             variant="filled"
-                                            value={formik.values.email}
+                                            value={formik.values.data_gallery.relevant}
                                             onChange={formik.handleChange}
-                                        /> */}
+                                        />
 
                                     </Stack>
                                     <Stack >
