@@ -9,23 +9,41 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import { useGallery } from "../../../context/contexGallery"
 import Lightbox from '../../../components/lightbox';
 import { useEffect, useState } from "react";
 import { Divider } from '@mui/material';
+
 const ViewPhotos = () => {
-    const { itemData, totalPages, CurrentPage } = useGallery();
 
-
-    const handleChanges = (e, value) => {
-
-    };
+    const {
+        loading, itemData, totalPages, CurrentPage,
+        handleDeleted, getImages,
+        handleChangePage
+    } = useGallery();
 
     const [open, setOpen] = useState(false)
-
     const [src, setSrc] = useState()
     const [description, setDescription] = useState()
+
+    const [page, setPage] = useState(0)
+
+    useEffect(() => {
+        getImages()
+
+    }, [itemData])
+
+
+
+    const handleChange = (value) => {
+        setPage(value - 1)
+    };
+
+    console.log(page)
+
     const swowImage = (src, data) => {
         setOpen(true)
         setSrc(src)
@@ -35,45 +53,64 @@ const ViewPhotos = () => {
         setOpen(false)
     }
 
+    const handleDelete = (id) => {
+        handleDeleted(id)
+    }
+
+
+
     return (
         <>
             <Container maxWidth="lg">
-                <Grid container spacing={3}>
+                {
+                    loading ?
+                        (
+                            <Box sx={{ display: "grid", placeItems: "center" }}>
+                                <CircularProgress />
+                            </Box>
+                        ) : (
+                            <Grid container spacing={3}>
+                                {
 
-                    {itemData.map((itemdata, indexG) => (
-                        <Grid key={indexG} item xs={12} lg={3}>
-                            <Card sx={{ maxWidth: 245 }}>
-                                <CardMedia
-                                    sx={{ height: 140 }}
-                                    image={itemdata.imageUrl}
-                                    title="green iguana"
-                                />
-                                <CardContent>
-                                    <Typography variant="h6" >
-                                        Descripcion
-                                    </Typography>
-                                    <Typography variant="body2" color="text.secondary">
-                                        {itemdata.description}
-                                    </Typography>
-                                    <Divider></Divider>
-                                    <Typography variant="h6" >
-                                        alternativo (alt)
-                                    </Typography>
-                                    <Typography gutterBottom variant="body2" color="text.secondary" >
-                                        {itemdata.relevant}
-                                    </Typography>
-                                </CardContent>
-                                <CardActions>
-                                    <Button onClick={() => swowImage(itemdata.imageUrl, itemdata.description)} variant='contained' size="small">Ver</Button>
-                                    <Button size="small">Eliminar</Button>
-                                </CardActions>
-                            </Card>
-                        </Grid>
-                    ))}
+                                    itemData.map((itemdata, indexG) => (
+                                        <Grid key={indexG} item xs={12} sm={6} lg={3} md={3}>
+                                            <Card sx={{ maxWidth: 245 }}>
+                                                <CardMedia
+                                                    sx={{ height: 140 }}
+                                                    image={itemdata.imageUrl}
+                                                    title="green iguana"
+                                                />
+                                                <CardContent>
+                                                    <Typography variant="h6" >
+                                                        Descripcion
+                                                    </Typography>
+                                                    <Typography variant="body2" color="text.secondary">
+                                                        {itemdata.description}
+                                                    </Typography>
+                                                    <Divider></Divider>
+                                                    <Typography variant="h6" >
+                                                        alternativo (alt)
+                                                    </Typography>
+                                                    <Typography gutterBottom variant="body2" color="text.secondary" >
+                                                        {itemdata.relevant}
+                                                    </Typography>
+                                                </CardContent>
+                                                <CardActions>
+                                                    <Button onClick={() => swowImage(itemdata.imageUrl, itemdata.description)} variant='contained' size="small">Ver</Button>
+                                                    <Button onClick={() => handleDelete(itemdata.id)} size="small">Eliminar</Button>
+                                                </CardActions>
+                                            </Card>
+                                        </Grid>
+                                    ))
+                                }
+                            </Grid>
+                        )
+                }
 
-                </Grid>
+
+
                 <Stack sx={{ marginTop: "3rem", display: "grid", placeItems: "center" }}>
-                    <Pagination defaultPage={1} onChange={handleChanges} count={totalPages} shape="rounded" />
+                    <Pagination defaultPage={1} onChange={handleChange} count={totalPages} shape="rounded" />
                 </Stack>
 
                 <Lightbox
