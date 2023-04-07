@@ -61,57 +61,58 @@ const ViewPhotos = () => {
 
     return (
         <>
-            <Container maxWidth="lg">
+            <section style={{ height: "100% !important", paddingTop: "10%", position: "relative" }}>
                 {
                     loading ?
                         (
-                            <Box sx={{ display: "grid", placeItems: "center" }}>
-                                <CircularProgress />
+                            <Box sx={{ marginTop: "10%", display: "grid", placeItems: "center" }}>
+                                <span>Cargando imagenes</span>
+                                <CircularProgress sx={{ marginTop: "1rem" }} />
                             </Box>
                         ) : (
-                            <Grid container spacing={3}>
-                                {
+                            <Container maxWidth="lg">
+                                <Grid container spacing={3}>
+                                    {
 
-                                    itemData.map((itemdata, indexG) => (
-                                        <Grid key={indexG} item xs={12} sm={6} lg={3} md={3}>
-                                            <Card sx={{ maxWidth: 245 }}>
-                                                <CardMedia
-                                                    sx={{ height: 140 }}
-                                                    image={itemdata.imageUrl}
-                                                    title="green iguana"
-                                                />
-                                                <CardContent>
-                                                    <Typography variant="h6" >
-                                                        Descripcion
-                                                    </Typography>
-                                                    <Typography variant="body2" color="text.secondary">
-                                                        {itemdata.description}
-                                                    </Typography>
-                                                    <Divider></Divider>
-                                                    <Typography variant="h6" >
-                                                        alternativo (alt)
-                                                    </Typography>
-                                                    <Typography gutterBottom variant="body2" color="text.secondary" >
-                                                        {itemdata.relevant}
-                                                    </Typography>
-                                                </CardContent>
-                                                <CardActions>
-                                                    <Button onClick={() => swowImage(itemdata.imageUrl, itemdata.description)} variant='contained' size="small">Ver</Button>
-                                                    <Button onClick={() => handleDelete(itemdata.id)} size="small">Eliminar</Button>
-                                                </CardActions>
-                                            </Card>
-                                        </Grid>
-                                    ))
-                                }
-                            </Grid>
+                                        itemData.map((itemdata, indexG) => (
+                                            <Grid key={indexG} item xs={12} sm={6} lg={3} md={3}>
+                                                <Card sx={{ maxWidth: 245 }}>
+                                                    <CardMedia
+                                                        sx={{ height: 140 }}
+                                                        image={itemdata.imageUrl}
+                                                        title="green iguana"
+                                                    />
+                                                    <CardContent>
+                                                        <Typography variant="h6" >
+                                                            Descripcion
+                                                        </Typography>
+                                                        <Typography variant="body2" color="text.secondary">
+                                                            {itemdata.description}
+                                                        </Typography>
+                                                        <Divider></Divider>
+                                                        <Typography variant="h6" >
+                                                            alternativo (alt)
+                                                        </Typography>
+                                                        <Typography gutterBottom variant="body2" color="text.secondary" >
+                                                            {itemdata.alternative}
+                                                        </Typography>
+                                                    </CardContent>
+                                                    <CardActions>
+                                                        <Button onClick={() => swowImage(itemdata.imageUrl, itemdata.description)} variant='contained' size="small">Ver</Button>
+                                                        <Button onClick={() => handleDelete(itemdata.id)} size="small">Eliminar</Button>
+                                                    </CardActions>
+                                                </Card>
+                                            </Grid>
+                                        ))
+                                    }
+                                </Grid>
+                                <Stack sx={{ marginTop: "3rem", display: "grid", placeItems: "center" }}>
+                                    <Pagination defaultPage={1} onChange={handleChange} count={totalPages} shape="rounded" />
+                                </Stack>
+
+                            </Container>
                         )
                 }
-
-
-
-                <Stack sx={{ marginTop: "3rem", display: "grid", placeItems: "center" }}>
-                    <Pagination defaultPage={1} onChange={handleChange} count={totalPages} shape="rounded" />
-                </Stack>
 
                 <Lightbox
                     open={open}
@@ -121,7 +122,7 @@ const ViewPhotos = () => {
                 >
 
                 </Lightbox>
-            </Container>
+            </section>
         </>
     )
 }

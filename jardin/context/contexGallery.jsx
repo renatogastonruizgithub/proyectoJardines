@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import axios from "axios";
+import { alertConfirmation, alertError } from "../components/alert";
 
 
 
@@ -39,13 +40,15 @@ export const ProviderComponentGallery = ({ children }) => {
 
 
     const handleDeleted = async (id) => {
-        setLoading(true)
+
         await axios.delete(`https://proyecto-jardin.fly.dev/gallery/${id}`).then((res) => {
+
             setLoading(false)
-            alert("borrado")
+            alertConfirmation("Borrado con exito")
         }).catch((error) => {
             console.log(error)
-            alert("error")
+            setLoading(false)
+            alertError("UPS", "error inesperado!")
         });
     }
 
