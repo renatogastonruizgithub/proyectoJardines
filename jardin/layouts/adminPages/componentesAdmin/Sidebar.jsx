@@ -50,10 +50,8 @@ const Sidebar = () => {
     return (
         <>
             <section className='sideBar'>
-                {/* <Link href="/admin/adminGaleria">galeria</Link>
-                <Link href="/admin/dashboard">home dashboard</Link> */}
                 <List
-                    sx={{ color: "#fff", width: '100%', height: "100vh", maxWidth: 360, bgcolor: 'rgb(74, 125, 196)' }}
+                    sx={{ top: "80px", color: "#fff", width: '100%', height: "100vh", maxWidth: 360, bgcolor: 'rgb(74, 125, 196)' }}
                     component="nav"
                     aria-labelledby="nested-list-subheader"
                 >
