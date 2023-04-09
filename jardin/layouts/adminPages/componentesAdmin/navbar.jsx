@@ -2,7 +2,9 @@ import React from 'react'
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
-import Divider from '@mui/material/Divider';
+import Avatar from '@mui/material/Avatar';
+import Chip from '@mui/material/Chip';
+import Stack from '@mui/material/Stack';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
@@ -20,11 +22,15 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import Link from 'next/link'
 import navb from "../../../styles/nabvar.module.scss"
-
+import Switch from '@mui/material/Switch';
 const NavbarAdmin = () => {
     const drawerWidth = 240;
     const navItems = [{ title: "Home", url: "/" }, { title: "Proyectos", url: "/proyectos" }, { title: "Nosotros", url: "/#nosotros" }, { title: "Galeria", url: "/galeria" }, { title: "Noticias", url: "/noticias" }, { title: "Contactanos", url: "/#contact" }];
+    const [checked, setChecked] = React.useState(true);
 
+    const handleChange = (event) => {
+        setChecked(event.target.checked);
+    };
 
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -75,7 +81,7 @@ const NavbarAdmin = () => {
                 <Box sx={{ display: 'flex' }}>
                     <CssBaseline />
                     <AppBar component="nav">
-                        <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <Toolbar sx={{ backgroundColor: "white", display: 'flex', justifyContent: 'space-between' }}>
                             <IconButton
                                 color="inherit"
                                 aria-label="open drawer"
@@ -88,30 +94,28 @@ const NavbarAdmin = () => {
                             <Typography
                                 variant="h6"
                                 component="div"
-                                sx={{ display: { xs: 'block', md: 'block' } }}
+                                sx={{ display: { xs: 'block', md: 'block' }, color: "#000" }}
                             >
                                 Logo
                             </Typography>
 
-                            {/*     <Box sx={{ display: { xs: 'none', md: 'block' } }}>
-                                {
-                                    navItems.map((items, y) => {
-                                        return (
-                                            <Button key={y} sx={{ color: '#fff', textTransform: "none", letterSpacing: "1px" }}>
-
-                                                <Link className={navb.link} href={items.url}>{items.title} </Link>
-                                            </Button>
-                                        )
-                                    })
-                                }
-
-                            </Box> */}
-
                             <Box sx={{ display: { xs: 'none', md: 'block' } }}>
-                                <Button size="small" sx={{ color: '#fff' }} > <InstagramIcon></InstagramIcon></Button>
-                                <Button size="small" sx={{ color: '#fff' }} ><FacebookIcon></FacebookIcon></Button>
-                                <Button size="small" sx={{ color: '#fff' }} ><LinkedInIcon></LinkedInIcon></Button>
+                                <Stack direction="row" spacing={1}>
+
+                                    <Switch
+                                        checked={checked}
+                                        onChange={handleChange}
+                                        inputProps={{ 'aria-label': 'controlled' }}
+                                    />
+
+                                    <Chip
+                                        avatar={<Avatar alt="Natacha" src="/assets/banner.png" />}
+                                        label="Avatar"
+                                        variant="outlined"
+                                    />
+                                </Stack>
                             </Box>
+
                         </Toolbar>
                     </AppBar>
                     <Box component="nav">
