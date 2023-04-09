@@ -149,27 +149,53 @@ html {
 
 
 .sideBar {
-    background-color: rgb(74, 125, 196);
-    width: 20%;
-    position: fixed;
-    z-index: 1000;
-    top: 0;
-    left: 0;
-    height: 100vh;
+    display: none;
 }
 
 .mainAdmin {
-    width: 80%;
-    background-color: #e7e7e7;
-    margin-left: 20%;
-    height: 100%;
-    padding-top: 7%;
-    position: relative;
-
+    width: 100%;
 }
 
-.contentAdmin {
+.contentAddPhotos {
+    padding: 5rem 0;
+}
 
-    height: calc(100vh + 40%);
+.contentViewPhotos {
+    padding-top: 10%;
+    height: 100%;
+    padding-Top: 5rem;
+    position: relative;
+    background-Color: #e7e7e7
+}
 
+@media only screen and (min-width: 1024px) {
+    .sideBar {
+        display: block;
+        background-color: rgb(74, 125, 196);
+        width: 20%;
+        position: fixed;
+        z-index: 1000;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        padding-top: 80px;
+        color: #e7e7e7;
+    }
+
+    .mainAdmin {
+        width: 80%;
+        background-color: #e7e7e7;
+        margin-left: 20%;
+        height: 100%;
+        padding-top: 7%;
+        position: relative;
+    }
+
+    .contentViewPhotos {
+        padding-top: 4%;
+    }
+
+    .contentAddPhotos {
+        padding-top: 2rem;
+    }
 }

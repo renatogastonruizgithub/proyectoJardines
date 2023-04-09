@@ -89,7 +89,7 @@ const ViewPhotos = () => {
 
                     data.map((itemdata, indexG) => (
                         <Grid key={indexG} item xs={12} sm={6} lg={3} md={3}>
-                            <Card sx={{ maxWidth: 245 }}>
+                            <Card sx={{ maxWidth: { xs: "100%" } }}>
                                 <CardMedia
                                     sx={{ height: 140 }}
                                     image={itemdata.imageUrl}
@@ -126,7 +126,7 @@ const ViewPhotos = () => {
 
     return (
         <>
-            <section style={{ height: "100%", paddingTop: "1%", position: "relative", backgroundColor: `#e7e7e7`, }}>
+            <section className='contentViewPhotos' >
 
                 {
                     loading ?

@@ -77,7 +77,7 @@ const AdminGeleria = () => {
 
     return (
 
-        <section style={{ height: "100%", paddingBottom: "2rem" }} >
+        <section className='contentAddPhotos' >
 
             <Container maxWidth="lg" >
 

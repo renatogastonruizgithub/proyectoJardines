@@ -23,58 +23,36 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import Link from 'next/link'
 import navb from "../../../styles/nabvar.module.scss"
 import Switch from '@mui/material/Switch';
+import Sidebar from './Sidebar';
+import { useState } from "react";
+import { useMobile } from "../../../context/contextMenuMobile"
+
 const NavbarAdmin = () => {
+
+    const { mobileOpen, setMobileOpen } = useMobile();
+
     const drawerWidth = 240;
-    const navItems = [{ title: "Home", url: "/" }, { title: "Proyectos", url: "/proyectos" }, { title: "Nosotros", url: "/#nosotros" }, { title: "Galeria", url: "/galeria" }, { title: "Noticias", url: "/noticias" }, { title: "Contactanos", url: "/#contact" }];
-    const [checked, setChecked] = React.useState(true);
+
+    const [checked, setChecked] = useState(true);
 
     const handleChange = (event) => {
         setChecked(event.target.checked);
     };
 
-    const { window } = props;
-    const [mobileOpen, setMobileOpen] = React.useState(false);
-
     const handleDrawerToggle = () => {
-        setMobileOpen((prevState) => !prevState);
+        setMobileOpen(!mobileOpen);
     };
 
     const drawer = (
-        <Box onClick={handleDrawerToggle}
+        <Box
             sx={{ height: '100vh', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}
 
         >
-            <List>
-                {
-                    navItems.map((item, i) => {
-                        return (
-
-                            <ListItem key={i} disablePadding>
-                                <ListItemButton sx={{ textAlign: 'center' }}>
-
-                                    <Link className={navb.linkMobile} href={item.url}>{item.title} </Link>
-                                </ListItemButton>
-                            </ListItem>
-                        )
-                    })
-                }
-            </List>
-
-            <List>
-                <ListItem disablePadding>
-                    <ListItemButton sx={{ textAlign: 'center' }}>
-                        <InstagramIcon></InstagramIcon>
-                        <FacebookIcon ></FacebookIcon>
-                        <LinkedInIcon ></LinkedInIcon>
-                    </ListItemButton>
-                </ListItem>
-
-            </List>
+            <Sidebar></Sidebar>
 
         </Box>
     );
 
-    const container = window !== undefined ? () => window().document.body : undefined;
     return (
         <>
             <Container maxWidth="sm">
@@ -83,7 +61,7 @@ const NavbarAdmin = () => {
                     <AppBar component="nav">
                         <Toolbar sx={{ backgroundColor: "white", display: 'flex', justifyContent: 'space-between' }}>
                             <IconButton
-                                color="inherit"
+                                color="#000"
                                 aria-label="open drawer"
                                 edge="start"
                                 onClick={handleDrawerToggle}
@@ -94,12 +72,12 @@ const NavbarAdmin = () => {
                             <Typography
                                 variant="h6"
                                 component="div"
-                                sx={{ display: { xs: 'block', md: 'block' }, color: "#000" }}
+                                sx={{ display: { xs: 'none', md: 'block' }, color: "#000" }}
                             >
                                 Logo
                             </Typography>
 
-                            <Box sx={{ display: { xs: 'none', md: 'block' } }}>
+                            <Box sx={{ display: { md: 'block' } }}>
                                 <Stack direction="row" spacing={1}>
 
                                     <Switch
@@ -120,9 +98,10 @@ const NavbarAdmin = () => {
                     </AppBar>
                     <Box component="nav">
                         <Drawer
-                            container={container}
+
                             variant="temporary"
                             open={mobileOpen}
+
                             onClose={handleDrawerToggle}
                             ModalProps={{
                                 keepMounted: true, // Better open performance on mobile.
