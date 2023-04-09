@@ -1,5 +1,5 @@
 import React from 'react'
-import { ProviderComponentGallery } from '../../context/contexGallery'
+/* import { ProviderComponentGallery } from '../../context/contexGallery' */
 import Navbar from './componentesAdmin/navbar'
 import Sidebar from './componentesAdmin/Sidebar'
 
@@ -10,10 +10,10 @@ const LayoutDashboard = ({ children }) => {
             <main >
                 <section className='mainAdmin'>
                     <Sidebar></Sidebar>
-                    <ProviderComponentGallery>
-                        {children}
-                    </ProviderComponentGallery>
-
+                    {/*   <ProviderComponentGallery>
+                       
+                    </ProviderComponentGallery> */}
+                    {children}
                 </section>
 
             </main>

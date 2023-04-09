@@ -17,7 +17,7 @@ export const ProviderComponent = ({ children }) => {
 
 
     useEffect(() => {
-        axios.get("http://localhost:8080/company/all").then((res) => {
+        axios.get("https://proyecto-jardin.fly.dev/company/all").then((res) => {
             setEmpresa(res.data);
             setLoading(false);
         }).catch((error) => {
@@ -25,9 +25,9 @@ export const ProviderComponent = ({ children }) => {
         });
 
 
-    }, [empresa], [loading]);
+    }, []);
 
-
+    console.log(empresa)
 
     return <contextApi.Provider value={{ empresa, loading }}>{loading && <Loading />}{children}</contextApi.Provider>;
 };

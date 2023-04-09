@@ -8,16 +8,25 @@ import axios from "axios";
 import LayoutDashboard from "../../../layouts/adminPages/layoutDashboard"
 import { alertConfirmation, alertError } from '../../../components/alert';
 import LoadingButton from '@mui/lab/LoadingButton';
-
+import { useRef, useEffect } from 'react';
 
 
 
 
 const AdminGeleria = () => {
+
+
+
     const [preview, setPreview] = useState([])
-    const [image, setimage] = useState()
+    const [image, setimage] = useState("")
     const [loading, setLoading] = useState();
 
+    const inputRef = useRef(null);
+
+    const resetFileInput = () => {
+        /* inputRef.current.value = null */
+        setimage(inputRef.current.value = null)
+    }
 
     const vistaPrevia = async (e) => {
         setPreview(URL.createObjectURL(e.target.files[0]))
@@ -29,13 +38,16 @@ const AdminGeleria = () => {
             data_gallery: {
                 description: "",
                 alternative: ""
-            }
+            },
+
         },
         onSubmit: (values, { resetForm }) => {
+
             setLoading(true)
             const formData = new FormData()
             formData.append("image", new Blob([image], { type: "form-data" }))
             formData.append("data_gallery", new Blob([JSON.stringify(values.data_gallery)], { type: "application/json" }))
+
 
 
 
@@ -50,12 +62,14 @@ const AdminGeleria = () => {
                     setLoading(false)
                     alertConfirmation("Imagen añadida a la galeria")
                     resetForm()
+                    resetFileInput()
                     setPreview(null)
                 })
                 .catch((error) => {
                     setLoading(false)
                     alertError("UPS", "error inesperado")
                     resetForm()
+                    resetFileInput()
                     setPreview(null)
                 })
         }
@@ -67,7 +81,7 @@ const AdminGeleria = () => {
 
             <Container maxWidth="lg" >
 
-                <Grid container sx={{ paddingTop: "10%", display: "grid", placeItems: "center" }} >
+                <Grid container sx={{ display: "grid", placeItems: "center" }} >
                     <Grid item xs={12} lg={6} >
                         <Paper elevation={5} sx={{ padding: "2rem", borderRadius: "15px" }}>
                             <Formik >
@@ -75,6 +89,7 @@ const AdminGeleria = () => {
                                     <Stack spacing={3}>
                                         <Typography color="GrayText" variant='body1' >Selecciona tu imagen </Typography>
                                         <Input
+                                            inputRef={inputRef}
                                             size="small"
                                             placeholder="Placeholder"
                                             type="file"
@@ -105,7 +120,7 @@ const AdminGeleria = () => {
                                     </Stack>
                                     <Stack>
                                         <LoadingButton
-                                            sx={{ marginTop: "4rem" }}
+                                            sx={{ marginTop: "2rem" }}
                                             type="submit"
                                             endIcon={<SendIcon />}
                                             loading={loading}
@@ -115,13 +130,8 @@ const AdminGeleria = () => {
                                             <span>subir</span>
                                         </LoadingButton>
                                     </Stack>
-
                                 </Form>
-
                             </Formik>
-
-
-
                         </Paper>
                     </Grid>
                 </Grid>
