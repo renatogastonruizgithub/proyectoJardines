@@ -6,6 +6,22 @@
 
     position: relative;
 
+
+    img {
+        object-fit: cover;
+        width: 100%;
+        height: 100% !important;
+        border-radius: 10px;
+        position: relative !important;
+    }
+
+    &:hover span {
+        transition: .2s ease-in;
+        content: "Ver";
+        background-color: rgba(13, 13, 13, 0.696);
+        opacity: 1;
+    }
+
     span {
         display: flex;
         align-items: center;
@@ -19,14 +35,9 @@
         border-radius: 10px;
         font-size: 1.2rem;
         font-weight: 900;
-        z-index: 10;
+        z-index: 1000;
         opacity: 0;
     }
 
-    &:hover span {
-        transition: .2s ease-in;
-        content: "Ver";
-        background-color: rgba(13, 13, 13, 0.696);
-        opacity: 1;
-    }
+
 }

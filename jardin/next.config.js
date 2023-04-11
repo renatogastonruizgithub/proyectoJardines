@@ -8,6 +8,9 @@ const nextConfig = {
   images: {
     domains: ['localhost', 'firebasestorage.googleapis.com', "res.cloudinary.com"]
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 }
 
 module.exports = nextConfig

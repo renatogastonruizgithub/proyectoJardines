@@ -9,7 +9,7 @@ import LayoutDashboard from "../../../layouts/adminPages/layoutDashboard"
 import { alertConfirmation, alertError } from '../../../components/alert';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { useRef, useEffect } from 'react';
-
+import Image from "next/image"
 
 
 
@@ -97,8 +97,9 @@ const AdminGeleria = () => {
                                             onChange={(e) => { vistaPrevia(e) }}
                                         />
                                         <Typography variant='body1' color="GrayText">vista previa</Typography>
-                                        <Box component="div" sx={{ height: "100px" }}>
-                                            <img src={preview} style={{ objectFit: "contain", width: "100%", height: "100px" }} />
+                                        <Box component="div" sx={{ height: "100px", position: "relative" }}>
+
+                                            <Image style={{ objectFit: "contain" }} alt="asd" src={preview} fill sizes="100vw" />
                                         </Box>
                                         <TextField
                                             size="small"
