@@ -10,6 +10,7 @@ import { BannerLayouts } from '../sections/bannerLayouts'
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Lightbox from '../components/lightbox';
+import Image from 'next/image';
 
 export default function Galeria() {
 
@@ -79,10 +80,9 @@ export default function Galeria() {
 
                                         {itemData.map((itemdata, g) => (
                                             <ImageListItem className={geleria.imgGaleria} sx={{ position: "relative" }} key={g} >
-                                                <img
-                                                    className={geleria.imgGaleria}
-                                                    src={itemdata.imageUrl}
+                                                <Image src={itemdata.imageUrl}
                                                     alt={itemdata.alternative}
+                                                    fill sizes="100vw"
                                                 />
                                                 <span onClick={() => swowImage(itemdata.imageUrl, itemdata.description)}>Ver</span>
                                             </ImageListItem>

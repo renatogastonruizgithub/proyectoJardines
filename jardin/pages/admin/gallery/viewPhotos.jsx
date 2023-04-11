@@ -21,7 +21,7 @@ import { Divider } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 import SendIcon from '@mui/icons-material/Send';
 import LoadingAdmin from '../../../layouts/adminPages/componentesAdmin/loadingAdmin';
-
+import Image from "next/image"
 const ViewPhotos = () => {
 
     const [loading, setLoading] = useState(true);
@@ -90,11 +90,9 @@ const ViewPhotos = () => {
                     data.map((itemdata, indexG) => (
                         <Grid key={indexG} item xs={12} sm={6} lg={3} md={3}>
                             <Card sx={{ maxWidth: { xs: "100%" } }}>
-                                <CardMedia
-                                    sx={{ height: 140 }}
-                                    image={itemdata.imageUrl}
-                                    title="green iguana"
-                                />
+                                <CardContent sx={{ position: "relative", height: "140px" }}>
+                                    <Image style={{ objectFit: "cover" }} alt="asd" src={itemdata.imageUrl} fill sizes="100vw" />
+                                </CardContent>
                                 <CardContent>
                                     <Typography variant="h6" >
                                         Descripcion
