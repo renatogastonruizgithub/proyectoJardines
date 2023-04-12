@@ -22,10 +22,16 @@ import { useMobile } from "../../../context/contextMenuMobile"
 const Sidebar = () => {
     const { mobileOpen, setMobileOpen } = useMobile();
     const [openItems, setOpenItems] = useState(false);
+    const [openItemsEmployee, setOpenItemsEmployee] = useState(false);
+
+
     const router = useRouter();
 
     const handleExpand = () => {
         setOpenItems(!openItems);
+    };
+    const handleExpandEmployees = () => {
+        setOpenItemsEmployee(!openItemsEmployee);
     };
 
     const Home = () => {
@@ -56,6 +62,14 @@ const Sidebar = () => {
         router.push("/admin/gallery/viewPhotos")
         setMobileOpen(!mobileOpen)
     };
+    const viewEmployees = () => {
+        router.push("/admin/empleados/viewEmployees")
+        setMobileOpen(!mobileOpen)
+    };
+    const Employee = () => {
+        router.push("/admin/empleados/add")
+        setMobileOpen(!mobileOpen)
+    };
     return (
         <>
 
@@ -76,12 +90,29 @@ const Sidebar = () => {
                     </ListItemIcon>
                     <ListItemText primary="Empresa" />
                 </ListItemButton>
-                <ListItemButton onClick={Empleado}>
+                <ListItemButton onClick={handleExpandEmployees}>
                     <ListItemIcon>
                         <PeopleAltIcon />
                     </ListItemIcon>
                     <ListItemText primary="Empleado" />
+                    {openItemsEmployee ? <ExpandLess /> : <ExpandMore />}
                 </ListItemButton>
+                <Collapse in={openItemsEmployee} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                        <ListItemButton onClick={Employee} sx={{ pl: 4 }}>
+                            <ListItemIcon>
+                                <AddAPhotoIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Agregar Empleado" />
+                        </ListItemButton>
+                        <ListItemButton onClick={viewEmployees} sx={{ pl: 4 }}>
+                            <ListItemIcon>
+                                <PhotoIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Ver Empleados" />
+                        </ListItemButton>
+                    </List>
+                </Collapse>
                 <ListItemButton onClick={Publicacion}>
                     <ListItemIcon>
                         <PublishIcon />
