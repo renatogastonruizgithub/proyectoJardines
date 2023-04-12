@@ -98,8 +98,7 @@ const AdminGeleria = () => {
                                         />
                                         <Typography variant='body1' color="GrayText">vista previa</Typography>
                                         <Box component="div" sx={{ height: "100px", position: "relative" }}>
-
-                                            <Image style={{ objectFit: "contain" }} alt="asd" src={preview} fill sizes="100vw" />
+                                            <Image style={{ objectFit: "contain" }} alt="asd" src={`${preview}`} fill sizes="100vw" />
                                         </Box>
                                         <TextField
                                             size="small"
