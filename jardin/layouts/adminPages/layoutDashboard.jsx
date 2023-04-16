@@ -1,4 +1,5 @@
 import React from 'react'
+import { EmployeeProvider } from '../../context/contextEmployee'
 import { MenuMobileProvider } from '../../context/contextMenuMobile'
 /* import { ProviderComponentGallery } from '../../context/contexGallery' */
 import Navbar from './componentesAdmin/navbar'
@@ -14,11 +15,11 @@ const LayoutDashboard = ({ children }) => {
                         <section className='sideBar'>
                             <Sidebar></Sidebar>
                         </section>
+                        {/* <ProviderComponentGallery></ProviderComponentGallery> */}
+                        <EmployeeProvider>
+                            {children}
+                        </EmployeeProvider>
 
-                        {/*   <ProviderComponentGallery>
-                       
-                    </ProviderComponentGallery> */}
-                        {children}
                     </section>
 
                 </main>
