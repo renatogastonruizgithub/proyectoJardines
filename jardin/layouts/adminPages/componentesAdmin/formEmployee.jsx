@@ -1,12 +1,12 @@
 import React from 'react'
-import { Box, Input, TextField, Typography, Stack } from '@mui/material';
+import { Box, Input, TextField, Typography, Stack, IconButton } from '@mui/material';
 import { Formik, Form, useFormik } from 'formik';
 import LoadingButton from '@mui/lab/LoadingButton';
 import SendIcon from '@mui/icons-material/Send';
-import { useEmployeeState } from '../context/contextEmployee';
+import { useEmployeeState } from '../../../context/contextEmployee';
 import { useState, useRef } from "react";
 import Image from 'next/image';
-
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
 const FormEmployee = ({ name = "", lastName = "", id = "", biography = "", title = "" }) => {
     const { add, loading, getOne, edit } = useEmployeeState()
     const [preview, setPreview] = useState([])
@@ -74,37 +74,56 @@ const FormEmployee = ({ name = "", lastName = "", id = "", biography = "", title
                 <Form onSubmit={formik.handleSubmit}>
                     <Stack spacing={3}>
                         <Typography color="GrayText" variant='body1' >Selecciona tu imagen </Typography>
-                        <Input
-                            size="small"
-                            placeholder="Placeholder"
-                            type="file"
-                            name='image'
-                            inputRef={inputRef}
-                            onChange={(e) => { vistaPrevia(e) }}
-                        />
-                        <Typography variant='body1' color="GrayText">vista previa</Typography>
-                        <Box component="div" sx={{ height: "100px", position: "relative" }}>
-                            <img style={{ objectFit: "contain", height: "100px" }} alt="imagen" src={preview} />
+                        <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-around" }}>
+                            <IconButton color="primary" aria-label="upload picture" component="label">
+                                {/* <input hidden accept="image/*" type="file" /> */}
+                                <input
+                                    hidden
+                                    accept="image/*"
+                                    size="small"
+                                    placeholder="Placeholder"
+                                    type="file"
+                                    name='image'
+                                    inputRef={inputRef}
+                                    onChange={(e) => { vistaPrevia(e) }}
+                                />
+                                <PhotoCamera />
+                            </IconButton>
+                            <Box component="div" sx={{ height: "100px", position: "relative" }}>
+                                <img style={{ objectFit: "contain", height: "100px" }} alt="imagen" src={preview} />
+                            </Box>
                         </Box>
+                        <Stack direction="row" spacing={4}>
+                            <TextField
+                                size="small"
+                                name='data_employee.name'
+                                label="nombre"
+                                variant="filled"
+                                value={formik.values.data_employee.name}
+                                fullWidth={true}
+                                onChange={formik.handleChange}
+                            />
+                            <TextField
+                                size="small"
+                                name='data_employee.last_name'
+                                label="Apellido"
+                                variant="filled"
+                                fullWidth={true}
+                                value={formik.values.data_employee.last_name}
+                                onChange={formik.handleChange}
+                            />
+                            <TextField
+                                size="small"
+                                name='data_employee.title'
+                                label="Titulo"
+                                variant="filled"
+                                value={formik.values.data_employee.title}
+                                onChange={formik.handleChange}
+                                fullWidth={true}
+                            />
+                        </Stack>
 
 
-                        <TextField
-                            size="small"
-                            name='data_employee.name'
-                            label="nombre"
-                            variant="filled"
-                            value={formik.values.data_employee.name}
-
-                            onChange={formik.handleChange}
-                        />
-                        <TextField
-                            size="small"
-                            name='data_employee.last_name'
-                            label="Apellido"
-                            variant="filled"
-                            value={formik.values.data_employee.last_name}
-                            onChange={formik.handleChange}
-                        />
                         <TextField
                             size="small"
                             name='data_employee.biography'
@@ -116,14 +135,7 @@ const FormEmployee = ({ name = "", lastName = "", id = "", biography = "", title
                             rows={7}
 
                         />
-                        <TextField
-                            size="small"
-                            name='data_employee.title'
-                            label="Titulo"
-                            variant="filled"
-                            value={formik.values.data_employee.title}
-                            onChange={formik.handleChange}
-                        />
+
                     </Stack>
                     <Stack>
                         <LoadingButton
