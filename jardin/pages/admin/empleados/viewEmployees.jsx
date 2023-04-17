@@ -6,21 +6,15 @@ import axios from 'axios';
 import Image from 'next/image';
 import { Box, Button } from '@mui/material';
 import { useRouter } from 'next/router';
-
+import { useEmployeeState } from "../../../context/contextEmployee"
+import { alertDeleted } from '../../../components/alert';
 
 const Empleado = () => {
-    const [employees, setEmployees] = useState([])
+    const { employee, deleted, getAll } = useEmployeeState()
     const router = useRouter()
 
     useEffect(() => {
-        axios.get(`https://proyecto-jardin.fly.dev/employee/all`)
-            .then((res) => {
-
-                setEmployees(res.data)
-            })
-            .catch((error) => {
-
-            })
+        getAll()
 
     }, [])
 
@@ -34,7 +28,7 @@ const Empleado = () => {
     return (
         <>
             {
-                employees.map((item, empl) => {
+                employee.map((item, empl) => {
                     return (
                         <div key={empl}>
                             <li>{item.name}</li>
@@ -45,7 +39,7 @@ const Empleado = () => {
                                 <Image style={{ objectFit: "contain" }} alt="asd" src={item.imageUrl} fill sizes="100vw" />
                             </Box>
                             <Button onClick={() => handleEdit(item.id)} variant="contained">Editar</Button>
-                            <Button variant="text">Eliminar</Button>
+                            <Button variant="text" onClick={() => deleted(item.id)}>Eliminar</Button>
                         </div>
 
 

@@ -22,6 +22,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import SendIcon from '@mui/icons-material/Send';
 import LoadingAdmin from '../../../layouts/adminPages/componentesAdmin/loadingAdmin';
 import Image from "next/image"
+import instance from '../../../config/axios/instance';
 const ViewPhotos = () => {
 
     const [loading, setLoading] = useState(true);
@@ -41,7 +42,7 @@ const ViewPhotos = () => {
     }, [CurrentPage])
 
     const getGalleri = () => {
-        axios.get(`https://proyecto-jardin.fly.dev/gallery/page?page=${CurrentPage}`).then((res) => {
+        instance.get(`gallery/page?page=${CurrentPage}`).then((res) => {
 
             setLoading(false)
             setdata(res.data.content)

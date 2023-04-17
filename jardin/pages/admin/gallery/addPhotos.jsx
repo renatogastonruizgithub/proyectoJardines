@@ -10,6 +10,7 @@ import { alertConfirmation, alertError } from '../../../components/alert';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { useRef, useEffect } from 'react';
 import Image from "next/image"
+import instance from '../../../config/axios/instance';
 
 
 
@@ -51,7 +52,7 @@ const AdminGeleria = () => {
 
 
 
-            axios.post(`https://proyecto-jardin.fly.dev/gallery`, formData,
+            instance.post(`gallery`, formData,
                 {
                     Headers: {
                         "Content-Type": "multipart/form-data"
@@ -98,7 +99,8 @@ const AdminGeleria = () => {
                                         />
                                         <Typography variant='body1' color="GrayText">vista previa</Typography>
                                         <Box component="div" sx={{ height: "100px", position: "relative" }}>
-                                            <Image style={{ objectFit: "contain" }} alt="asd" src={`${preview}`} fill sizes="100vw" />
+                                            {/*  <Image style={{ objectFit: "contain" }} alt="asd" src={`${preview}`} fill sizes="100vw" /> */}
+                                            <img style={{ objectFit: "contain", width: "100%", height: "100px" }} alt="image" src={`${preview}`} />
                                         </Box>
                                         <TextField
                                             size="small"
