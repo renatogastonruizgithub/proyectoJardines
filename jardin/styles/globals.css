@@ -168,6 +168,14 @@ html {
     background-Color: #e7e7e7
 }
 
+.contentDashboard {
+    padding-top: 10%;
+    height: 100%;
+    padding-Top: 2rem;
+    position: relative;
+    background-Color: #e7e7e7
+}
+
 @media only screen and (min-width: 1024px) {
     .sideBar {
         display: block;
@@ -198,4 +206,8 @@ html {
     .contentAddPhotos {
         padding-top: 2rem;
     }
+}
+
+.swal2-container {
+    z-index: 4000 !important;
 }

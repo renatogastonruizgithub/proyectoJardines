@@ -63,13 +63,10 @@ const Sidebar = () => {
         setMobileOpen(!mobileOpen)
     };
     const viewEmployees = () => {
-        router.push("/admin/empleados/viewEmployees")
+        router.push("/admin/empleados/view")
         setMobileOpen(!mobileOpen)
     };
-    const Employee = () => {
-        router.push("/admin/empleados/add")
-        setMobileOpen(!mobileOpen)
-    };
+
     return (
         <>
 
@@ -99,12 +96,6 @@ const Sidebar = () => {
                 </ListItemButton>
                 <Collapse in={openItemsEmployee} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
-                        <ListItemButton onClick={Employee} sx={{ pl: 4 }}>
-                            <ListItemIcon>
-                                <AddAPhotoIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Agregar Empleado" />
-                        </ListItemButton>
                         <ListItemButton onClick={viewEmployees} sx={{ pl: 4 }}>
                             <ListItemIcon>
                                 <PhotoIcon />

@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { Box, Container, Grid, Paper } from '@mui/material';
 import { useEmployeeState } from "../../../../context/contextEmployee"
-import FormEmployee from '../../../../components/formEmployee';
+import FormEmployee from '../../../../layouts/adminPages/componentesAdmin/formEmployee';
 import instance from "../../../../config/axios/instance";
 const editEmployee = () => {
 
