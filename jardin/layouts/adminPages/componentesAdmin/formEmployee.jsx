@@ -7,10 +7,10 @@ import { useEmployeeState } from '../../../context/contextEmployee';
 import { useState, useRef } from "react";
 import Image from 'next/image';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
-const FormEmployee = ({ name = "", lastName = "", id = "", biography = "", title = "" }) => {
+const FormEmployee = ({ name = "", lastName = "", id = "", biography = "", title = "", img = "" }) => {
     const { add, loading, getOne, edit } = useEmployeeState()
-    const [preview, setPreview] = useState([])
-    const [image, setimage] = useState("")
+    const [preview, setPreview] = useState()
+    const [image, setimage] = useState()
 
 
     const inputRef = useRef(null);
@@ -21,6 +21,7 @@ const FormEmployee = ({ name = "", lastName = "", id = "", biography = "", title
     }
 
     const vistaPrevia = async (e) => {
+
         setPreview(URL.createObjectURL(e.target.files[0]))
         setimage(e.target.files[0])
     }
@@ -40,6 +41,17 @@ const FormEmployee = ({ name = "", lastName = "", id = "", biography = "", title
             const formData = new FormData()
             if (id != "") {
                 //editar
+                if (!image) {
+
+                    const blob = new Blob([img], { type: "form-data" });
+                    const blobUrl = URL.createObjectURL(blob);
+                    console.log(blobUrl)
+                    formData.append("image", blobUrl)
+                    formData.append(" data_employee", new Blob([JSON.stringify(values.data_employee)],
+                        { type: "application/json" }))
+                    edit(id, formData)
+                }
+
                 formData.append("image", new Blob([image], { type: "form-data" }))
                 formData.append(" data_employee", new Blob([JSON.stringify(values.data_employee)],
                     { type: "application/json" }))

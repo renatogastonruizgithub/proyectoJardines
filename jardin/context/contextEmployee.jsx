@@ -12,12 +12,14 @@ export const useEmployeeState = () => {
 export const EmployeeProvider = ({ children }) => {
     const [loading, setLoading] = useState();
     const [employee, setEmployee] = useState([]);
+    const [oneEmployee, setOneEmployee] = useState([]);
     const [valuesForm, setvaluesForm] = useState(
         {
             name: "",
             lastName: "",
             title: "",
             biography: "",
+            img: ""
         })
 
 
@@ -32,22 +34,22 @@ export const EmployeeProvider = ({ children }) => {
     }
 
     const getOne = (id) => {
-        instance.get(`employee/${id}`)
+        const res = instance.get(`employee/${id}`)
             .then((res) => {
-                setEmployee([res.data])
+                setOneEmployee([res.data])
                 setvaluesForm({
-                    ...valuesForm,
                     name: res.data.name,
                     lastName: res.data.last_name,
                     title: res.data.title,
                     biography: res.data.biography,
+                    img: res.data.imageUrl
                 })
             })
             .catch((error) => {
                 console.log(error)
             })
 
-
+        return res
     }
 
     const deleted = (id) => {
@@ -105,7 +107,7 @@ export const EmployeeProvider = ({ children }) => {
         setLoading(true)
         instance.put(`employee/${id}`, update)
             .then((res) => {
-                setEmployee([...employee, update])
+                setEmployee([...employee, res.data])
                 setLoading(false)
                 alertConfirmation("Empleado actualizado correctamente")
             })
@@ -118,5 +120,5 @@ export const EmployeeProvider = ({ children }) => {
     }
 
 
-    return <employeeState.Provider value={{ loading, valuesForm, employee, deleted, getAll, getOne, add, edit }}>{children}</employeeState.Provider>;
+    return <employeeState.Provider value={{ oneEmployee, loading, valuesForm, employee, deleted, getAll, getOne, add, edit }}>{children}</employeeState.Provider>;
 };

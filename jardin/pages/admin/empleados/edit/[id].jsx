@@ -3,45 +3,69 @@ import { useEffect, useState } from "react";
 import LayoutDashboard from '../../../../layouts/adminPages/layoutDashboard'
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import { Box, Container, Grid, Paper } from '@mui/material';
+import { Box, Container, Grid, Paper, Typography, Avatar, Stack } from '@mui/material';
 import { useEmployeeState } from "../../../../context/contextEmployee"
 import FormEmployee from '../../../../layouts/adminPages/componentesAdmin/formEmployee';
-import instance from "../../../../config/axios/instance";
+
 const editEmployee = () => {
 
     const router = useRouter()
-    const { employee, getOne, valuesForm } = useEmployeeState()
+    const { oneEmployee, getOne, valuesForm } = useEmployeeState()
 
 
     useEffect(() => {
         if (router.query.id) {
             getOne(router.query.id)
-            /*   const foundEmpl = employee.filter(id => id === router.query.id)
-  
-              console.log(foundEmpl) */
         }
 
-    }, [])
+    }, [oneEmployee])
     return (<>
 
-        <div>editar empleado{valuesForm.name} </div>
+        <Container maxWidth="lg" sx={{ marginBottom: "1.5rem" }}>
+            <Grid container>
+                <Grid item xs={12}>
+                    <Paper sx={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        padding: "1rem",
+                    }}>
+                        <Typography variant='h4'>
+                            Empleado:
+                            {" "}
+                            {valuesForm.name}
+                            {" "}
+                            {valuesForm.lastName}
+                        </Typography>
+                    </Paper>
+                </Grid>
+            </Grid>
+        </Container>
         <Container maxWidth="lg" >
             <Grid container spacing={5} >
                 <Grid item xs={12} lg={4} >
                     <Paper elevation={5} sx={{ padding: "2rem", borderRadius: "15px" }}>
                         {
 
-                            employee.map((item, empl) => {
+                            oneEmployee.map((item, empl) => {
                                 return (
                                     <div key={empl}>
-                                        <li>{item.name}</li>
-                                        <li>{item.last_name}</li>
-                                        <li>{item.title}</li>
-                                        <li>{item.biography}</li>
-                                        <Box component="div" sx={{ height: "100px", position: "relative" }}>
-                                            <Image style={{ objectFit: "contain" }} alt="asd" src={item.imageUrl} fill sizes="100vw" />
-                                        </Box>
-
+                                        <Stack direction="column" spacing={2}>
+                                            <Box component="div" sx={{ height: "100px", position: "relative", display: "grid", placeItems: "center" }}>
+                                                {/* <Image style={{ objectFit: "contain" }} alt="asd" src={item.imageUrl} fill sizes="100vw" /> */}
+                                                <Avatar sx={{ width: "100px", height: "100px" }} alt="avatar" src={item.imageUrl} />
+                                            </Box>
+                                            <Typography>
+                                                {item.name}
+                                                {" "}
+                                                {item.last_name}
+                                            </Typography>
+                                            <Typography>
+                                                {item.title}
+                                            </Typography>
+                                            <Typography variant='body1'>
+                                                {item.biography}
+                                            </Typography>
+                                        </Stack>
                                     </div>
 
 
@@ -58,6 +82,7 @@ const editEmployee = () => {
                             id={router.query.id}
                             biography={valuesForm.biography}
                             title={valuesForm.title}
+                            img={valuesForm.img}
                         ></FormEmployee>
                     </Paper>
                 </Grid>

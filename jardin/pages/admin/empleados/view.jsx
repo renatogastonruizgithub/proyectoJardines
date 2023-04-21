@@ -4,13 +4,15 @@ import { useEffect, useState } from "react";
 import TableRow from '@mui/material/TableRow';
 
 import Image from 'next/image';
-import { Box, Button, Container, Grid, Paper, Avatar } from '@mui/material';
+import { Box, IconButton, Container, Grid, Paper, Avatar } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useEmployeeState } from "../../../context/contextEmployee"
 import HeaderSections from '../../../layouts/adminPages/componentesAdmin/headerSections';
 import FormEmployee from '../../../layouts/adminPages/componentesAdmin/formEmployee';
 import DataTable from '../../../layouts/adminPages/componentesAdmin/dataTable';
 import TableCell from '@mui/material/TableCell';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
 const Empleado = () => {
     const { employee, deleted, getAll } = useEmployeeState()
@@ -29,9 +31,9 @@ const Empleado = () => {
     const tbody = (
         <>
             {
-                employee.map((row) => {
+                employee.map((row, tabl) => {
                     return (
-                        <TableRow key={row.name}>
+                        <TableRow key={tabl}>
                             <TableCell align="right">
                                 <Avatar alt="avatar" src={row.imageUrl} />
 
@@ -41,14 +43,17 @@ const Empleado = () => {
                             </TableCell >
                             <TableCell align="right">{row.last_name}</TableCell >
                             <TableCell align="right">{row.title}</TableCell >
-                            <TableCell align="right">{row.biography}</TableCell >
+                            <TableCell align="right"
+                            >{row.biography}</TableCell >
                             <TableCell align="right">
-                                <Button onClick={() => handleEdit(row.id)} variant="contained">Editar</Button>
-
+                                <IconButton color="primary" onClick={() => handleEdit(row.id)} aria-label="edit">
+                                    <EditIcon />
+                                </IconButton>
                             </TableCell >
                             <TableCell align="right">
-
-                                <Button variant="text" onClick={() => deleted(row.id)}>Eliminar</Button>
+                                <IconButton onClick={() => deleted(row.id)} aria-label="delete">
+                                    <DeleteIcon />
+                                </IconButton>
                             </TableCell >
                         </TableRow >
                     )
