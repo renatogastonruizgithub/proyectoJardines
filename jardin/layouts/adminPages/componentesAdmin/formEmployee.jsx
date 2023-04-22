@@ -4,16 +4,29 @@ import { Formik, Form, useFormik } from 'formik';
 import LoadingButton from '@mui/lab/LoadingButton';
 import SendIcon from '@mui/icons-material/Send';
 import { useEmployeeState } from '../../../context/contextEmployee';
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from 'next/image';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 const FormEmployee = ({ name = "", lastName = "", id = "", biography = "", title = "", img = "" }) => {
+
+
     const { add, loading, getOne, edit } = useEmployeeState()
     const [preview, setPreview] = useState()
     const [image, setimage] = useState()
-
+    const [imgBlob, setimgBlob] = useState()
 
     const inputRef = useRef(null);
+
+    useEffect(() => {
+        //convertir url a blob en caso que el user no cargue imagen
+        fetch(img)
+            .then((res) => res.blob())
+            .then((blob) => {
+                setimgBlob(blob)
+            })
+
+    }, [imgBlob])
+
 
     const resetFileInput = () => {
         setimage(inputRef.current.value = null)
@@ -39,28 +52,30 @@ const FormEmployee = ({ name = "", lastName = "", id = "", biography = "", title
         enableReinitialize: true,
         onSubmit: (values, { resetForm }) => {
             const formData = new FormData()
+
             if (id != "") {
                 //editar
                 if (!image) {
-
-                    const blob = new Blob([img], { type: "form-data" });
-                    const blobUrl = URL.createObjectURL(blob);
-                    console.log(blobUrl)
-                    formData.append("image", blobUrl)
+                    //si no envia la imagen se envia la misma
+                    var blob = new Blob([imgBlob], { type: "form-data" });
+                    formData.append("image", blob)
                     formData.append(" data_employee", new Blob([JSON.stringify(values.data_employee)],
                         { type: "application/json" }))
                     edit(id, formData)
                 }
+                else {
+                    formData.append("image", new Blob([image], { type: "form-data" }))
+                    formData.append(" data_employee", new Blob([JSON.stringify(values.data_employee)],
+                        { type: "application/json" }))
 
-                formData.append("image", new Blob([image], { type: "form-data" }))
-                formData.append(" data_employee", new Blob([JSON.stringify(values.data_employee)],
-                    { type: "application/json" }))
+                    edit(id, formData)
+                    resetForm()
+                    resetFileInput()
+                    setPreview(null)
+                    getOne(id)
+                }
 
-                edit(id, formData)
-                resetForm()
-                resetFileInput()
-                setPreview(null)
-                getOne(id)
+
             }
             else {
                 //agregar
@@ -101,9 +116,14 @@ const FormEmployee = ({ name = "", lastName = "", id = "", biography = "", title
                                 />
                                 <PhotoCamera />
                             </IconButton>
-                            <Box component="div" sx={{ height: "100px", position: "relative" }}>
-                                <img style={{ objectFit: "contain", height: "100px" }} alt="imagen" src={preview} />
-                            </Box>
+                            {
+                                preview ? (
+                                    <Box component="div" sx={{ height: "100px", position: "relative" }}>
+                                        <img style={{ objectFit: "contain", height: "100px" }} alt="imagen" src={preview} />
+                                    </Box>
+                                ) : ("no hay imagen seleccionada")
+                            }
+
                         </Box>
                         <Stack direction="row" spacing={4}>
                             <TextField
