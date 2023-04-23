@@ -6,6 +6,8 @@ import Image from 'next/image';
 import { Box, Container, Grid, Paper, Typography, Avatar, Stack } from '@mui/material';
 import { useEmployeeState } from "../../../../context/contextEmployee"
 import FormEmployee from '../../../../layouts/adminPages/componentesAdmin/formEmployee';
+import { UploadFileProvider } from '../../../../context/contextUploadFile';
+
 
 const editEmployee = () => {
 
@@ -19,80 +21,84 @@ const editEmployee = () => {
         }
 
     }, [oneEmployee])
-    return (<>
+    return (
+        <>
+            <section className='contentDashboard'>
+                <Container maxWidth="lg" sx={{ marginBottom: "1.5rem", }}>
+                    <Grid container>
+                        <Grid item xs={12}>
+                            <Paper sx={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                                padding: "1rem",
+                            }}>
+                                <Typography variant='h4'>
+                                    Empleado:
+                                    {" "}
+                                    {valuesForm.name}
+                                    {" "}
+                                    {valuesForm.lastName}
+                                </Typography>
+                            </Paper>
+                        </Grid>
+                    </Grid>
+                </Container>
+                <Container maxWidth="lg" sx={{ paddingBottom: "4rem", }} >
+                    <Grid container spacing={5} >
+                        <Grid item xs={12} lg={4} >
+                            <Paper elevation={5} sx={{ padding: "2rem", borderRadius: "15px" }}>
+                                {
 
-        <Container maxWidth="lg" sx={{ marginBottom: "1.5rem" }}>
-            <Grid container>
-                <Grid item xs={12}>
-                    <Paper sx={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        padding: "1rem",
-                    }}>
-                        <Typography variant='h4'>
-                            Empleado:
-                            {" "}
-                            {valuesForm.name}
-                            {" "}
-                            {valuesForm.lastName}
-                        </Typography>
-                    </Paper>
-                </Grid>
-            </Grid>
-        </Container>
-        <Container maxWidth="lg" >
-            <Grid container spacing={5} >
-                <Grid item xs={12} lg={4} >
-                    <Paper elevation={5} sx={{ padding: "2rem", borderRadius: "15px" }}>
-                        {
-
-                            oneEmployee.map((item, empl) => {
-                                return (
-                                    <div key={empl}>
-                                        <Stack direction="column" spacing={2}>
-                                            <Box component="div" sx={{ height: "100px", position: "relative", display: "grid", placeItems: "center" }}>
-                                                {/* <Image style={{ objectFit: "contain" }} alt="asd" src={item.imageUrl} fill sizes="100vw" /> */}
-                                                <Avatar sx={{ width: "100px", height: "100px" }} alt="avatar" src={item.imageUrl} />
-                                            </Box>
-                                            <Typography>
-                                                {item.name}
-                                                {" "}
-                                                {item.last_name}
-                                            </Typography>
-                                            <Typography>
-                                                {item.title}
-                                            </Typography>
-                                            <Typography variant='body1'>
-                                                {item.biography}
-                                            </Typography>
-                                        </Stack>
-                                    </div>
-
-
-                                )
-                            })
-                        }
-                    </Paper>
-                </Grid>
-                <Grid item xs={12} lg={7} >
-                    <Paper elevation={5} sx={{ padding: "2rem", borderRadius: "15px" }}>
-                        <FormEmployee
-                            name={valuesForm.name}
-                            lastName={valuesForm.lastName}
-                            id={router.query.id}
-                            biography={valuesForm.biography}
-                            title={valuesForm.title}
-                            img={valuesForm.img}
-                        ></FormEmployee>
-                    </Paper>
-                </Grid>
-            </Grid>
-        </Container>
+                                    oneEmployee.map((item, empl) => {
+                                        return (
+                                            <div key={empl}>
+                                                <Stack direction="column" spacing={2}>
+                                                    <Box component="div" sx={{ height: "100px", position: "relative", display: "grid", placeItems: "center" }}>
+                                                        {/* <Image style={{ objectFit: "contain" }} alt="asd" src={item.imageUrl} fill sizes="100vw" /> */}
+                                                        <Avatar sx={{ width: "100px", height: "100px" }} alt="avatar" src={item.imageUrl} />
+                                                    </Box>
+                                                    <Typography>
+                                                        {item.name}
+                                                        {" "}
+                                                        {item.last_name}
+                                                    </Typography>
+                                                    <Typography>
+                                                        {item.title}
+                                                    </Typography>
+                                                    <Typography variant='body1'>
+                                                        {item.biography}
+                                                    </Typography>
+                                                </Stack>
+                                            </div>
 
 
+                                        )
+                                    })
+                                }
+                            </Paper>
+                        </Grid>
+                        <Grid item xs={12} lg={7} >
+                            <Paper elevation={5} sx={{ padding: "2rem", borderRadius: "15px" }}>
+                                <UploadFileProvider>
+                                    <FormEmployee
+                                        name={valuesForm.name}
+                                        lastName={valuesForm.lastName}
+                                        id={router.query.id}
+                                        biography={valuesForm.biography}
+                                        title={valuesForm.title}
+                                        img={valuesForm.img}
+                                        titleUpload="Cambiar la imagen"
+                                    >
 
+                                    </FormEmployee>
+                                </UploadFileProvider>
+                            </Paper>
+                        </Grid>
+                    </Grid>
+                </Container>
+            </section>
 
-    </>
+        </>
     )
 }
 

@@ -13,6 +13,7 @@ import DataTable from '../../../layouts/adminPages/componentesAdmin/dataTable';
 import TableCell from '@mui/material/TableCell';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import { UploadFileProvider } from '../../../context/contextUploadFile';
 
 const Empleado = () => {
     const { employee, deleted, getAll } = useEmployeeState()
@@ -67,7 +68,11 @@ const Empleado = () => {
             <section className='contentDashboard'>
                 <HeaderSections
                     title={"Gestion de empleados"}
-                    form={<FormEmployee></FormEmployee>}
+                    form={
+                        <UploadFileProvider>
+                            <FormEmployee titleUpload='Selecciona una imagen'></FormEmployee>
+                        </UploadFileProvider>
+                    }
                 >
                 </HeaderSections>
 

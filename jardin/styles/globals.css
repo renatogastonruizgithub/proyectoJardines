@@ -154,6 +154,7 @@ html {
 
 .mainAdmin {
     width: 100%;
+    min-height: 100%;
 }
 
 .contentAddPhotos {
@@ -162,7 +163,7 @@ html {
 
 .contentViewPhotos {
     padding-top: 10%;
-    height: 100%;
+    min-height: 100%;
     padding-Top: 5rem;
     position: relative;
     background-Color: #e7e7e7
@@ -173,7 +174,8 @@ html {
     height: 100%;
     padding-Top: 2rem;
     position: relative;
-    background-Color: #e7e7e7
+    background-Color: #e7e7e7;
+
 }
 
 @media only screen and (min-width: 1024px) {
