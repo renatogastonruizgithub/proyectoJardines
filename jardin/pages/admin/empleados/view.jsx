@@ -16,11 +16,11 @@ import EditIcon from '@mui/icons-material/Edit';
 import { UploadFileProvider } from '../../../context/contextUploadFile';
 
 const Empleado = () => {
-    const { employee, deleted, getAll } = useEmployeeState()
+    const { deleted, getAll, filteredEmployee, handleChange, totalPages } = useEmployeeState()
     const router = useRouter()
 
-    const [page, setCurrentPage] = useState(1);
 
+    console.log(filteredEmployee)
     useEffect(() => {
         getAll()
 
@@ -30,21 +30,7 @@ const Empleado = () => {
         router.push("/admin/empleados/edit/" + id)
     }
 
-    const handleChange = (e, value) => {
-        setCurrentPage(value);
 
-
-    };
-
-    const itemPerPage = 5
-    const totalElements = employee.length
-
-    const totalPages = Math.ceil(totalElements / itemPerPage)
-    const last = page * itemPerPage
-    const first = last - itemPerPage
-
-    const filteredEmployee = employee.slice(first, last)
-    console.log(last, first)
 
     const tbody = (
         <>
@@ -101,11 +87,12 @@ const Empleado = () => {
                             >
 
                             </DataTable>
+                            <Stack sx={{ marginTop: "1.5rem", display: "grid", placeItems: "center" }}>
+                                <Pagination defaultPage={0} onChange={handleChange} count={totalPages} shape="rounded" />
+                            </Stack>
                         </Grid>
                     </Grid>
-                    <Stack sx={{ marginTop: "3rem", display: "grid", placeItems: "center" }}>
-                        <Pagination defaultPage={0} onChange={handleChange} count={totalPages} shape="rounded" />
-                    </Stack>
+
                 </Container>
 
             </section>

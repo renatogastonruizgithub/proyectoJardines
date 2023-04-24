@@ -118,7 +118,26 @@ export const EmployeeProvider = ({ children }) => {
             })
 
     }
+    //paginacion
+    const [page, setCurrentPage] = useState(1);
+
+    const handleChange = (e, value) => {
+        setCurrentPage(value);
+
+    };
+    const itemPerPage = 5
+    const totalElements = employee.length
+    const totalPages = Math.ceil(totalElements / itemPerPage)
+    const last = page * itemPerPage
+    const first = last - itemPerPage
+
+    const filteredEmployee = employee.slice(first, last)
 
 
-    return <employeeState.Provider value={{ oneEmployee, loading, valuesForm, employee, deleted, getAll, getOne, add, edit }}>{children}</employeeState.Provider>;
+    return <employeeState.Provider value={{
+        oneEmployee, loading, totalPages,
+        valuesForm, employee, deleted, filteredEmployee,
+        getAll, getOne, add, edit, handleChange
+    }}>
+        {children}</employeeState.Provider>;
 };
