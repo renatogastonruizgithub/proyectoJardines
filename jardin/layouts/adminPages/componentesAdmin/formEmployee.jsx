@@ -4,39 +4,20 @@ import { Formik, Form, useFormik } from 'formik';
 import LoadingButton from '@mui/lab/LoadingButton';
 import SendIcon from '@mui/icons-material/Send';
 import { useEmployeeState } from '../../../context/contextEmployee';
+import { UploadFileProvider } from '../../../context/contextUploadFile';
+import { useUploadFile } from "../../../context/contextUploadFile"
+
 import { useState, useRef, useEffect } from "react";
 import Image from 'next/image';
-import PhotoCamera from '@mui/icons-material/PhotoCamera';
-const FormEmployee = ({ name = "", lastName = "", id = "", biography = "", title = "", img = "" }) => {
+import UploadFile from './uploadFile';
 
+const FormEmployee = ({ titleUpload = "", name = "", lastName = "", id = "", biography = "", title = "", img = "" }) => {
 
+    const { image, resetFileInput } = useUploadFile()
     const { add, loading, getOne, edit } = useEmployeeState()
-    const [preview, setPreview] = useState()
-    const [image, setimage] = useState()
-    const [imgBlob, setimgBlob] = useState()
 
-    const inputRef = useRef(null);
-
-    useEffect(() => {
-        //convertir url a blob en caso que el user no cargue imagen
-        fetch(img)
-            .then((res) => res.blob())
-            .then((blob) => {
-                setimgBlob(blob)
-            })
-
-    }, [imgBlob])
-
-
-    const resetFileInput = () => {
-        setimage(inputRef.current.value = null)
-
-    }
-
-    const vistaPrevia = async (e) => {
-
-        setPreview(URL.createObjectURL(e.target.files[0]))
-        setimage(e.target.files[0])
+    const resetFormValues = () => {
+        resetFileInput()
     }
 
 
@@ -53,29 +34,29 @@ const FormEmployee = ({ name = "", lastName = "", id = "", biography = "", title
         onSubmit: (values, { resetForm }) => {
             const formData = new FormData()
 
+
             if (id != "") {
+                console.log(image)
                 //editar
                 if (!image) {
-                    //si no envia la imagen se envia la misma
-                    var blob = new Blob([imgBlob], { type: "form-data" });
-                    formData.append("image", blob)
+                    //si no envia la imagen se envia la misma                    
                     formData.append(" data_employee", new Blob([JSON.stringify(values.data_employee)],
                         { type: "application/json" }))
                     edit(id, formData)
+                    resetForm()
+                    resetFormValues()
+                    getOne(id)
                 }
                 else {
+
                     formData.append("image", new Blob([image], { type: "form-data" }))
                     formData.append(" data_employee", new Blob([JSON.stringify(values.data_employee)],
                         { type: "application/json" }))
-
                     edit(id, formData)
                     resetForm()
-                    resetFileInput()
-                    setPreview(null)
+                    resetFormValues()
                     getOne(id)
                 }
-
-
             }
             else {
                 //agregar
@@ -84,9 +65,7 @@ const FormEmployee = ({ name = "", lastName = "", id = "", biography = "", title
                     { type: "application/json" }))
                 add(formData)
                 resetForm()
-                setPreview(null)
-                setimage(null)
-                resetFileInput()
+                resetFormValues()
             }
 
 
@@ -100,31 +79,9 @@ const FormEmployee = ({ name = "", lastName = "", id = "", biography = "", title
             <Formik >
                 <Form onSubmit={formik.handleSubmit}>
                     <Stack spacing={3}>
-                        <Typography color="GrayText" variant='body1' >Selecciona tu imagen </Typography>
-                        <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-around" }}>
-                            <IconButton color="primary" aria-label="upload picture" component="label">
-                                {/* <input hidden accept="image/*" type="file" /> */}
-                                <input
-                                    hidden
-                                    accept="image/*"
-                                    size="small"
-                                    placeholder="Placeholder"
-                                    type="file"
-                                    name='image'
-                                    inputRef={inputRef}
-                                    onChange={(e) => { vistaPrevia(e) }}
-                                />
-                                <PhotoCamera />
-                            </IconButton>
-                            {
-                                preview ? (
-                                    <Box component="div" sx={{ height: "100px", position: "relative" }}>
-                                        <img style={{ objectFit: "contain", height: "100px" }} alt="imagen" src={preview} />
-                                    </Box>
-                                ) : ("no hay imagen seleccionada")
-                            }
 
-                        </Box>
+                        <UploadFile title={titleUpload}></UploadFile>
+
                         <Stack direction="row" spacing={4}>
                             <TextField
                                 size="small"
