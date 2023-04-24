@@ -3,10 +3,11 @@ import { useEffect, useState } from "react";
 import LayoutDashboard from '../../../../layouts/adminPages/layoutDashboard'
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import { Box, Container, Grid, Paper, Typography, Avatar, Stack } from '@mui/material';
+import { Box, Container, Grid, Paper, Typography, Avatar, Stack, Button } from '@mui/material';
 import { useEmployeeState } from "../../../../context/contextEmployee"
 import FormEmployee from '../../../../layouts/adminPages/componentesAdmin/formEmployee';
 import { UploadFileProvider } from '../../../../context/contextUploadFile';
+import Link from 'next/link';
 
 
 const editEmployee = () => {
@@ -39,6 +40,8 @@ const editEmployee = () => {
                                     {" "}
                                     {valuesForm.lastName}
                                 </Typography>
+                                <Button variant="text"><Link href="/admin/empleados/view">Volver</Link></Button>
+
                             </Paper>
                         </Grid>
                     </Grid>
@@ -89,7 +92,6 @@ const editEmployee = () => {
                                         img={valuesForm.img}
                                         titleUpload="Cambiar la imagen"
                                     >
-
                                     </FormEmployee>
                                 </UploadFileProvider>
                             </Paper>
