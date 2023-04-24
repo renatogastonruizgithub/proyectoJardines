@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import TableRow from '@mui/material/TableRow';
 
 import Image from 'next/image';
-import { Box, IconButton, Container, Grid, Paper, Avatar } from '@mui/material';
+import { Pagination, IconButton, Container, Grid, Stack, Avatar } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useEmployeeState } from "../../../context/contextEmployee"
 import HeaderSections from '../../../layouts/adminPages/componentesAdmin/headerSections';
@@ -19,20 +19,37 @@ const Empleado = () => {
     const { employee, deleted, getAll } = useEmployeeState()
     const router = useRouter()
 
+    const [page, setCurrentPage] = useState(1);
+
     useEffect(() => {
         getAll()
 
     }, [])
 
     const handleEdit = (id) => {
-
         router.push("/admin/empleados/edit/" + id)
     }
+
+    const handleChange = (e, value) => {
+        setCurrentPage(value);
+
+
+    };
+
+    const itemPerPage = 5
+    const totalElements = employee.length
+
+    const totalPages = Math.ceil(totalElements / itemPerPage)
+    const last = page * itemPerPage
+    const first = last - itemPerPage
+
+    const filteredEmployee = employee.slice(first, last)
+    console.log(last, first)
 
     const tbody = (
         <>
             {
-                employee.map((row, tabl) => {
+                filteredEmployee.map((row, tabl) => {
                     return (
                         <TableRow key={tabl}>
                             <TableCell align="right">
@@ -86,28 +103,11 @@ const Empleado = () => {
                             </DataTable>
                         </Grid>
                     </Grid>
+                    <Stack sx={{ marginTop: "3rem", display: "grid", placeItems: "center" }}>
+                        <Pagination defaultPage={0} onChange={handleChange} count={totalPages} shape="rounded" />
+                    </Stack>
                 </Container>
 
-
-                {/*      {
-                    employee.map((item, empl) => {
-                        return (
-                            <div key={empl}>
-                                <li>{item.name}</li>
-                                <li>{item.last_name}</li>
-                                <li>{item.title}</li>
-                                <li>{item.biography}</li>
-                                <Box component="div" sx={{ height: "100px", position: "relative" }}>
-                                    <Image style={{ objectFit: "contain" }} alt="asd" src={item.imageUrl} fill sizes="100vw" />
-                                </Box>
-                                <Button onClick={() => handleEdit(item.id)} variant="contained">Editar</Button>
-                                <Button variant="text" onClick={() => deleted(item.id)}>Eliminar</Button>
-                            </div>
-
-
-                        )
-                    })
-                } */}
             </section>
         </>
     )
