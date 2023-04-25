@@ -1,4 +1,5 @@
 import React from 'react'
+import { CompanyProvider } from '../../context/contextCompany'
 import { EmployeeProvider } from '../../context/contextEmployee'
 import { MenuMobileProvider } from '../../context/contextMenuMobile'
 /* import { ProviderComponentGallery } from '../../context/contexGallery' */
@@ -17,7 +18,9 @@ const LayoutDashboard = ({ children }) => {
                         </section>
                         {/* <ProviderComponentGallery></ProviderComponentGallery> */}
                         <EmployeeProvider>
-                            {children}
+                            <CompanyProvider>
+                                {children}
+                            </CompanyProvider>
                         </EmployeeProvider>
 
                     </section>
