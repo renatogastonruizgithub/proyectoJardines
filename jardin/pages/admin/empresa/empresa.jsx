@@ -26,6 +26,7 @@ const Empresa = () => {
         <div className='contentDashboard'>
             <HeaderSections
                 title={"Gestion de la empresa"}
+                textButton="Agregar"
                 form={
                     <UploadFileProvider>
                         <FormCompany titleUpload='Selecciona una imagen'></FormCompany>

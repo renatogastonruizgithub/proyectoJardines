@@ -2,12 +2,9 @@ import React from 'react'
 import { Box, Button, Container, Grid, Paper, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import Modal from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 
-const HeaderSections = ({ title, form }) => {
+
+const HeaderSections = ({ title, form, textButton }) => {
     const [open, setOpen] = React.useState(false);
     const handleClickOpen = () => {
         setOpen(true);
@@ -34,7 +31,7 @@ const HeaderSections = ({ title, form }) => {
                                 startIcon={<AddIcon />}
                                 onClick={handleClickOpen}
                             >
-                                Agregar
+                                {textButton}
                             </Button>
                         </Paper>
                     </Grid>

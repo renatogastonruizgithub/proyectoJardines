@@ -4,6 +4,8 @@ import { Formik, Form, useFormik } from 'formik';
 import LoadingButton from '@mui/lab/LoadingButton';
 import SendIcon from '@mui/icons-material/Send';
 import UploadFile from './uploadFile';
+import { useCompany } from '../../../context/contextCompany';
+import { useUploadFile } from '../../../context/contextUploadFile';
 
 const FormCompany = ({
     titleUpload = "",
@@ -19,7 +21,14 @@ const FormCompany = ({
     linkLk = "",
     mission = "",
     vision = "",
+    id = ""
 }) => {
+
+    const { edit, loading, add } = useCompany()
+    const { image, resetFileInput } = useUploadFile()
+    const resetFormValues = () => {
+        resetFileInput()
+    }
 
     const formik = useFormik({
         initialValues: {
@@ -42,39 +51,39 @@ const FormCompany = ({
         onSubmit: (values, { resetForm }) => {
             const formData = new FormData()
 
-            /* 
-                        if (id != "") {
-                            console.log(image)
-                            //editar
-                            if (!image) {
-                                //si no envia la imagen se envia la misma                    
-                                formData.append(" data_employee", new Blob([JSON.stringify(values.data_employee)],
-                                    { type: "application/json" }))
-                                edit(id, formData)
-                                resetForm()
-                                resetFormValues()
-                                getOne(id)
-                            }
-                            else {
-            
-                                formData.append("image", new Blob([image], { type: "form-data" }))
-                                formData.append(" data_employee", new Blob([JSON.stringify(values.data_employee)],
-                                    { type: "application/json" }))
-                                edit(id, formData)
-                                resetForm()
-                                resetFormValues()
-                                getOne(id)
-                            }
-                        }
-                        else {
-                            //agregar
-                            formData.append("image", new Blob([image], { type: "form-data" }))
-                            formData.append(" data_employee", new Blob([JSON.stringify(values.data_employee)],
-                                { type: "application/json" }))
-                            add(formData)
-                            resetForm()
-                            resetFormValues()
-                        } */
+
+            if (id != "") {
+
+                //editar
+                if (!image) {
+                    //si no envia la imagen se envia la misma                    
+                    formData.append("data_company", new Blob([JSON.stringify(values.data_company)],
+                        { type: "application/json" }))
+                    edit(formData)
+                    resetForm()
+                    resetFormValues()
+
+                }
+                else {
+
+                    formData.append("image", new Blob([image], { type: "form-data" }))
+                    formData.append("data_company", new Blob([JSON.stringify(values.data_company)],
+                        { type: "application/json" }))
+                    edit(formData)
+                    resetForm()
+                    resetFormValues()
+
+                }
+            }
+            else {
+                //agregar
+                formData.append("image", new Blob([image], { type: "form-data" }))
+                formData.append("data_company", new Blob([JSON.stringify(values.data_company)],
+                    { type: "application/json" }))
+                add(formData)
+                resetForm()
+                resetFormValues()
+            }
 
         }
     });
@@ -220,11 +229,11 @@ const FormCompany = ({
                             sx={{ marginTop: "2rem" }}
                             type="submit"
                             endIcon={<SendIcon />}
-                            /* loading={loading} */
+                            loading={loading}
                             loadingPosition="end"
                             variant="contained"
                         >
-                            <span>subir</span>
+                            <span>Enviar</span>
                         </LoadingButton>
                     </Stack>
                 </Form>

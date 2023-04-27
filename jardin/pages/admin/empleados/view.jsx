@@ -71,6 +71,7 @@ const Empleado = () => {
             <section className='contentDashboard'>
                 <HeaderSections
                     title={"Gestion de empleados"}
+                    textButton="Agregar"
                     form={
                         <UploadFileProvider>
                             <FormEmployee titleUpload='Selecciona una imagen'></FormEmployee>
