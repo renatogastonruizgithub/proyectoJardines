@@ -12,6 +12,7 @@ export const useCompany = () => {
 export const CompanyProvider = ({ children }) => {
     const [loading, setLoading] = useState();
     const [company, setCompany] = useState([]);
+    const [enableButton, setEnableButton] = useState(true)
     const [valuesForm, setvaluesForm] = useState(
         {
             name: "",
@@ -34,6 +35,13 @@ export const CompanyProvider = ({ children }) => {
         instance.get(`company/` + 1)
             .then((res) => {
                 setCompany([res.data])
+
+                if (res.data.lenght == 0) {
+                    setEnableButton(true)
+                } else {
+                    setEnableButton(false)
+                }
+                setEnableButton()
                 setvaluesForm({
                     name: res.data.name,
                     location: res.data.location,
@@ -88,6 +96,6 @@ export const CompanyProvider = ({ children }) => {
     }
 
 
-    return <Company.Provider value={{ loading, company, add, get, edit, valuesForm }}>{children}</Company.Provider>;
+    return <Company.Provider value={{ enableButton, loading, company, add, get, edit, valuesForm }}>{children}</Company.Provider>;
 };
 

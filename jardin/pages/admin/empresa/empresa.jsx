@@ -1,4 +1,4 @@
-import { React, useEffect } from 'react'
+import { React, useEffect, useState } from 'react'
 import { UploadFileProvider } from '../../../context/contextUploadFile'
 import HeaderSections from '../../../layouts/adminPages/componentesAdmin/headerSections'
 import LayoutDashboard from '../../../layouts/adminPages/layoutDashboard'
@@ -11,12 +11,16 @@ import { useRouter } from 'next/router';
 
 const Empresa = () => {
     const router = useRouter()
-    const { company, get } = useCompany()
+    const { company, enableButton, get } = useCompany()
+
 
     useEffect(() => {
         get()
+
+
     }, [])
 
+    console.log(enableButton)
     const handleRouter = () => {
         router.push("/admin/empresa/edit/details")
     }
@@ -27,6 +31,7 @@ const Empresa = () => {
             <HeaderSections
                 title={"Gestion de la empresa"}
                 textButton="Agregar"
+                button={enableButton}
                 form={
                     <UploadFileProvider>
                         <FormCompany titleUpload='Selecciona una imagen'></FormCompany>
