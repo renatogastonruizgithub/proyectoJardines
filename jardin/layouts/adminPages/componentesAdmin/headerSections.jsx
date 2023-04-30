@@ -4,8 +4,9 @@ import AddIcon from '@mui/icons-material/Add';
 import Modal from '@mui/material/Dialog';
 
 
-const HeaderSections = ({ title, form, textButton }) => {
+const HeaderSections = ({ title, form, textButton, button }) => {
     const [open, setOpen] = React.useState(false);
+
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -27,12 +28,20 @@ const HeaderSections = ({ title, form, textButton }) => {
                             <Typography variant='h4'>
                                 {title}
                             </Typography>
-                            <Button variant="contained"
-                                startIcon={<AddIcon />}
-                                onClick={handleClickOpen}
-                            >
-                                {textButton}
-                            </Button>
+                            {
+                                button ?
+                                    (<Button
+
+                                        variant="contained"
+                                        startIcon={<AddIcon />}
+                                        onClick={handleClickOpen}
+                                    >
+                                        {textButton}
+                                    </Button>) : (
+                                        ""
+                                    )
+                            }
+
                         </Paper>
                     </Grid>
                 </Grid>

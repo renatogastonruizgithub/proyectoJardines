@@ -72,6 +72,7 @@ const Empleado = () => {
                 <HeaderSections
                     title={"Gestion de empleados"}
                     textButton="Agregar"
+                    button={true}
                     form={
                         <UploadFileProvider>
                             <FormEmployee titleUpload='Selecciona una imagen'></FormEmployee>
