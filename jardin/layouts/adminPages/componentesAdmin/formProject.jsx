@@ -3,31 +3,22 @@ import { Box, Input, TextField, Typography, Stack, IconButton } from '@mui/mater
 import { Formik, Form, useFormik } from 'formik';
 import LoadingButton from '@mui/lab/LoadingButton';
 import SendIcon from '@mui/icons-material/Send';
-import { useEmployeeState } from '../../../context/contextEmployee';
-import { UploadFileProvider } from '../../../context/contextUploadFile';
-import { useUploadFile } from "../../../context/contextUploadFile"
-
-import { useState, useRef, useEffect } from "react";
-import Image from 'next/image';
+import { useUploadFile } from '../../../context/contextUploadFile';
 import UploadFile from './uploadFile';
+import { useProject } from '../../../context/contextProject';
 
-const FormEmployee = ({ titleUpload, name = "", lastName = "", id = "", biography = "", title = "", img = "" }) => {
+
+
+const FormProject = ({ title = "", name = "", id = "", biography = "" }) => {
+
+    const { add, loading, getOne, edit } = useProject()
 
     const { image, resetFileInput } = useUploadFile()
-    const { add, loading, getOne, edit } = useEmployeeState()
-
-    const resetFormValues = () => {
-        resetFileInput()
-    }
-
-
     const formik = useFormik({
         initialValues: {
-            data_employee: {
-                last_name: lastName,
+            data_project: {
                 name: name,
-                title: title,
-                biography: biography
+                biography: biography,
             }
         },
         enableReinitialize: true,
@@ -36,11 +27,11 @@ const FormEmployee = ({ titleUpload, name = "", lastName = "", id = "", biograph
 
 
             if (id != "") {
-                console.log(image)
+
                 //editar
                 if (!image) {
                     //si no envia la imagen se envia la misma                    
-                    formData.append(" data_employee", new Blob([JSON.stringify(values.data_employee)],
+                    formData.append("data_project", new Blob([JSON.stringify(values.data_project)],
                         { type: "application/json" }))
                     edit(id, formData)
                     resetForm()
@@ -50,7 +41,7 @@ const FormEmployee = ({ titleUpload, name = "", lastName = "", id = "", biograph
                 else {
 
                     formData.append("image", new Blob([image], { type: "form-data" }))
-                    formData.append(" data_employee", new Blob([JSON.stringify(values.data_employee)],
+                    formData.append("data_project", new Blob([JSON.stringify(values.data_project)],
                         { type: "application/json" }))
                     edit(id, formData)
                     resetForm()
@@ -60,15 +51,16 @@ const FormEmployee = ({ titleUpload, name = "", lastName = "", id = "", biograph
             }
             else {
                 //agregar
-                formData.append("image", new Blob([image], { type: "form-data" }))
-                formData.append(" data_employee", new Blob([JSON.stringify(values.data_employee)],
-                    { type: "application/json" }))
-                add(formData)
-                resetForm()
-                resetFormValues()
+
+
             }
 
-
+            formData.append("image", new Blob([image], { type: "form-data" }))
+            formData.append("data_project", new Blob([JSON.stringify(values.data_project)],
+                { type: "application/json" }))
+            add(formData)
+            resetForm()
+            resetFileInput()
 
         }
     });
@@ -80,49 +72,28 @@ const FormEmployee = ({ titleUpload, name = "", lastName = "", id = "", biograph
                 <Form onSubmit={formik.handleSubmit}>
                     <Stack spacing={3}>
 
-                        <UploadFile title={titleUpload}></UploadFile>
+                        <UploadFile title={title}></UploadFile>
 
                         <Stack direction="row" spacing={4}>
                             <TextField
                                 size="small"
-                                name='data_employee.name'
+                                name='data_project.name'
                                 label="nombre"
                                 variant="filled"
-                                value={formik.values.data_employee.name}
+                                value={formik.values.data_project.name}
                                 fullWidth={true}
                                 onChange={formik.handleChange}
-                            />
-                            <TextField
-                                size="small"
-                                name='data_employee.last_name'
-                                label="Apellido"
-                                variant="filled"
-                                fullWidth={true}
-                                value={formik.values.data_employee.last_name}
-                                onChange={formik.handleChange}
-                            />
-                            <TextField
-                                size="small"
-                                name='data_employee.title'
-                                label="Titulo"
-                                variant="filled"
-                                value={formik.values.data_employee.title}
-                                onChange={formik.handleChange}
-                                fullWidth={true}
                             />
                         </Stack>
-
-
                         <TextField
                             size="small"
-                            name='data_employee.biography'
+                            name='data_project.biography'
                             label="biografia"
                             variant="filled"
-                            value={formik.values.data_employee.biography}
+                            value={formik.values.data_project.biography}
                             onChange={formik.handleChange}
                             multiline
                             rows={7}
-
                         />
 
                     </Stack>
@@ -139,8 +110,11 @@ const FormEmployee = ({ titleUpload, name = "", lastName = "", id = "", biograph
                         </LoadingButton>
                     </Stack>
                 </Form>
-            </Formik></div>
+            </Formik>
+
+
+        </div>
     )
 }
 
-export default FormEmployee
+export default FormProject

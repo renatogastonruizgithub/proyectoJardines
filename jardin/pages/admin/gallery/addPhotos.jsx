@@ -4,7 +4,6 @@ import SendIcon from '@mui/icons-material/Send';
 import { useState } from 'react';
 import { Box, Stack } from '@mui/system';
 import { Formik, Form, useFormik } from 'formik';
-import axios from "axios";
 import LayoutDashboard from "../../../layouts/adminPages/layoutDashboard"
 import { alertConfirmation, alertError } from '../../../components/alert';
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -52,12 +51,7 @@ const AdminGeleria = () => {
 
 
 
-            instance.post(`gallery`, formData,
-                {
-                    Headers: {
-                        "Content-Type": "multipart/form-data"
-                    }
-                }
+            instance.post(`gallery/`, formData,
             )
                 .then((res) => {
                     setLoading(false)

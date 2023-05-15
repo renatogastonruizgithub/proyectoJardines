@@ -6,7 +6,7 @@ const urls = {
 
 export default axios.create({
 
-    baseURL: urls.production
+    baseURL: urls.dev
     /*  headers: { 'X-Custom-Header': 'foobar' } */
 });
 

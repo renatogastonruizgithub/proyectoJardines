@@ -26,7 +26,17 @@ import Switch from '@mui/material/Switch';
 import Sidebar from './Sidebar';
 import { useState } from "react";
 import { useMobile } from "../../../context/contextMenuMobile"
+import { ListItemIcon } from '@mui/material';
+import FolderIcon from '@mui/icons-material/Folder';
+import BusinessIcon from '@mui/icons-material/Business';
+import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
+import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary';
+import PhotoIcon from '@mui/icons-material/Photo';
 
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import PublishIcon from '@mui/icons-material/Publish';
+
+import HomeIcon from '@mui/icons-material/Home';
 const NavbarAdmin = () => {
 
     const { mobileOpen, setMobileOpen } = useMobile();
@@ -76,7 +86,26 @@ const NavbarAdmin = () => {
                             >
                                 Logo
                             </Typography>
-
+                            <Stack direction="row" spacing={4}>
+                                <Link href="/admin/dashboard" >
+                                    <Typography sx={{ display: "grid", placeItems: "center", color: "#000" }}> <HomeIcon />Home</Typography>
+                                </Link>
+                                <Link href="/admin/publicaciones/publicacion">
+                                    <Typography sx={{ display: "grid", placeItems: "center", color: "#000" }} ><PublishIcon />Publicacion</Typography>
+                                </Link>
+                                <Link href="/admin/empleados/view" >
+                                    <Typography sx={{ display: "grid", placeItems: "center", color: "#000" }}> <PeopleAltIcon />Empleado</Typography>
+                                </Link>
+                                <Link href="/admin/empresa/empresa">
+                                    <Typography sx={{ display: "grid", placeItems: "center", color: "#000" }}><BusinessIcon />Empresa</Typography>
+                                </Link>
+                                <Link href="/admin/proyectos/view" >
+                                    <Typography sx={{ display: "grid", placeItems: "center", color: "#000" }}><FolderIcon />Proyectos</Typography>
+                                </Link>
+                                <Link href="/admin/gallery/viewPhotos" >
+                                    <Typography sx={{ display: "grid", placeItems: "center", color: "#000" }}><PhotoIcon />Galeria</Typography>
+                                </Link>
+                            </Stack>
                             <Box sx={{ display: { md: 'block' } }}>
                                 <Stack direction="row" spacing={1}>
 
@@ -93,6 +122,7 @@ const NavbarAdmin = () => {
                                     />
                                 </Stack>
                             </Box>
+
 
                         </Toolbar>
                     </AppBar>
