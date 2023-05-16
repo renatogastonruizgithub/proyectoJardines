@@ -1,7 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import instance from "../config/axios/instance";
 import { alertConfirmation, alertDeleted, alertError } from "../components/alert"
-import Swal from 'sweetalert2';
+
 
 export const Company = createContext();
 
@@ -34,12 +34,13 @@ export const CompanyProvider = ({ children }) => {
     const get = () => {
         instance.get(`company/` + 1)
             .then((res) => {
-                setCompany([res.data])
+
 
                 if (res.data.lenght == 0) {
                     setEnableButton(true)
                 } else {
                     setEnableButton(false)
+                    setCompany([res.data])
                 }
                 setEnableButton()
                 setvaluesForm({
@@ -59,7 +60,7 @@ export const CompanyProvider = ({ children }) => {
                 })
             })
             .catch((error) => {
-                console.log(error)
+                setEnableButton(true)
             })
     }
 
@@ -86,6 +87,7 @@ export const CompanyProvider = ({ children }) => {
                 setCompany([...company, res.data])
                 setLoading(false)
                 alertConfirmation("Empresa añadida correctamente")
+                get()
             })
             .catch((error) => {
                 console.log(error)

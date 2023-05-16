@@ -124,6 +124,11 @@ a {
     text-decoration: none;
 }
 
+.links {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+}
+
 html {
     scroll-behavior: smooth !important;
 }
@@ -193,9 +198,9 @@ html {
     }
 
     .mainAdmin {
-        width: 80%;
+        width: 100%;
         background-color: #e7e7e7;
-        margin-left: 20%;
+        /*  margin-left: 20%; */
         height: 100%;
         padding-top: 7%;
         position: relative;

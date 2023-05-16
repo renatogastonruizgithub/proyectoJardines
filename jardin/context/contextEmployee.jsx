@@ -12,7 +12,6 @@ export const useEmployeeState = () => {
 export const EmployeeProvider = ({ children }) => {
     const [loading, setLoading] = useState();
     const [employee, setEmployee] = useState([]);
-    const [oneEmployee, setOneEmployee] = useState([]);
     const [valuesForm, setvaluesForm] = useState(
         {
             name: "",
@@ -24,9 +23,11 @@ export const EmployeeProvider = ({ children }) => {
 
 
     const getAll = () => {
+        setLoading(true)
         instance.get(`employee/all`)
             .then((res) => {
                 setEmployee(res.data)
+                setLoading(false)
             })
             .catch((error) => {
                 console.log(error)
@@ -36,7 +37,8 @@ export const EmployeeProvider = ({ children }) => {
     const getOne = (id) => {
         const res = instance.get(`employee/${id}`)
             .then((res) => {
-                setOneEmployee([res.data])
+                const getOneEmploye = employee.find(e => e.id == id);
+                setEmployee([res.data])
                 setvaluesForm({
                     name: res.data.name,
                     lastName: res.data.last_name,
@@ -92,6 +94,7 @@ export const EmployeeProvider = ({ children }) => {
         instance.post(`employee`, employees)
             .then((res) => {
                 setEmployee([...employee, res.data])
+
                 setLoading(false)
                 alertConfirmation("Empleado añadido correctamente")
             })
@@ -108,6 +111,7 @@ export const EmployeeProvider = ({ children }) => {
         instance.put(`employee/${id}`, update)
             .then((res) => {
                 setEmployee([...employee, res.data])
+                getOne(id)
                 setLoading(false)
                 alertConfirmation("Empleado actualizado correctamente")
             })
@@ -118,26 +122,28 @@ export const EmployeeProvider = ({ children }) => {
             })
 
     }
-    //paginacion
-    const [page, setCurrentPage] = useState(1);
 
-    const handleChange = (e, value) => {
-        setCurrentPage(value);
+    const [pageSizes, setpageSizes] = useState(5)
 
-    };
-    const itemPerPage = 5
-    const totalElements = employee.length
-    const totalPages = Math.ceil(totalElements / itemPerPage)
-    const last = page * itemPerPage
-    const first = last - itemPerPage
+    //ejemplo de paginacion local
 
-    const filteredEmployee = employee.slice(first, last)
-
+    /*  const [page, setCurrentPage] = useState(1);
+  
+      const handleChange = (e, value) => {
+          setCurrentPage(value);
+  
+      };
+           const itemPerPage = 5
+      const totalElements = employee.length
+      const totalPages = Math.ceil(totalElements / itemPerPage)
+      const last = page * itemPerPage
+      const first = last - itemPerPage
+      const filteredEmployee = employee.slice(first, last) */
 
     return <employeeState.Provider value={{
-        oneEmployee, loading, totalPages,
-        valuesForm, employee, deleted, filteredEmployee,
-        getAll, getOne, add, edit, handleChange
+        loading, pageSizes,
+        valuesForm, employee, deleted, setpageSizes,
+        getAll, getOne, add, edit
     }}>
         {children}</employeeState.Provider>;
 };

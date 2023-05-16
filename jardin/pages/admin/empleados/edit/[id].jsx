@@ -13,7 +13,7 @@ import Link from 'next/link';
 const editEmployee = () => {
 
     const router = useRouter()
-    const { oneEmployee, getOne, valuesForm } = useEmployeeState()
+    const { oneEmployee, employee, getOne, valuesForm } = useEmployeeState()
 
 
     useEffect(() => {
@@ -21,7 +21,7 @@ const editEmployee = () => {
             getOne(router.query.id)
         }
 
-    }, [oneEmployee])
+    }, [employee])
     return (
         <>
             <section className='contentDashboard'>
@@ -52,7 +52,7 @@ const editEmployee = () => {
                             <Paper elevation={5} sx={{ padding: "2rem", borderRadius: "15px" }}>
                                 {
 
-                                    oneEmployee.map((item, empl) => {
+                                    employee.map((item, empl) => {
                                         return (
                                             <div key={empl}>
                                                 <Stack direction="column" spacing={2}>

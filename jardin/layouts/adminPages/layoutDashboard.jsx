@@ -2,6 +2,7 @@ import React from 'react'
 import { CompanyProvider } from '../../context/contextCompany'
 import { EmployeeProvider } from '../../context/contextEmployee'
 import { MenuMobileProvider } from '../../context/contextMenuMobile'
+import { ProjectProvider } from '../../context/contextProject'
 /* import { ProviderComponentGallery } from '../../context/contexGallery' */
 import Navbar from './componentesAdmin/navbar'
 import Sidebar from './componentesAdmin/Sidebar'
@@ -11,15 +12,18 @@ const LayoutDashboard = ({ children }) => {
         <>
             <MenuMobileProvider>
                 <Navbar></Navbar>
+
                 <main >
                     <section className='mainAdmin'>
-                        <section className='sideBar'>
+                        {/*  <section className='sideBar'>
                             <Sidebar></Sidebar>
-                        </section>
+                        </section> */}
                         {/* <ProviderComponentGallery></ProviderComponentGallery> */}
                         <EmployeeProvider>
                             <CompanyProvider>
-                                {children}
+                                <ProjectProvider>
+                                    {children}
+                                </ProjectProvider>
                             </CompanyProvider>
                         </EmployeeProvider>
 

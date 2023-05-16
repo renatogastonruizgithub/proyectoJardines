@@ -2,9 +2,9 @@ import React from 'react'
 import LayoutDashboard from "../../../layouts/adminPages/layoutDashboard"
 import { useEffect, useState } from "react";
 import TableRow from '@mui/material/TableRow';
-
+import { DataGrid } from '@mui/x-data-grid';
 import Image from 'next/image';
-import { Pagination, IconButton, Container, Grid, Stack, Avatar } from '@mui/material';
+import { Pagination, IconButton, Container, Grid, Stack, Avatar, Box } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useEmployeeState } from "../../../context/contextEmployee"
 import HeaderSections from '../../../layouts/adminPages/componentesAdmin/headerSections';
@@ -16,11 +16,11 @@ import EditIcon from '@mui/icons-material/Edit';
 import { UploadFileProvider } from '../../../context/contextUploadFile';
 
 const Empleado = () => {
-    const { deleted, getAll, filteredEmployee, handleChange, totalPages } = useEmployeeState()
+    const { deleted, getAll, employee, loading, setpageSizes, pageSizes } = useEmployeeState()
     const router = useRouter()
 
 
-    console.log(filteredEmployee)
+
     useEffect(() => {
         getAll()
 
@@ -29,42 +29,49 @@ const Empleado = () => {
     const handleEdit = (id) => {
         router.push("/admin/empleados/edit/" + id)
     }
+    const columns = [
+        {
+            field: 'imageUrl',
+            headerName: 'Avatar',
+            width: 150,
+            renderCell: (params => <Avatar alt="avatar" src={params.row.imageUrl} />),
+        },
+        {
+            field: 'name',
+            headerName: 'Nombre',
+            width: 110,
+        },
+        {
+            field: 'last_name',
+            headerName: 'Apellido',
+            width: 110,
+        },
+        {
+            field: 'title',
+            headerName: 'Titulo',
+            width: 110,
+        },
+        {
+            field: 'biography',
+            headerName: 'Biografia',
+            width: 300,
+        },
+
+        {
+            field: 'edit',
+            headerName: 'Editar',
+            width: 110,
+            renderCell: (params => <EditIcon sx={{ color: "#1565c0" }} onClick={() => handleEdit(params.row.id)} />),
+        },
+        {
+            field: 'delete',
+            headerName: 'Eliminar',
+            width: 110,
+            renderCell: (params => <DeleteIcon sx={{ color: "#FF5F49" }} onClick={() => deleted(params.row.id)} />),
+        },
+    ]
 
 
-
-    const tbody = (
-        <>
-            {
-                filteredEmployee.map((row, tabl) => {
-                    return (
-                        <TableRow key={tabl}>
-                            <TableCell align="right">
-                                <Avatar alt="avatar" src={row.imageUrl} />
-
-                            </TableCell >
-                            <TableCell component="th" scope="row">
-                                {row.name}
-                            </TableCell >
-                            <TableCell align="right">{row.last_name}</TableCell >
-                            <TableCell align="right">{row.title}</TableCell >
-                            <TableCell align="right"
-                            >{row.biography}</TableCell >
-                            <TableCell align="right">
-                                <IconButton color="primary" onClick={() => handleEdit(row.id)} aria-label="edit">
-                                    <EditIcon />
-                                </IconButton>
-                            </TableCell >
-                            <TableCell align="right">
-                                <IconButton onClick={() => deleted(row.id)} aria-label="delete">
-                                    <DeleteIcon />
-                                </IconButton>
-                            </TableCell >
-                        </TableRow >
-                    )
-                })
-            }
-        </>
-    )
 
     return (
         <>
@@ -84,14 +91,36 @@ const Empleado = () => {
                 <Container maxWidth="lg" sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
                     <Grid container>
                         <Grid item xs={12}>
-                            <DataTable
-                                data={tbody}
-                            >
+                            <Box sx={{ height: 400, width: '100%' }}>
+                                <DataGrid
+                                    sx={{
+                                        backgroundColor: "#fff",
+                                        // disable cell selection style
+                                        '.MuiDataGrid-cell:focus': {
+                                            outline: 'none'
+                                        },
+                                        // pointer cursor on ALL rows
+                                        '& .MuiDataGrid-row:hover': {
+                                            cursor: 'pointer'
+                                        }
 
-                            </DataTable>
-                            <Stack sx={{ marginTop: "1.5rem", display: "grid", placeItems: "center" }}>
-                                <Pagination defaultPage={0} onChange={handleChange} count={totalPages} shape="rounded" />
-                            </Stack>
+                                    }}
+                                    rows={employee}
+                                    getRowId={(row) => row.id}
+                                    columns={columns}
+                                    loading={loading}
+
+                                    initialState={{
+                                        pagination: {
+                                            paginationModel: {
+                                                pageSize: pageSizes,
+                                            },
+                                        },
+                                    }}
+                                    pageSizeOptions={[5, 10, 25]}
+                                    onPaginationModelChange={(newPage) => setpageSizes(newPage)}
+                                />
+                            </Box>
                         </Grid>
                     </Grid>
 
