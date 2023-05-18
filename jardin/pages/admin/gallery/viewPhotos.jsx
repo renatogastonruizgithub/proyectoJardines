@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import { React, Suspense } from 'react'
 import LayoutDashboard from '../../../layouts/adminPages/layoutDashboard'
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
@@ -13,7 +13,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import axios from "axios";
-import { galleryContext } from "../../../context/contexGallery"
+import { galleryContext, useGallery } from "../../../context/contexGallery"
 import { alertConfirmation, alertDeleted, alertError, alertLoading } from "../../../components/alert";
 import Lightbox from '../../../components/lightbox';
 import { useEffect, useState } from "react";
@@ -23,44 +23,26 @@ import SendIcon from '@mui/icons-material/Send';
 import LoadingAdmin from '../../../layouts/adminPages/componentesAdmin/loadingAdmin';
 import Image from "next/image"
 import instance from '../../../config/axios/instance';
+import HeaderSections from '../../../layouts/adminPages/componentesAdmin/headerSections';
+import { UploadFileProvider } from '../../../context/contextUploadFile';
+import FormGallery from '../../../layouts/adminPages/componentesAdmin/formGallery';
+import Loading from '../../../components/loading';
+
 const ViewPhotos = () => {
 
-    const [loading, setLoading] = useState(true);
-    const [loadingButton, setLoadingButton] = useState(false);
-    const [IsVisiblePagination, setIsVisiblePagination] = useState(false);
-    const [data, setdata] = useState([]);
-    const [CurrentPage, setCurrentPage] = useState(0);
-    const [totalPages, setTotalPages] = useState();
+    const { CurrentPage, image, loading, deleted,
+        IsVisiblePagination, handleChanges, totalPages, getGallery } = useGallery()
+
     const [open, setOpen] = useState(false)
     const [src, setSrc] = useState()
     const [description, setDescription] = useState()
 
 
     useEffect(() => {
-        getGalleri()
+        getGallery()
 
     }, [CurrentPage])
 
-    const getGalleri = () => {
-        instance.get(`gallery/page?page=${CurrentPage}`).then((res) => {
-
-            setLoading(false)
-            setdata(res.data.content)
-            setTotalPages(res.data.totalPages)
-
-            if (res.data.content === 0) {
-                setIsVisiblePagination(true)
-            }
-
-        }).catch((error) => {
-            console.log(error)
-        });
-    }
-
-    const handleChanges = (e, value) => {
-        setCurrentPage(value - 1);
-        setLoading(true)
-    };
 
 
     const swowImage = (src, data) => {
@@ -72,52 +54,54 @@ const ViewPhotos = () => {
         setOpen(false)
     }
 
-    const handleDeleted = async (id) => {
-        await axios.delete(`https://proyecto-jardin.fly.dev/gallery/${id}`)
-            .then((res) => {
-                alertConfirmation("Borrado con exito")
-                getGalleri()
-            }).catch((error) => {
-                console.log(error)
-                alertError("UPS", "error inesperado!")
-            })
-    }
 
     const galleryComponent = (
         <Container maxWidth="lg">
-            <Grid container spacing={3}>
-                {
 
-                    data.map((itemdata, indexG) => (
-                        <Grid key={indexG} item xs={12} sm={6} lg={3} md={3}>
-                            <Card sx={{ maxWidth: { xs: "100%" } }}>
-                                <CardContent sx={{ position: "relative", height: "140px" }}>
-                                    <Image style={{ objectFit: "cover" }} alt="asd" src={itemdata.imageUrl} fill sizes="100vw" />
-                                </CardContent>
-                                <CardContent>
-                                    <Typography variant="h6" >
-                                        Descripcion
-                                    </Typography>
-                                    <Typography variant="body2" color="text.secondary">
-                                        {itemdata.description}
-                                    </Typography>
-                                    <Divider></Divider>
-                                    <Typography variant="h6" >
-                                        alternativo (alt)
-                                    </Typography>
-                                    <Typography gutterBottom variant="body2" color="text.secondary" >
-                                        {itemdata.alternative}
-                                    </Typography>
-                                </CardContent>
-                                <CardActions>
-                                    <Button onClick={() => swowImage(itemdata.imageUrl, itemdata.description)} variant='contained' size="small">Ver</Button>
-                                    <Button onClick={() => alertDeleted(handleDeleted, itemdata.id)} variant='text' size="small">Eliminar</Button>
-                                </CardActions>
-                            </Card>
-                        </Grid>
-                    ))
+            {/* <Grid container spacing={3}>
+                {
+                    image.map((itemdata) => {
+                        return (
+                            <  >
+                                {
+                                    itemdata.content.map((item, i) => {
+                                        return (
+                                            <Grid key={item.id} item xs={12} sm={6} lg={3} md={3}>
+                                                <Card key={item.id} sx={{ maxWidth: { xs: "100%" } }}>
+                                                    <CardContent sx={{ position: "relative", height: "140px" }}>
+                                                        <Image style={{ objectFit: "cover" }} alt="asd" src={item.imageUrl} fill sizes="100vw" />
+                                                    </CardContent>
+                                                    <CardContent>
+                                                        <Typography variant="h6" >
+                                                            Descripcion
+                                                        </Typography>
+                                                        <Typography variant="body2" color="text.secondary">
+                                                            {item.description}
+                                                        </Typography>
+                                                        <Divider></Divider>
+                                                        <Typography variant="h6" >
+                                                            alternativo (alt)
+                                                        </Typography>
+                                                        <Typography gutterBottom variant="body2" color="text.secondary" >
+                                                            {item.alternative}
+                                                        </Typography>
+                                                    </CardContent>
+                                                    <CardActions>
+                                                        <Button onClick={() => swowImage(item.imageUrl, item.description)} variant='contained' size="small">Ver</Button>
+                                                        <Button onClick={() => deleted(item.id)} variant='text' size="small">Eliminar</Button>
+                                                    </CardActions>
+                                                </Card>
+                                            </Grid>
+                                        )
+
+                                    })
+                                }
+                            </>
+                        )
+
+                    })
                 }
-            </Grid>
+            </Grid> */}
         </Container>
 
     )
@@ -125,16 +109,72 @@ const ViewPhotos = () => {
 
     return (
         <>
+
             <section className='contentViewPhotos' >
 
-                {
+                <HeaderSections
+                    title={"Gestion de proyectos"}
+                    textButton="Agregar"
+                    button={true}
+                    form={
+                        <UploadFileProvider>
+                            <FormGallery title="Seleccionar una imagen"></FormGallery>
+                        </UploadFileProvider>
+                    }
+                >
+                </HeaderSections>
+
+                <Container sx={{ marginTop: "3rem" }} maxWidth="lg" >
+                    <Grid container spacing={3}>
+
+                        {
+                            image.map((items, i) => {
+                                return (
+                                    <>
+                                        <Grid item xs={12} sm={6} lg={3} md={3}>
+                                            <Card key={items.id} sx={{ maxWidth: { xs: "100%" } }}>
+                                                <CardContent sx={{ position: "relative", height: "140px" }}>
+                                                    <Image style={{ objectFit: "cover" }} alt="asd" src={items.imageUrl} fill sizes="100vw" />
+                                                </CardContent>
+                                                <CardContent>
+                                                    <Typography variant="h6" >
+                                                        Descripcion
+                                                    </Typography>
+                                                    <Typography variant="body2" color="text.secondary">
+                                                        {items.description}
+                                                    </Typography>
+                                                    <Divider></Divider>
+                                                    <Typography variant="h6" >
+                                                        alternativo (alt)
+                                                    </Typography>
+                                                    <Typography gutterBottom variant="body2" color="text.secondary" >
+                                                        {items.alternative}
+                                                    </Typography>
+                                                </CardContent>
+                                                <CardActions>
+                                                    <Button onClick={() => swowImage(items.imageUrl, items.description)} variant='contained' size="small">Ver</Button>
+                                                    <Button onClick={() => deleted(items.id)} variant='text' size="small">Eliminar</Button>
+                                                </CardActions>
+                                            </Card>
+                                        </Grid>
+
+                                    </>
+                                )
+                            })
+                        }
+                    </Grid>
+                </Container>
+
+
+
+                {/*      {
                     loading ?
 
                         <LoadingAdmin title={"cargando imagenes"}></LoadingAdmin>
                         :
                         (
 
-                            data.length === 0 ?
+                            image.length === 0 ?
                                 (<h1> No hay imagenes para mostrar</h1>
 
                                 )
@@ -145,7 +185,7 @@ const ViewPhotos = () => {
                                 )
 
                         )
-                }
+                } */}
 
                 <Lightbox
                     open={open}
@@ -158,6 +198,7 @@ const ViewPhotos = () => {
                     <Pagination disabled={IsVisiblePagination} onChange={handleChanges} count={totalPages} shape="rounded" />
                 </Stack>
             </section>
+
         </>
     )
 }
