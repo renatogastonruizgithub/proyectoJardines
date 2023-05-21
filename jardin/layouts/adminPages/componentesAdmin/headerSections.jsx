@@ -54,7 +54,7 @@ const HeaderSections = ({ title, form, textButton, button }) => {
                 onClose={handleClose}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
-                sx={{ zIndex: 2050 }}
+                sx={{ zIndex: 2050, backgroundColor: "transparent" }}
             >
 
                 <Box sx={{ padding: "1rem" }}>
