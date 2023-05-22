@@ -1,23 +1,20 @@
-import { React, useEffect } from 'react'
+import { Avatar } from '@mui/material'
+import React, { useEffect } from 'react'
+import { useMobile } from '../../../context/contextMenuMobile'
 import { UploadFileProvider } from '../../../context/contextUploadFile'
-import FormProject from '../../../layouts/adminPages/componentesAdmin/formProject'
+import FormPublication from '../../../layouts/adminPages/componentesAdmin/FormPublication'
 import HeaderSections from '../../../layouts/adminPages/componentesAdmin/headerSections'
 import LayoutDashboard from '../../../layouts/adminPages/layoutDashboard'
-import { useProject } from '../../../context/contextProject'
-import { Avatar } from '@mui/material';
-import DataTable from '../../../layouts/adminPages/componentesAdmin/dataTable'
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/router'
+import DataTable from '../../../layouts/adminPages/componentesAdmin/dataTable'
 
+const Prueba = () => {
+    const { getAll, publish, deleted, loading } = useMobile()
 
-
-const Proyecto = () => {
-    const { loading, project, getAll, deleted } = useProject()
     const router = useRouter()
-
-
-
     const columns = [
         {
             field: 'id',
@@ -27,18 +24,24 @@ const Proyecto = () => {
         {
             field: 'imageUrl',
             headerName: 'Imagen',
-            width: 150,
+            width: 100,
             renderCell: (params => <Avatar alt="avatar" src={params.row.imageUrl} />),
         },
         {
-            field: 'name',
-            headerName: 'Nombre',
+            field: 'title',
+            headerName: 'Titulo',
             width: 110,
         },
         {
             field: 'biography',
-            headerName: 'Biografia',
-            width: 300,
+            headerName: 'Contenido',
+            width: 400,
+        },
+        {
+            field: 'relevant',
+            headerName: 'Publicacion destacada',
+            width: 160,
+            renderCell: (params => params.row.relevant ? <><FavoriteIcon sx={{ height: 20, width: 20, color: "#1565c0" }} /> <p style={{ marginLeft: "10px" }}>Destacada</p> </> : null),
         },
 
         {
@@ -54,44 +57,53 @@ const Proyecto = () => {
             renderCell: (params => <DeleteIcon sx={{ color: "#FF5F49" }} onClick={() => deleted(params.row.id)} />),
         },
     ]
+
     useEffect(() => {
         getAll()
 
     }, [])
 
     const handleEdit = (id) => {
-        router.push("/admin/proyectos/" + id)
+        router.push("/admin/publicaciones/" + id)
     }
 
     return (
-        <section className='contentDashboard'>
+        <div style={{ paddingBottom: "2rem" }}>
+
             <HeaderSections
-                title={"Gestion de proyectos"}
+                title={"Gestion de publicaciones"}
                 textButton="Agregar"
                 button={true}
                 form={
                     <UploadFileProvider>
-                        <FormProject title="Seleccionar una imagen"></FormProject>
+                        <FormPublication titleUpload="Seleccionar imagene de la publicacion" ></FormPublication>
                     </UploadFileProvider>
                 }
             >
             </HeaderSections>
 
             <DataTable
-                columns={columns}
-                data={project}
+                data={publish}
                 loading={loading}
-            ></DataTable>
+                columns={columns}
+            >
+            </DataTable>
 
-        </section>
+
+        </div>
     )
 }
 
-export default Proyecto
-Proyecto.getLayout = function getLayout(page) {
+export default Prueba
+
+Prueba.getLayout = function getLayout(page) {
     return (
+
         <LayoutDashboard>
+
             {page}
+
         </LayoutDashboard>
+
     )
 }

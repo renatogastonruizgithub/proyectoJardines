@@ -113,7 +113,7 @@ const ViewPhotos = () => {
             <section className='contentViewPhotos' >
 
                 <HeaderSections
-                    title={"Gestion de proyectos"}
+                    title={"Gestion de imagenes"}
                     textButton="Agregar"
                     button={true}
                     form={

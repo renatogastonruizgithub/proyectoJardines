@@ -1,33 +1,48 @@
 import React from 'react'
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import { DataGrid } from '@mui/x-data-grid';
+import { Container, Grid, Box } from '@mui/material';
 
-const DataTable = ({ data }) => {
+const DataTable = ({ data, loading, columns }) => {
+    const [pageSizes, setpageSizes] = React.useState(5)
+
     return (
         <>
-            <TableContainer component={Paper} sx={{ height: 500, overflowY: "scroll" }}>
-                <Table stickyHeader aria-label="sticky table" sx={{ minWidth: 700 }} >
-                    <TableHead>
-                        <TableRow>
-                            <TableCell >Avatar</TableCell >
-                            <TableCell align="right">Nombre</TableCell >
-                            <TableCell align="right">Apellido</TableCell >
-                            <TableCell align="right">Titulo</TableCell >
-                            <TableCell align="right">Biografia</TableCell >
-                            <TableCell align="right">Editar</TableCell >
-                            <TableCell align="right">Eliminar</TableCell >
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {data}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+            <Container maxWidth="lg" sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
+                <Grid container>
+                    <Grid item xs={12}>
+                        <Box sx={{ height: 400, width: '100%' }}>
+                            <DataGrid
+                                sx={{
+                                    backgroundColor: "#fff",
+                                    // disable cell selection style
+                                    '.MuiDataGrid-cell:focus': {
+                                        outline: 'none'
+                                    },
+                                    // pointer cursor on ALL rows
+                                    '& .MuiDataGrid-row:hover': {
+                                        cursor: 'pointer'
+                                    }
+
+                                }}
+                                rows={data}
+                                getRowId={(row) => row.id}
+                                loading={loading}
+                                columns={columns}
+                                initialState={{
+                                    pagination: {
+                                        paginationModel: {
+                                            pageSize: pageSizes,
+                                        },
+                                    },
+                                }}
+                                pageSizeOptions={[5, 10, 25]}
+                                onPaginationModelChange={(newPage) => setpageSizes(newPage)}
+                            />
+                        </Box>
+                    </Grid>
+
+                </Grid>
+            </Container>
         </>
     )
 }

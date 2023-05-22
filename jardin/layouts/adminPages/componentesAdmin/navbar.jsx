@@ -90,7 +90,7 @@ const NavbarAdmin = () => {
                                 <Link href="/admin/dashboard" >
                                     <Typography sx={{ display: "grid", placeItems: "center", color: "#000" }}> <HomeIcon />Home</Typography>
                                 </Link>
-                                <Link href="/admin/publicaciones/publicacion">
+                                <Link href="/admin/publicaciones/view">
                                     <Typography sx={{ display: "grid", placeItems: "center", color: "#000" }} ><PublishIcon />Publicacion</Typography>
                                 </Link>
                                 <Link href="/admin/empleados/view" >

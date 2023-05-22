@@ -22,6 +22,7 @@ const editEmployee = () => {
         }
 
     }, [employee])
+
     return (
         <>
             <section className='contentDashboard'>

@@ -1,19 +1,18 @@
 import React from 'react'
 import LayoutDashboard from "../../../layouts/adminPages/layoutDashboard"
-import { useEffect, useState } from "react";
-import TableRow from '@mui/material/TableRow';
-import { DataGrid } from '@mui/x-data-grid';
-import Image from 'next/image';
-import { Pagination, IconButton, Container, Grid, Stack, Avatar, Box } from '@mui/material';
+import { useEffect } from "react";
+
+
+import { Avatar } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useEmployeeState } from "../../../context/contextEmployee"
 import HeaderSections from '../../../layouts/adminPages/componentesAdmin/headerSections';
 import FormEmployee from '../../../layouts/adminPages/componentesAdmin/formEmployee';
-import DataTable from '../../../layouts/adminPages/componentesAdmin/dataTable';
-import TableCell from '@mui/material/TableCell';
+
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { UploadFileProvider } from '../../../context/contextUploadFile';
+import DataTable from '../../../layouts/adminPages/componentesAdmin/dataTable';
 
 const Empleado = () => {
     const { deleted, getAll, employee, loading, setpageSizes, pageSizes } = useEmployeeState()
@@ -87,44 +86,13 @@ const Empleado = () => {
                     }
                 >
                 </HeaderSections>
+                <DataTable
+                    data={employee}
+                    columns={columns}
+                    loading={loading}>
 
-                <Container maxWidth="lg" sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
-                    <Grid container>
-                        <Grid item xs={12}>
-                            <Box sx={{ height: 400, width: '100%' }}>
-                                <DataGrid
-                                    sx={{
-                                        backgroundColor: "#fff",
-                                        // disable cell selection style
-                                        '.MuiDataGrid-cell:focus': {
-                                            outline: 'none'
-                                        },
-                                        // pointer cursor on ALL rows
-                                        '& .MuiDataGrid-row:hover': {
-                                            cursor: 'pointer'
-                                        }
+                </DataTable>
 
-                                    }}
-                                    rows={employee}
-                                    getRowId={(row) => row.id}
-                                    columns={columns}
-                                    loading={loading}
-
-                                    initialState={{
-                                        pagination: {
-                                            paginationModel: {
-                                                pageSize: pageSizes,
-                                            },
-                                        },
-                                    }}
-                                    pageSizeOptions={[5, 10, 25]}
-                                    onPaginationModelChange={(newPage) => setpageSizes(newPage)}
-                                />
-                            </Box>
-                        </Grid>
-                    </Grid>
-
-                </Container>
 
             </section>
         </>

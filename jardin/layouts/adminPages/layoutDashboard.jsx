@@ -6,7 +6,9 @@ import { ProjectProvider } from '../../context/contextProject'
 import { ProviderComponentGallery } from '../../context/contexGallery'
 import Navbar from './componentesAdmin/navbar'
 import Sidebar from './componentesAdmin/Sidebar'
-import Loading from '../../components/loading'
+
+import { PublicationProvider } from '../../context/contextPublication'
+
 
 const LayoutDashboard = ({ children }) => {
     return (
@@ -19,16 +21,19 @@ const LayoutDashboard = ({ children }) => {
                         {/*  <section className='sideBar'>
                             <Sidebar></Sidebar>
                         </section> */}
+
                         <ProviderComponentGallery>
                             <EmployeeProvider>
                                 <CompanyProvider>
                                     <ProjectProvider>
+
                                         {children}
 
                                     </ProjectProvider>
                                 </CompanyProvider>
                             </EmployeeProvider>
                         </ProviderComponentGallery>
+
                     </section>
 
                 </main>
