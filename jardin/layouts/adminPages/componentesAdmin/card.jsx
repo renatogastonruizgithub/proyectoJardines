@@ -8,17 +8,17 @@ import Typography from '@mui/material/Typography';
 import { Box, IconButton, Stack } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Link from 'next/link';
+import Image from 'next/image';
 
 
-const Mycard = ({ image, title, body, actions, body2, href }) => {
+const Mycard = ({ urlIamge, title, body, body2, href, bodyActions }) => {
     return (
         <>
             <Card sx={{ maxWidth: 400 }} >
-                {image &&
-                    <CardMedia
-                        sx={{ height: 140 }}
-                        image={image}
-                    />
+                {urlIamge &&
+                    <CardContent sx={{ position: "relative", height: "140px" }}>
+                        <Image style={{ objectFit: "cover" }} alt="asd" src={urlIamge} fill sizes="100vw" />
+                    </CardContent>
                 }
 
                 <CardContent>
@@ -26,11 +26,15 @@ const Mycard = ({ image, title, body, actions, body2, href }) => {
                         <Typography sx={{ marginBottom: "0" }} gutterBottom variant="h5" component="div">
                             {title}
                         </Typography>
-                        <Link href={href} >
-                            <IconButton>
-                                <ArrowForwardIcon />
-                            </IconButton>
-                        </Link>
+                        {
+                            href &&
+                            <Link href={href} >
+                                <IconButton>
+                                    <ArrowForwardIcon />
+                                </IconButton>
+                            </Link>
+                        }
+
                     </Stack>
 
 
@@ -41,14 +45,12 @@ const Mycard = ({ image, title, body, actions, body2, href }) => {
                         {body2}
                     </Box>
                 </CardContent>
-                {
-                    actions &&
-                    <CardActions>
-                        <Button size="small">Share</Button>
-                        <Button size="small">Learn More</Button>
-                    </CardActions>
-                }
 
+                <CardActions>
+                    {
+                        bodyActions
+                    }
+                </CardActions>
             </Card>
         </>
     )

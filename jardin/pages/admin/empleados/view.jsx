@@ -79,6 +79,7 @@ const Empleado = () => {
                     title={"Gestion de empleados"}
                     textButton="Agregar"
                     button={true}
+                    maxWidth="md"
                     form={
                         <UploadFileProvider>
                             <FormEmployee titleUpload='Selecciona una imagen'></FormEmployee>

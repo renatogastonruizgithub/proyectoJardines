@@ -49,7 +49,7 @@ export const ProviderComponentGallery = ({ children }) => {
             .then((res) => {
                 setImage([...image], res.data.content)
                 setLoading(false)
-                alertConfirmation("Proyecto añadido correctamente")
+                alertConfirmation("Imagen añadido correctamente")
                 getGallery()
             })
             .catch((error) => {
