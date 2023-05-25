@@ -20,13 +20,25 @@ export const ProjectProvider = ({ children }) => {
             biography: "",
             imageUrl: ""
         })
+    const [TotalProject, setTotalProject] = useState()
 
-
+    const getTotalProject = () => {
+        setLoading(true)
+        instance.get(`project/all`)
+            .then((res) => {
+                setTotalProject(res.data.length)
+                setProject(res.data)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
     const getAll = () => {
         setLoading(true)
         instance.get(`project/all`)
             .then((res) => {
                 setProject(res.data)
+
                 setLoading(false)
             })
             .catch((error) => {
@@ -123,7 +135,7 @@ export const ProjectProvider = ({ children }) => {
 
     }
     return <projects.Provider value={{
-        loading, project, getOne, edit,
+        loading, project, getOne, edit, TotalProject, getTotalProject,
         enableButton, valuesForm, add, getAll, deleted
     }}>{children}</projects.Provider>;
 };

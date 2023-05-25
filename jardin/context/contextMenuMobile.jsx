@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 import instance from "../config/axios/instance";
 import { alertConfirmation, alertDeleted, alertError } from "../components/alert"
@@ -24,12 +24,30 @@ export const MenuMobileProvider = ({ children }) => {
             imageUrl: ""
         })
 
+    const [totalPublications, setTotalPublications] = useState()
+
+    const [totalRelevant, setTotalRelevant] = useState()
+
+
+    /* const getTotalPublications = () => {
+        setTotalPublications(publish.length)
+    }
+    const getTotalRelevant = () => {
+        setTotalRelevant(publish.filter(relevant => relevant.relevant == true).length)
+
+    }
+ */
+
+
+
 
     const getAll = () => {
         setLoading(true)
         instance.get(`publication/all`)
             .then((res) => {
                 setPublish(res.data)
+                setTotalPublications(res.data.length)
+                setTotalRelevant(res.data.filter(relevant => relevant.relevant == true).length)
                 console.log(res.data)
                 setLoading(false)
             })
@@ -122,6 +140,6 @@ export const MenuMobileProvider = ({ children }) => {
 
     }
 
-    return <menuMobile.Provider value={{ valuesForm, edit, deleted, getOne, loading, add, mobileOpen, setMobileOpen, getAll, publish }}>{children}</menuMobile.Provider>;
+    return <menuMobile.Provider value={{ totalRelevant, totalPublications, valuesForm, edit, deleted, getOne, loading, add, mobileOpen, setMobileOpen, getAll, publish }}>{children}</menuMobile.Provider>;
 };
 

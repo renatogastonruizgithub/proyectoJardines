@@ -20,13 +20,27 @@ export const EmployeeProvider = ({ children }) => {
             biography: "",
             img: ""
         })
+    const [TotalEmployee, setTotalEmployee] = useState()
 
+    const getTotal = () => {
+        setLoading(true)
+        instance.get(`employee/all`)
+            .then((res) => {
+                setTotalEmployee(res.data.length)
+                setEmployee(res.data)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
 
     const getAll = () => {
         setLoading(true)
         instance.get(`employee/all`)
             .then((res) => {
                 setEmployee(res.data)
+                setTotalEmployee(res.data.length)
+
                 setLoading(false)
             })
             .catch((error) => {
@@ -141,9 +155,9 @@ export const EmployeeProvider = ({ children }) => {
       const filteredEmployee = employee.slice(first, last) */
 
     return <employeeState.Provider value={{
-        loading, pageSizes,
+        loading, pageSizes, TotalEmployee,
         valuesForm, employee, deleted, setpageSizes,
-        getAll, getOne, add, edit
+        getAll, getOne, add, edit, getTotal
     }}>
         {children}</employeeState.Provider>;
 };
