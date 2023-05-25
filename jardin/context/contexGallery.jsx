@@ -16,6 +16,8 @@ export const ProviderComponentGallery = ({ children }) => {
     const [IsVisiblePagination, setIsVisiblePagination] = useState(false);
     const [totalPages, setTotalPages] = useState();
     const [CurrentPage, setCurrentPage] = useState(0);
+    const [TotalGallery, setTotalGallery] = useState()
+
 
     const getGallery = () => {
 
@@ -24,7 +26,7 @@ export const ProviderComponentGallery = ({ children }) => {
             /*  setLoading(false) */
             setImage(res.data.content)
             setTotalPages(res.data.totalPages)
-
+            setTotalGallery(res.data.totalElements)
             if (res.data.content === 0) {
                 setIsVisiblePagination(true)
             }
@@ -94,6 +96,6 @@ export const ProviderComponentGallery = ({ children }) => {
     }
 
 
-    return <galleryContext.Provider value={{ CurrentPage, IsVisiblePagination, image, totalPages, handleChanges, loading, deleted, add, getGallery }}>{children}</galleryContext.Provider>;
+    return <galleryContext.Provider value={{ TotalGallery, CurrentPage, IsVisiblePagination, image, totalPages, handleChanges, loading, deleted, add, getGallery }}>{children}</galleryContext.Provider>;
 };
 

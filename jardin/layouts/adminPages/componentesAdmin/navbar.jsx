@@ -91,10 +91,10 @@ const NavbarAdmin = () => {
                                     <Typography sx={{ display: "grid", placeItems: "center", color: "#000" }}> <HomeIcon />Home</Typography>
                                 </Link>
                                 <Link href="/admin/publicaciones/view">
-                                    <Typography sx={{ display: "grid", placeItems: "center", color: "#000" }} ><PublishIcon />Publicacion</Typography>
+                                    <Typography sx={{ display: "grid", placeItems: "center", color: "#000" }} ><PublishIcon />Publicaciones</Typography>
                                 </Link>
                                 <Link href="/admin/empleados/view" >
-                                    <Typography sx={{ display: "grid", placeItems: "center", color: "#000" }}> <PeopleAltIcon />Empleado</Typography>
+                                    <Typography sx={{ display: "grid", placeItems: "center", color: "#000" }}> <PeopleAltIcon />Empleados</Typography>
                                 </Link>
                                 <Link href="/admin/empresa/empresa">
                                     <Typography sx={{ display: "grid", placeItems: "center", color: "#000" }}><BusinessIcon />Empresa</Typography>
