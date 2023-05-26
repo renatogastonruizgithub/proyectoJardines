@@ -78,6 +78,7 @@ const ViewPhotos = () => {
                                                     urlIamge={itemsIma.imageUrl}
                                                     title={itemsIma.description}
                                                     body={itemsIma.description}
+                                                    objectFit="cover"
                                                     bodyActions={<>
                                                         <IconButton onClick={() => swowImage(itemsIma.imageUrl, itemsIma.description)}>
                                                             <VisibilityIcon />

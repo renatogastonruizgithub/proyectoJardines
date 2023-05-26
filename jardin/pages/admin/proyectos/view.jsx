@@ -76,12 +76,13 @@ const Proyecto = () => {
                 }
             >
             </HeaderSections>
-
             <DataTable
                 columns={columns}
                 data={project}
                 loading={loading}
             ></DataTable>
+
+
 
         </section>
     )
