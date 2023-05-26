@@ -24,6 +24,7 @@ const Details = () => {
             <HeaderSections
                 title={"Cambiar los datos de la empresa"}
                 textButton="editar"
+                maxWidth="lg"
                 button={true}
                 form={
                     <UploadFileProvider>

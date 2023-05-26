@@ -40,53 +40,44 @@ const FormGallery = ({ titleUpload, description = "", alternative = "" }) => {
 
     return (
         <>
-            <Container maxWidth="lg" >
+            <Formik >
+                <Form onSubmit={formik.handleSubmit}>
+                    <Stack spacing={3}>
+                        <UploadFile title={titleUpload}></UploadFile>
+                        <TextField
+                            size="small"
+                            name='data_gallery.description'
+                            label="Descripcion de la foto"
+                            variant="filled"
+                            fullWidth={true}
+                            value={formik.values.data_gallery.description}
+                            onChange={formik.handleChange}
+                        />
+                        <TextField
+                            size="small"
+                            name='data_gallery.alternative'
+                            label="texto alternativo (alt)"
+                            variant="filled"
+                            fullWidth={true}
+                            value={formik.values.data_gallery.alternative}
+                            onChange={formik.handleChange}
+                        />
 
-                <Grid container sx={{ display: "grid", placeItems: "center" }} >
-                    <Grid item xs={12} lg={12} >
-                        <Paper elevation={5} sx={{ padding: "2rem", borderRadius: "15px" }}>
-                            <Formik >
-                                <Form onSubmit={formik.handleSubmit}>
-                                    <Stack spacing={3}>
-                                        <UploadFile title={titleUpload}></UploadFile>
-                                        <TextField
-                                            size="small"
-                                            name='data_gallery.description'
-                                            label="Descripcion de la foto"
-                                            variant="filled"
-                                            fullWidth={true}
-                                            value={formik.values.data_gallery.description}
-                                            onChange={formik.handleChange}
-                                        />
-                                        <TextField
-                                            size="small"
-                                            name='data_gallery.alternative'
-                                            label="texto alternativo (alt)"
-                                            variant="filled"
-                                            fullWidth={true}
-                                            value={formik.values.data_gallery.alternative}
-                                            onChange={formik.handleChange}
-                                        />
-
-                                    </Stack>
-                                    <Stack>
-                                        <LoadingButton
-                                            sx={{ marginTop: "2rem" }}
-                                            type="submit"
-                                            endIcon={<SendIcon />}
-                                            loading={loading}
-                                            loadingPosition="end"
-                                            variant="contained"
-                                        >
-                                            <span>subir</span>
-                                        </LoadingButton>
-                                    </Stack>
-                                </Form>
-                            </Formik>
-                        </Paper>
-                    </Grid>
-                </Grid>
-            </Container>
+                    </Stack>
+                    <Stack>
+                        <LoadingButton
+                            sx={{ marginTop: "2rem" }}
+                            type="submit"
+                            endIcon={<SendIcon />}
+                            loading={loading}
+                            loadingPosition="end"
+                            variant="contained"
+                        >
+                            <span>subir</span>
+                        </LoadingButton>
+                    </Stack>
+                </Form>
+            </Formik>
         </>
     )
 }

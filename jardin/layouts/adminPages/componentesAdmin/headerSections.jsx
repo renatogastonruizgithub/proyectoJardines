@@ -1,10 +1,10 @@
 import React from 'react'
-import { Box, Button, Container, Grid, Paper, Typography } from '@mui/material';
+import { Box, Button, Container, Grid, IconButton, Paper, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import Modal from '@mui/material/Dialog';
+import CloseIcon from '@mui/icons-material/Close';
 
-
-const HeaderSections = ({ title, form, textButton, button }) => {
+const HeaderSections = ({ title, form, textButton, button, maxWidth }) => {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -48,7 +48,7 @@ const HeaderSections = ({ title, form, textButton, button }) => {
             </Container>
 
             <Modal
-                maxWidth="md"
+                maxWidth={maxWidth}
                 fullWidth={true}
                 open={open}
                 onClose={handleClose}
@@ -57,13 +57,22 @@ const HeaderSections = ({ title, form, textButton, button }) => {
                 sx={{ zIndex: 2050, backgroundColor: "transparent" }}
             >
 
-                <Box sx={{ padding: "1rem" }}>
+                <Box sx={{ padding: "3rem", position: "relative" }}>
                     {form}
-                </Box>
-                <Box sx={{ display: "flex", justifyContent: "center" }}>
-                    <Button onClick={handleClose}>Cerrar</Button>
+                    <Box sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        position: "absolute",
+                        right: ".5rem",
+                        top: ".5rem"
+                    }}>
 
+                        <IconButton onClick={handleClose}>
+                            <CloseIcon />
+                        </IconButton>
+                    </Box>
                 </Box>
+
             </Modal>
 
         </>
