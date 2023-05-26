@@ -10,6 +10,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { useRouter } from 'next/router'
 import DataTable from '../../../layouts/adminPages/componentesAdmin/dataTable'
+import DataVerify from '../../../layouts/adminPages/componentesAdmin/dataVerify'
 
 const Prueba = () => {
     const { getAll, publish, deleted, loading } = useMobile()
@@ -82,13 +83,20 @@ const Prueba = () => {
             >
             </HeaderSections>
 
-            <DataTable
-                data={publish}
+            <DataVerify
                 loading={loading}
-                columns={columns}
-            >
-            </DataTable>
-
+                textLoading="Cargando publicaciones"
+                data={publish}
+                textNotData="publicaciones"
+                children={
+                    <DataTable
+                        data={publish}
+                        loading={loading}
+                        columns={columns}
+                    >
+                    </DataTable>
+                }
+            />
 
         </div>
     )

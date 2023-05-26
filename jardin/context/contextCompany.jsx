@@ -32,17 +32,22 @@ export const CompanyProvider = ({ children }) => {
 
 
     const get = () => {
+        setLoading(true)
         instance.get(`company/` + 1)
             .then((res) => {
 
 
-                if (res.data.lenght == 0) {
-                    setEnableButton(true)
-                } else {
-                    setEnableButton(false)
-                    setCompany([res.data])
-                }
-                setEnableButton()
+                /*   if (res.data.lenght == 0) {
+                      setEnableButton(true)
+  
+                  } else {
+                      setEnableButton(false)
+                      setCompany([res.data])
+  
+                  }
+                  setEnableButton() */
+                setCompany([res.data])
+                setLoading(false)
                 setvaluesForm({
                     name: res.data.name,
                     location: res.data.location,
@@ -58,9 +63,10 @@ export const CompanyProvider = ({ children }) => {
                     mission: res.data.mission,
                     vision: res.data.vision
                 })
+
             })
             .catch((error) => {
-                setEnableButton(true)
+                setLoading(false)
             })
     }
 

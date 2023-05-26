@@ -18,6 +18,7 @@ import Loading from '../../../components/loading';
 import Mycard from '../../../layouts/adminPages/componentesAdmin/card';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import DeleteIcon from '@mui/icons-material/Delete';
+import DataVerify from '../../../layouts/adminPages/componentesAdmin/dataVerify';
 
 const ViewPhotos = () => {
 
@@ -65,63 +66,56 @@ const ViewPhotos = () => {
                 >
                 </HeaderSections>
 
-                <Container sx={{ marginTop: "3rem" }} maxWidth="lg" >
-                    <Grid container spacing={3}>
-
-                        {
-                            image.map((itemsIma, i) => {
-                                return (
-                                    <>
-                                        <Grid item xs={12} sm={6} lg={3} md={3}>
-                                            <div key={itemsIma}>
-                                                <Mycard
-                                                    urlIamge={itemsIma.imageUrl}
-                                                    title={itemsIma.description}
-                                                    body={itemsIma.description}
-                                                    objectFit="cover"
-                                                    bodyActions={<>
-                                                        <IconButton onClick={() => swowImage(itemsIma.imageUrl, itemsIma.description)}>
-                                                            <VisibilityIcon />
-                                                        </IconButton>
-                                                        <IconButton onClick={() => deleted(itemsIma.id)}>
-                                                            <DeleteIcon />
-                                                        </IconButton>
-
-                                                    </>}
-                                                >
-
-                                                </Mycard>
-                                            </div>
-                                        </Grid>
-
-                                    </>
-                                )
-                            })
-                        }
-                    </Grid>
-                </Container>
 
 
 
-                {/*      {
-                    loading ?
+                <DataVerify
+                    loading={loading}
+                    textLoading="Cargando imagenes"
+                    data={image}
+                    textNotData="imagenes"
+                    children={
+                        <Container sx={{ marginTop: "3rem" }} maxWidth="lg" >
+                            <Grid container spacing={3}>
 
-                        <LoadingAdmin title={"cargando imagenes"}></LoadingAdmin>
-                        :
-                        (
+                                {
+                                    image.map((itemsIma, i) => {
+                                        return (
+                                            <>
+                                                <Grid item xs={12} sm={6} lg={3} md={3}>
+                                                    <div key={itemsIma}>
+                                                        <Mycard
+                                                            urlIamge={itemsIma.imageUrl}
+                                                            title={itemsIma.description}
+                                                            body={itemsIma.description}
+                                                            objectFit="cover"
+                                                            bodyActions={<>
+                                                                <IconButton onClick={() => swowImage(itemsIma.imageUrl, itemsIma.description)}>
+                                                                    <VisibilityIcon />
+                                                                </IconButton>
+                                                                <IconButton onClick={() => deleted(itemsIma.id)}>
+                                                                    <DeleteIcon />
+                                                                </IconButton>
 
-                            image.length === 0 ?
-                                (<h1> No hay imagenes para mostrar</h1>
+                                                            </>}
+                                                        >
 
-                                )
-                                :
-                                (
-                                    galleryComponent
+                                                        </Mycard>
+                                                    </div>
+                                                </Grid>
 
-                                )
+                                            </>
+                                        )
+                                    })
+                                }
+                            </Grid>
+                            < Stack sx={{ marginTop: "3rem", display: "grid", placeItems: "center" }}>
+                                <Pagination disabled={IsVisiblePagination} onChange={handleChanges} count={totalPages} shape="rounded" />
+                            </Stack>
+                        </Container>
+                    }
+                />
 
-                        )
-                } */}
 
                 <Lightbox
                     open={open}
@@ -130,9 +124,7 @@ const ViewPhotos = () => {
                     onClosed={closed}
                 >
                 </Lightbox>
-                < Stack sx={{ marginTop: "3rem", display: "grid", placeItems: "center" }}>
-                    <Pagination disabled={IsVisiblePagination} onChange={handleChanges} count={totalPages} shape="rounded" />
-                </Stack>
+
             </section>
 
         </>

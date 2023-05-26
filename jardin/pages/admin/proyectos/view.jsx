@@ -10,6 +10,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { useRouter } from 'next/router';
 
+import DataVerify from "../../../layouts/adminPages/componentesAdmin/dataVerify"
 
 
 const Proyecto = () => {
@@ -76,13 +77,21 @@ const Proyecto = () => {
                 }
             >
             </HeaderSections>
-            <DataTable
-                columns={columns}
-                data={project}
+
+
+            <DataVerify
                 loading={loading}
-            ></DataTable>
-
-
+                textLoading="Cargando proyectos"
+                data={project}
+                textNotData="proyectos"
+                children={
+                    <DataTable
+                        columns={columns}
+                        data={project}
+                        loading={loading}
+                    ></DataTable>
+                }
+            />
 
         </section>
     )

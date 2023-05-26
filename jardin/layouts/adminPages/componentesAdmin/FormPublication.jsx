@@ -19,6 +19,7 @@ const FormPublication = ({ biography = "", title = "", titleUpload, id = "", rel
 
     const changeValueEdit = (event) => {
         setChecked(event.target.checked);
+        console.log(checked)
     }
 
 

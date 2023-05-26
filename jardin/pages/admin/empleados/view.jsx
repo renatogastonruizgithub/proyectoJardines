@@ -13,6 +13,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { UploadFileProvider } from '../../../context/contextUploadFile';
 import DataTable from '../../../layouts/adminPages/componentesAdmin/dataTable';
+import DataVerify from '../../../layouts/adminPages/componentesAdmin/dataVerify';
 
 const Empleado = () => {
     const { deleted, getAll, employee, loading, setpageSizes, pageSizes } = useEmployeeState()
@@ -87,13 +88,22 @@ const Empleado = () => {
                     }
                 >
                 </HeaderSections>
-                <DataTable
+
+
+                <DataVerify
+                    loading={loading}
+                    textLoading="Cargando empleados"
                     data={employee}
-                    columns={columns}
-                    loading={loading}>
+                    textNotData="empleados"
+                    children={
+                        <DataTable
+                            data={employee}
+                            columns={columns}
+                            loading={loading}>
 
-                </DataTable>
-
+                        </DataTable>
+                    }
+                />
 
             </section>
         </>
