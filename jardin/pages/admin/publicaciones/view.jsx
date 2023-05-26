@@ -77,7 +77,7 @@ const Prueba = () => {
                 button={true}
                 form={
                     <UploadFileProvider>
-                        <FormPublication titleUpload="Seleccionar imagene de la publicacion" ></FormPublication>
+                        <FormPublication relevant={false} titleUpload="Seleccionar imagene de la publicacion" ></FormPublication>
                     </UploadFileProvider>
                 }
             >

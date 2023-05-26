@@ -29,17 +29,6 @@ export const MenuMobileProvider = ({ children }) => {
     const [totalRelevant, setTotalRelevant] = useState()
 
 
-    /* const getTotalPublications = () => {
-        setTotalPublications(publish.length)
-    }
-    const getTotalRelevant = () => {
-        setTotalRelevant(publish.filter(relevant => relevant.relevant == true).length)
-
-    }
- */
-
-
-
 
     const getAll = () => {
         setLoading(true)
@@ -48,7 +37,7 @@ export const MenuMobileProvider = ({ children }) => {
                 setPublish(res.data)
                 setTotalPublications(res.data.length)
                 setTotalRelevant(res.data.filter(relevant => relevant.relevant == true).length)
-                console.log(res.data)
+
                 setLoading(false)
             })
             .catch((error) => {
@@ -58,6 +47,7 @@ export const MenuMobileProvider = ({ children }) => {
     const add = (data) => {
         setLoading(true)
         instance.post(`publication`, data)
+        console.log(data)
             .then((res) => {
                 setPublish([...publish, res.data])
 
