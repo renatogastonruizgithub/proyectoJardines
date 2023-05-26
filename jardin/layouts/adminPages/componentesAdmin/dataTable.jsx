@@ -1,6 +1,8 @@
 import React from 'react'
 import { DataGrid } from '@mui/x-data-grid';
 import { Container, Grid, Box } from '@mui/material';
+import DataVerify from './dataVerify';
+
 
 const DataTable = ({ data, loading, columns }) => {
     const [pageSizes, setpageSizes] = React.useState(5)
@@ -40,7 +42,6 @@ const DataTable = ({ data, loading, columns }) => {
                             />
                         </Box>
                     </Grid>
-
                 </Grid>
             </Container>
         </>

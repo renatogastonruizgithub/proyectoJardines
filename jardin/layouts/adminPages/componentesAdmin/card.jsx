@@ -11,13 +11,13 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 
-const Mycard = ({ urlIamge, title, body, body2, href, bodyActions }) => {
+const Mycard = ({ urlIamge, title, body, body2, href, bodyActions, objectFit, subTittle }) => {
     return (
         <>
-            <Card sx={{ maxWidth: 400 }} >
+            <Card sx={{ Width: "100%" }} >
                 {urlIamge &&
-                    <CardContent sx={{ position: "relative", height: "140px" }}>
-                        <Image style={{ objectFit: "cover" }} alt="asd" src={urlIamge} fill sizes="100vw" />
+                    <CardContent sx={{ position: "relative", height: "140px", width: "100%" }}>
+                        <Image style={{ objectFit: objectFit }} alt="asd" src={urlIamge} fill sizes="100vw" />
                     </CardContent>
                 }
 
@@ -36,9 +36,11 @@ const Mycard = ({ urlIamge, title, body, body2, href, bodyActions }) => {
                         }
 
                     </Stack>
+                    <Typography variant="subtitle1" color="text.secondary">
+                        {subTittle}
+                    </Typography>
 
-
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography sx={{ marginTop: "1rem" }} variant="body2" color="text.secondary">
                         {body}
                     </Typography>
                     <Box>
