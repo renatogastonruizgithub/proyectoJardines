@@ -10,16 +10,17 @@ import { useMobile } from '../../../context/contextMenuMobile';
 
 
 
-const FormPublication = ({ biography = "", title = "", titleUpload, id = "", relevant }) => {
+const FormPublication = ({ biography = "", title, titleUpload, id = "", relevant }) => {
 
     const { image, resetFileInput } = useUploadFile()
     const { add, loading, edit } = useMobile()
     const [checked, setChecked] = React.useState(true);
 
-
+    const resetFormValues = () => {
+        resetFileInput()
+    }
     const changeValueEdit = (event) => {
         setChecked(event.target.checked);
-        console.log(checked)
     }
 
 
@@ -34,7 +35,7 @@ const FormPublication = ({ biography = "", title = "", titleUpload, id = "", rel
         enableReinitialize: true,
         onSubmit: (values, { resetForm }) => {
             const formData = new FormData()
-            console.log(values.data_publication)
+
 
             if (id != "") {
 
@@ -46,7 +47,7 @@ const FormPublication = ({ biography = "", title = "", titleUpload, id = "", rel
                         { type: "application/json" }))
                     edit(id, formData)
                     resetForm()
-                    /*  resetFormValues() */
+                    resetFormValues()
 
                 }
                 else {
@@ -57,7 +58,7 @@ const FormPublication = ({ biography = "", title = "", titleUpload, id = "", rel
                     edit(id, formData)
 
                     resetForm()
-                    /*   resetFormValues() */
+                    resetFormValues()
 
                 }
             }
@@ -68,7 +69,7 @@ const FormPublication = ({ biography = "", title = "", titleUpload, id = "", rel
                     { type: "application/json" }))
                 add(formData)
                 resetForm()
-                /* resetFormValues() */
+                resetFormValues()
 
             }
 
@@ -114,7 +115,8 @@ const FormPublication = ({ biography = "", title = "", titleUpload, id = "", rel
                                             <Switch
                                                 value={formik.values.data_publication.relevant}
                                                 onChange={formik.handleChange}
-                                                name="data_publication.relevant" />
+                                                name="data_publication.relevant"
+                                            />
 
 
                                         }

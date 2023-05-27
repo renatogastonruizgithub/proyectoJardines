@@ -31,14 +31,11 @@ const Dashboard = () => {
                         {
                             dataFeed.map((feed, fd) => {
                                 return (
-                                    <>
+                                    <React.Fragment key={fd}>
                                         <Grid item xs={12} sm={12} md={3} lg={3}>
-
                                             {feed.component}
-
-
                                         </Grid>
-                                    </>
+                                    </React.Fragment >
                                 )
                             }
                             )
