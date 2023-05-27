@@ -47,7 +47,7 @@ export const MenuMobileProvider = ({ children }) => {
     const add = (data) => {
         setLoading(true)
         instance.post(`publication`, data)
-        console.log(data)
+
             .then((res) => {
                 setPublish([...publish, res.data])
 

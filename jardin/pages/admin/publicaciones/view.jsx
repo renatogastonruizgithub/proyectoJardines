@@ -11,17 +11,16 @@ import EditIcon from '@mui/icons-material/Edit';
 import { useRouter } from 'next/router'
 import DataTable from '../../../layouts/adminPages/componentesAdmin/dataTable'
 import DataVerify from '../../../layouts/adminPages/componentesAdmin/dataVerify'
+import DateMoment from '../../../layouts/adminPages/componentesAdmin/DateMoment'
+
 
 const Prueba = () => {
     const { getAll, publish, deleted, loading } = useMobile()
 
+
+
     const router = useRouter()
     const columns = [
-        {
-            field: 'id',
-            headerName: 'id',
-            width: 50,
-        },
         {
             field: 'imageUrl',
             headerName: 'Imagen',
@@ -36,7 +35,7 @@ const Prueba = () => {
         {
             field: 'biography',
             headerName: 'Contenido',
-            width: 400,
+            width: 380,
         },
         {
             field: 'relevant',
@@ -44,17 +43,28 @@ const Prueba = () => {
             width: 160,
             renderCell: (params => params.row.relevant ? <><FavoriteIcon sx={{ height: 20, width: 20, color: "#1565c0" }} /> <p style={{ marginLeft: "10px" }}>Destacada</p> </> : null),
         },
-
+        {
+            field: 'date_creation',
+            headerName: 'Creado',
+            width: 100,
+            renderCell: (params => <DateMoment date={params.row.date_creation} />)
+        },
+        {
+            field: 'date_update',
+            headerName: 'Actualizado',
+            width: 150,
+            renderCell: (params => <DateMoment date={params.row.date_update} />)
+        },
         {
             field: 'edit',
             headerName: 'Editar',
-            width: 110,
+            width: 50,
             renderCell: (params => <EditIcon sx={{ color: "#1565c0" }} onClick={() => handleEdit(params.row.id)} />),
         },
         {
             field: 'delete',
             headerName: 'Eliminar',
-            width: 110,
+            width: 80,
             renderCell: (params => <DeleteIcon sx={{ color: "#FF5F49" }} onClick={() => deleted(params.row.id)} />),
         },
     ]

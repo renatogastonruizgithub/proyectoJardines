@@ -10,6 +10,7 @@ import FormPublication from '../../../layouts/adminPages/componentesAdmin/FormPu
 import { UploadFileProvider } from '../../../context/contextUploadFile'
 import LayoutEditDashboard from '../../../layouts/adminPages/layoutEditDashboard'
 import Mycard from "../../../layouts/adminPages/componentesAdmin/card"
+import DateMoment from '../../../layouts/adminPages/componentesAdmin/DateMoment'
 
 
 
@@ -45,7 +46,8 @@ const EditPublication = () => {
                         body={itemEdit.biography}
                         body2={
                             <Box sx={{ marginTop: "1rem" }}>
-                                Publicado el {" "} {itemEdit.date_creation}
+                                Publicado el {" "}
+                                <DateMoment date={itemEdit.date_creation} />
                             </Box>
                         }
                         bodyActions={
