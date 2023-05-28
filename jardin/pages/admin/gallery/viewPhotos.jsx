@@ -1,10 +1,10 @@
-import { React, Suspense } from 'react'
+import React from 'react'
 import LayoutDashboard from '../../../layouts/adminPages/layoutDashboard'
 import Grid from '@mui/material/Grid';
-import Button from '@mui/material/Button';
+
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
-import Container from '@mui/material/Container';
+import { Container, Box, Typography } from '@mui/material';
 
 import { useGallery } from "../../../context/contexGallery"
 
@@ -19,6 +19,7 @@ import Mycard from '../../../layouts/adminPages/componentesAdmin/card';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DataVerify from '../../../layouts/adminPages/componentesAdmin/dataVerify';
+import DateMoment from '../../../layouts/adminPages/componentesAdmin/DateMoment';
 
 const ViewPhotos = () => {
 
@@ -81,30 +82,36 @@ const ViewPhotos = () => {
                                 {
                                     image.map((itemsIma, i) => {
                                         return (
-                                            <>
+                                            <React.Fragment key={itemsIma.id}>
                                                 <Grid item xs={12} sm={6} lg={3} md={3}>
-                                                    <div key={itemsIma}>
-                                                        <Mycard
-                                                            urlIamge={itemsIma.imageUrl}
-                                                            title={itemsIma.description}
-                                                            body={itemsIma.description}
-                                                            objectFit="cover"
-                                                            bodyActions={<>
-                                                                <IconButton onClick={() => swowImage(itemsIma.imageUrl, itemsIma.description)}>
-                                                                    <VisibilityIcon />
-                                                                </IconButton>
-                                                                <IconButton onClick={() => deleted(itemsIma.id)}>
-                                                                    <DeleteIcon />
-                                                                </IconButton>
 
-                                                            </>}
-                                                        >
+                                                    <Mycard
+                                                        urlIamge={itemsIma.imageUrl}
+                                                        title={itemsIma.description}
+                                                        body={itemsIma.description}
+                                                        body2={
+                                                            <Typography variant='body2'>
+                                                                subido el {" "}
+                                                                {itemsIma.date_creation}
+                                                            </Typography>
+                                                        }
+                                                        objectFit="cover"
+                                                        bodyActions={<>
+                                                            <IconButton onClick={() => swowImage(itemsIma.imageUrl, itemsIma.description)}>
+                                                                <VisibilityIcon />
+                                                            </IconButton>
+                                                            <IconButton onClick={() => deleted(itemsIma.id)}>
+                                                                <DeleteIcon />
+                                                            </IconButton>
 
-                                                        </Mycard>
-                                                    </div>
+                                                        </>}
+                                                    >
+
+                                                    </Mycard>
+
                                                 </Grid>
 
-                                            </>
+                                            </ React.Fragment>
                                         )
                                     })
                                 }

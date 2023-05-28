@@ -10,7 +10,7 @@ import { useMobile } from '../../../context/contextMenuMobile';
 
 
 
-const FormPublication = ({ biography = "", title, titleUpload, id = "", relevant }) => {
+const FormPublication = ({ biography = "", title = "", titleUpload, id = "", relevant }) => {
 
     const { image, resetFileInput } = useUploadFile()
     const { add, loading, edit } = useMobile()
@@ -36,9 +36,7 @@ const FormPublication = ({ biography = "", title, titleUpload, id = "", relevant
         onSubmit: (values, { resetForm }) => {
             const formData = new FormData()
 
-
             if (id != "") {
-
 
                 //editar
                 if (!image) {
@@ -110,18 +108,18 @@ const FormPublication = ({ biography = "", title, titleUpload, id = "", relevant
                                         </Stack>
                                     </Box>
                                 )
-                                    : (<FormControlLabel
-                                        control={
-                                            <Switch
-                                                value={formik.values.data_publication.relevant}
-                                                onChange={formik.handleChange}
-                                                name="data_publication.relevant"
-                                            />
-
-
-                                        }
-                                        label="Destacar"
-                                    />)
+                                    : (
+                                        <FormControlLabel
+                                            control={
+                                                <Switch
+                                                    value={formik.values.data_publication.relevant}
+                                                    onChange={formik.handleChange}
+                                                    name="data_publication.relevant"
+                                                />
+                                            }
+                                            label="Destacar"
+                                        />
+                                    )
                             }
                         </Stack>
 

@@ -11,6 +11,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { useRouter } from 'next/router';
 
 import DataVerify from "../../../layouts/adminPages/componentesAdmin/dataVerify"
+import DateMoment from '../../../layouts/adminPages/componentesAdmin/DateMoment'
 
 
 const Proyecto = () => {
@@ -41,7 +42,18 @@ const Proyecto = () => {
             headerName: 'Biografia',
             width: 300,
         },
-
+        {
+            field: 'date_creation',
+            headerName: 'Creado',
+            width: 100,
+            renderCell: (params => <DateMoment date={params.row.date_creation} />)
+        },
+        {
+            field: 'date_update',
+            headerName: 'Actualizado',
+            width: 150,
+            renderCell: (params => <DateMoment date={params.row.date_update} />)
+        },
         {
             field: 'edit',
             headerName: 'Editar',

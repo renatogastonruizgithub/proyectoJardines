@@ -14,6 +14,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { UploadFileProvider } from '../../../context/contextUploadFile';
 import DataTable from '../../../layouts/adminPages/componentesAdmin/dataTable';
 import DataVerify from '../../../layouts/adminPages/componentesAdmin/dataVerify';
+import DateMoment from '../../../layouts/adminPages/componentesAdmin/DateMoment';
 
 const Empleado = () => {
     const { deleted, getAll, employee, loading, setpageSizes, pageSizes } = useEmployeeState()
@@ -33,7 +34,7 @@ const Empleado = () => {
         {
             field: 'imageUrl',
             headerName: 'Avatar',
-            width: 150,
+            width: 90,
             renderCell: (params => <Avatar alt="avatar" src={params.row.imageUrl} />),
         },
         {
@@ -44,29 +45,40 @@ const Empleado = () => {
         {
             field: 'last_name',
             headerName: 'Apellido',
-            width: 110,
+            width: 100,
         },
         {
             field: 'title',
             headerName: 'Titulo',
-            width: 110,
+            width: 100,
         },
         {
             field: 'biography',
             headerName: 'Biografia',
             width: 300,
         },
-
+        {
+            field: 'date_creation',
+            headerName: 'Creado',
+            width: 100,
+            renderCell: (params => <DateMoment date={params.row.date_creation} />)
+        },
+        {
+            field: 'date_update',
+            headerName: 'Actualizado',
+            width: 150,
+            renderCell: (params => <DateMoment date={params.row.date_update} />)
+        },
         {
             field: 'edit',
             headerName: 'Editar',
-            width: 110,
+            width: 60,
             renderCell: (params => <EditIcon sx={{ color: "#1565c0" }} onClick={() => handleEdit(params.row.id)} />),
         },
         {
             field: 'delete',
             headerName: 'Eliminar',
-            width: 110,
+            width: 90,
             renderCell: (params => <DeleteIcon sx={{ color: "#FF5F49" }} onClick={() => deleted(params.row.id)} />),
         },
     ]

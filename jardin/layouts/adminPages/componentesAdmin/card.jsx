@@ -46,6 +46,7 @@ const Mycard = ({ urlIamge, title, body, body2, href, bodyActions, objectFit, su
                     <Box>
                         {body2}
                     </Box>
+
                 </CardContent>
 
                 <CardActions>
