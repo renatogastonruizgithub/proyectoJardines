@@ -18,36 +18,24 @@ import HomeIcon from '@mui/icons-material/Home';
 import { useRouter } from 'next/navigation';
 import { useState } from "react";
 import { useMobile } from "../../../context/contextMenuMobile"
-
+import Link from 'next/link'
+import { Typography } from '@mui/material';
 const Sidebar = () => {
     const { mobileOpen, setMobileOpen } = useMobile();
     const [openItems, setOpenItems] = useState(false);
+    const [openItemsEmployee, setOpenItemsEmployee] = useState(false);
+
+
     const router = useRouter();
 
     const handleExpand = () => {
         setOpenItems(!openItems);
     };
+    const openAndCLose = () => {
 
-    const Home = () => {
-        router.push("/admin/dashboard")
         setMobileOpen(!mobileOpen)
     };
-    const Empresa = () => {
-        router.push("/admin/empresa/empresa")
-        setMobileOpen(!mobileOpen)
-    };
-    const Empleado = () => {
-        router.push("/admin/empleados/empleado")
-        setMobileOpen(!mobileOpen)
-    };
-    const Publicacion = () => {
-        router.push("/admin/publicaciones/publicacion")
-        setMobileOpen(!mobileOpen)
-    };
-    const Proyecto = () => {
-        router.push("/admin/proyectos/proyecto")
-        setMobileOpen(!mobileOpen)
-    };
+
     const Galeria = () => {
         router.push("/admin/gallery/addPhotos")
         setMobileOpen(!mobileOpen)
@@ -56,6 +44,7 @@ const Sidebar = () => {
         router.push("/admin/gallery/viewPhotos")
         setMobileOpen(!mobileOpen)
     };
+
     return (
         <>
 
@@ -64,36 +53,51 @@ const Sidebar = () => {
                 component="nav"
                 aria-labelledby="nested-list-subheader"
             >
-                <ListItemButton onClick={Home}>
+                <ListItemButton onClick={openAndCLose}>
                     <ListItemIcon>
                         <HomeIcon />
                     </ListItemIcon>
-                    <ListItemText primary="Home" />
+                    <Link href="/admin/dashboard" className='links'>
+                        <Typography >Home</Typography>
+                    </Link>
                 </ListItemButton>
-                <ListItemButton onClick={Empresa}>
+
+                <ListItemButton onClick={openAndCLose}>
                     <ListItemIcon>
                         <BusinessIcon />
                     </ListItemIcon>
-                    <ListItemText primary="Empresa" />
+                    <Link href="/admin/empresa/empresa" className='links'>
+                        <Typography >Empresa</Typography>
+                    </Link>
                 </ListItemButton>
-                <ListItemButton onClick={Empleado}>
+
+                <ListItemButton onClick={openAndCLose}>
                     <ListItemIcon>
                         <PeopleAltIcon />
                     </ListItemIcon>
-                    <ListItemText primary="Empleado" />
+                    <Link href="/admin/empleados/view" className='links'>
+                        <Typography >Empleado</Typography>
+                    </Link>
                 </ListItemButton>
-                <ListItemButton onClick={Publicacion}>
+
+                <ListItemButton onClick={openAndCLose}>
                     <ListItemIcon>
                         <PublishIcon />
                     </ListItemIcon>
-                    <ListItemText primary="Publicacion" />
+                    <Link href="/admin/publicaciones/publicacion" className='links'>
+                        <Typography >Publicacion</Typography>
+                    </Link>
                 </ListItemButton>
-                <ListItemButton onClick={Proyecto}>
+
+                <ListItemButton onClick={openAndCLose}>
                     <ListItemIcon>
                         <FolderIcon />
                     </ListItemIcon>
-                    <ListItemText primary="Proyecto" />
+                    <Link href="/admin/proyectos/view" className='links'>
+                        <Typography >Proyectos</Typography>
+                    </Link>
                 </ListItemButton>
+
                 <ListItemButton onClick={handleExpand}>
                     <ListItemIcon>
                         <PhotoLibraryIcon />

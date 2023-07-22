@@ -1,42 +1,43 @@
-import { createContext, useContext, useEffect, useState } from "react";
-
+import { createContext, useContext, useState } from "react";
 import { api } from "../config/axios/instance"
 import { alertConfirmation, alertDeleted, alertError } from "../components/alert"
 import Swal from 'sweetalert2';
 
-export const menuMobile = createContext();
+export const projects = createContext();
 
-export const useMobile = () => {
-    return useContext(menuMobile);
+export const useProject = () => {
+    return useContext(projects);
 };
 
-export const MenuMobileProvider = ({ children }) => {
+export const ProjectProvider = ({ children }) => {
 
-    const [mobileOpen, setMobileOpen] = useState(false);
     const [loading, setLoading] = useState();
-    const [publish, setPublish] = useState([]);
+    const [project, setProject] = useState([]);
+    const [enableButton, setEnableButton] = useState(true)
     const [valuesForm, setvaluesForm] = useState(
         {
-
-            relevant: "",
-            title: "",
+            name: "",
             biography: "",
             imageUrl: ""
         })
+    const [TotalProject, setTotalProject] = useState()
 
-    const [totalPublications, setTotalPublications] = useState()
-
-    const [totalRelevant, setTotalRelevant] = useState()
-
-
-
+    const getTotalProject = () => {
+        setLoading(true)
+        api.get(`project/all`)
+            .then((res) => {
+                setTotalProject(res.data.length)
+                setProject(res.data)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
     const getAll = () => {
         setLoading(true)
-        api.get(`publication/all`)
+        api.get(`project/all`)
             .then((res) => {
-                setPublish(res.data)
-                setTotalPublications(res.data.length)
-                setTotalRelevant(res.data.filter(relevant => relevant.relevant == true).length)
+                setProject(res.data)
 
                 setLoading(false)
             })
@@ -44,30 +45,15 @@ export const MenuMobileProvider = ({ children }) => {
                 console.log(error)
             })
     }
-    const add = (data) => {
-        setLoading(true)
-        api.post(`publication`, data)
 
-            .then((res) => {
-                setPublish([...publish, res.data])
-
-                setLoading(false)
-                alertConfirmation("Publicacion añadida correctamente")
-            })
-            .catch((error) => {
-                console.log(error)
-                setLoading(false)
-                alertError("UPS", "error inesperado!")
-            })
-
-    }
     const getOne = (id) => {
-        const res = api.get(`publication/${id}`)
+
+        const res = api.get(`project/${id}`)
             .then((res) => {
-                setPublish([res.data])
+                const getOneProject = project.find(p => p.id == id);
+                setProject([res.data])
                 setvaluesForm({
-                    relevant: res.data.relevant,
-                    title: res.data.title,
+                    name: res.data.name,
                     biography: res.data.biography,
                     imageUrl: res.data.imageUrl
                 })
@@ -76,17 +62,18 @@ export const MenuMobileProvider = ({ children }) => {
                 console.log(error)
             })
 
-        return res
+        return project
     }
 
-    const edit = (id, update) => {
+    const add = (projects) => {
         setLoading(true)
-        api.put(`publication/${id}`, update)
+        api.post(`project`, projects)
             .then((res) => {
-                setPublish([...publish, res.data])
-                getOne(id)
+                setProject(...project, res.data)
+
                 setLoading(false)
-                alertConfirmation("Publicacion actualizada correctamente")
+                alertConfirmation("Proyecto añadido correctamente")
+                getAll()
             })
             .catch((error) => {
                 console.log(error)
@@ -95,9 +82,10 @@ export const MenuMobileProvider = ({ children }) => {
             })
 
     }
+
     const deleted = (id) => {
         Swal.fire({
-            title: 'Quieres borrar la publicacion?',
+            title: '¿Quieres borrar el proyecto?',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -105,7 +93,7 @@ export const MenuMobileProvider = ({ children }) => {
             showLoaderOnConfirm: true,
         }).then((result) => {
             if (result.isConfirmed) {
-                api.delete(`publication/${id}`)
+                api.delete(`project/${id}`)
                     .then((res) => {
                         alertConfirmation("Borrado con exito")
                         getAll()
@@ -115,7 +103,7 @@ export const MenuMobileProvider = ({ children }) => {
                         alertError("UPS", "error inesperado!")
                     })
                 Swal.fire({
-                    text: "Borrando publicacion...",
+                    text: "Borrando proyecto...",
                     didOpen: () => {
                         Swal.showLoading()
 
@@ -130,6 +118,25 @@ export const MenuMobileProvider = ({ children }) => {
 
     }
 
-    return <menuMobile.Provider value={{ totalRelevant, totalPublications, valuesForm, edit, deleted, getOne, loading, add, mobileOpen, setMobileOpen, getAll, publish }}>{children}</menuMobile.Provider>;
+    const edit = (id, update) => {
+        setLoading(true)
+        instance.put(`project/${id}`, update)
+            .then((res) => {
+                setProject([...project, res.data])
+                getOne(id)
+                setLoading(false)
+                alertConfirmation("Proyecto actualizado correctamente")
+            })
+            .catch((error) => {
+                console.log(error)
+                setLoading(false)
+                alertError("UPS", "error inesperado!")
+            })
+
+    }
+    return <projects.Provider value={{
+        loading, project, getOne, edit, TotalProject, getTotalProject,
+        enableButton, valuesForm, add, getAll, deleted
+    }}>{children}</projects.Provider>;
 };
 

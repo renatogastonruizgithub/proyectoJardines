@@ -1,24 +1,39 @@
-import React from 'react'
+import { React, Suspense } from 'react'
+import { CompanyProvider } from '../../context/contextCompany'
+import { EmployeeProvider } from '../../context/contextEmployee'
 import { MenuMobileProvider } from '../../context/contextMenuMobile'
-/* import { ProviderComponentGallery } from '../../context/contexGallery' */
+import { ProjectProvider } from '../../context/contextProject'
+import { ProviderComponentGallery } from '../../context/contexGallery'
 import Navbar from './componentesAdmin/navbar'
 import Sidebar from './componentesAdmin/Sidebar'
+
+import { PublicationProvider } from '../../context/contextPublication'
+
 
 const LayoutDashboard = ({ children }) => {
     return (
         <>
             <MenuMobileProvider>
                 <Navbar></Navbar>
+
                 <main >
                     <section className='mainAdmin'>
-                        <section className='sideBar'>
+                        {/*  <section className='sideBar'>
                             <Sidebar></Sidebar>
-                        </section>
+                        </section> */}
 
-                        {/*   <ProviderComponentGallery>
-                       
-                    </ProviderComponentGallery> */}
-                        {children}
+                        <ProviderComponentGallery>
+                            <EmployeeProvider>
+                                <CompanyProvider>
+                                    <ProjectProvider>
+
+                                        {children}
+
+                                    </ProjectProvider>
+                                </CompanyProvider>
+                            </EmployeeProvider>
+                        </ProviderComponentGallery>
+
                     </section>
 
                 </main>
