@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import instance from "../config/axios/instance";
+import { api } from "../config/axios/instance"
 import { alertConfirmation, alertDeleted, alertError } from "../components/alert"
 
 
@@ -33,7 +33,7 @@ export const CompanyProvider = ({ children }) => {
 
     const get = () => {
         setLoading(true)
-        instance.get(`company/` + 1)
+        api.get(`company/` + 1)
             .then((res) => {
 
 
@@ -72,7 +72,7 @@ export const CompanyProvider = ({ children }) => {
 
     const edit = (update) => {
         setLoading(true)
-        instance.put(`company/1`, update)
+        api.put(`company/1`, update)
             .then((res) => {
                 setCompany([...company, res.data])
                 setLoading(false)
@@ -88,7 +88,7 @@ export const CompanyProvider = ({ children }) => {
     }
     const add = (company) => {
         setLoading(true)
-        instance.post(`company`, company)
+        api.post(`company`, company)
             .then((res) => {
                 setCompany([...company, res.data])
                 setLoading(false)

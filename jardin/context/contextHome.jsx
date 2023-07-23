@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import Loading from "../components/loading";
-
+import { api } from "../config/axios/instance"
 
 export const contextApi = createContext();
 
@@ -17,7 +17,7 @@ export const ProviderComponent = ({ children }) => {
 
 
     useEffect(() => {
-        axios.get("https://proyecto-jardin.fly.dev/company/all").then((res) => {
+        api.get("company/all").then((res) => {
             setEmpresa(res.data);
             setLoading(false);
         }).catch((error) => {
@@ -27,7 +27,7 @@ export const ProviderComponent = ({ children }) => {
 
     }, []);
 
-    console.log(empresa)
+
 
     return <contextApi.Provider value={{ empresa, loading }}>{loading && <Loading />}{children}</contextApi.Provider>;
 };

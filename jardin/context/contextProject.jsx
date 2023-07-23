@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import instance from "../config/axios/instance";
+import { api } from "../config/axios/instance"
 import { alertConfirmation, alertDeleted, alertError } from "../components/alert"
 import Swal from 'sweetalert2';
 
@@ -24,7 +24,7 @@ export const ProjectProvider = ({ children }) => {
 
     const getTotalProject = () => {
         setLoading(true)
-        instance.get(`project/all`)
+        api.get(`project/all`)
             .then((res) => {
                 setTotalProject(res.data.length)
                 setProject(res.data)
@@ -35,7 +35,7 @@ export const ProjectProvider = ({ children }) => {
     }
     const getAll = () => {
         setLoading(true)
-        instance.get(`project/all`)
+        api.get(`project/all`)
             .then((res) => {
                 setProject(res.data)
 
@@ -48,7 +48,7 @@ export const ProjectProvider = ({ children }) => {
 
     const getOne = (id) => {
 
-        const res = instance.get(`project/${id}`)
+        const res = api.get(`project/${id}`)
             .then((res) => {
                 const getOneProject = project.find(p => p.id == id);
                 setProject([res.data])
@@ -67,7 +67,7 @@ export const ProjectProvider = ({ children }) => {
 
     const add = (projects) => {
         setLoading(true)
-        instance.post(`project`, projects)
+        api.post(`project`, projects)
             .then((res) => {
                 setProject(...project, res.data)
 
@@ -93,7 +93,7 @@ export const ProjectProvider = ({ children }) => {
             showLoaderOnConfirm: true,
         }).then((result) => {
             if (result.isConfirmed) {
-                instance.delete(`project/${id}`)
+                api.delete(`project/${id}`)
                     .then((res) => {
                         alertConfirmation("Borrado con exito")
                         getAll()

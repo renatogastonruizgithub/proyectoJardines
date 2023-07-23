@@ -54,7 +54,7 @@ const FormProject = ({ title = "", name = "", id = "", biography = "" }) => {
 
 
             }
-
+            console.log(image, JSON.stringify(values.data_project))
             formData.append("image", new Blob([image], { type: "form-data" }))
             formData.append("data_project", new Blob([JSON.stringify(values.data_project)],
                 { type: "application/json" }))

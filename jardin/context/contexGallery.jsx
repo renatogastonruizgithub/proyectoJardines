@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react"
 import { alertConfirmation, alertDeleted, alertError } from "../components/alert"
-import instance from "../config/axios/instance"
+import { api } from "../config/axios/instance"
 import Swal from 'sweetalert2';
 
 export const galleryContext = createContext();
@@ -21,7 +21,7 @@ export const ProviderComponentGallery = ({ children }) => {
 
     const getGallery = () => {
 
-        instance.get(`gallery/page?page=${CurrentPage}`).then((res) => {
+        api.get(`gallery/page?page=${CurrentPage}`).then((res) => {
 
             /*  setLoading(false) */
             setImage(res.data.content)
@@ -45,7 +45,7 @@ export const ProviderComponentGallery = ({ children }) => {
 
     const add = (images) => {
         setLoading(true)
-        instance.post(`gallery`, images)
+        api.post(`gallery`, images)
             .then((res) => {
                 setImage([...image], res.data.content)
                 setLoading(false)
@@ -70,13 +70,12 @@ export const ProviderComponentGallery = ({ children }) => {
             showLoaderOnConfirm: true,
         }).then((result) => {
             if (result.isConfirmed) {
-                instance.delete(`gallery/${id}`)
+                api.delete(`gallery/${id}`)
                     .then((res) => {
                         alertConfirmation("Borrado con exito")
                         getGallery()
                     })
                     .catch((error) => {
-                        console.log(error)
                         alertError("UPS", "error inesperado!")
                     })
                 Swal.fire({

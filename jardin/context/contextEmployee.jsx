@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import instance from "../config/axios/instance";
+import { api } from "../config/axios/instance"
 import { alertConfirmation, alertDeleted, alertError } from "../components/alert"
 import Swal from 'sweetalert2';
 
@@ -24,7 +24,7 @@ export const EmployeeProvider = ({ children }) => {
 
     const getTotal = () => {
         setLoading(true)
-        instance.get(`employee/all`)
+        api.get(`employee/all`)
             .then((res) => {
                 setTotalEmployee(res.data.length)
                 setEmployee(res.data)
@@ -36,7 +36,7 @@ export const EmployeeProvider = ({ children }) => {
 
     const getAll = () => {
         setLoading(true)
-        instance.get(`employee/all`)
+        api.get(`employee/all`)
             .then((res) => {
                 setEmployee(res.data)
                 setTotalEmployee(res.data.length)
@@ -49,7 +49,7 @@ export const EmployeeProvider = ({ children }) => {
     }
 
     const getOne = (id) => {
-        const res = instance.get(`employee/${id}`)
+        const res = api.get(`employee/${id}`)
             .then((res) => {
                 const getOneEmploye = employee.find(e => e.id == id);
                 setEmployee([res.data])
@@ -78,7 +78,7 @@ export const EmployeeProvider = ({ children }) => {
             showLoaderOnConfirm: true,
         }).then((result) => {
             if (result.isConfirmed) {
-                instance.delete(`employee/${id}`)
+                api.delete(`employee/${id}`)
                     .then((res) => {
                         alertConfirmation("Borrado con exito")
                         getAll()
@@ -105,7 +105,7 @@ export const EmployeeProvider = ({ children }) => {
 
     const add = (employees) => {
         setLoading(true)
-        instance.post(`employee`, employees)
+        api.post(`employee`, employees)
             .then((res) => {
                 setEmployee([...employee, res.data])
 
@@ -122,7 +122,7 @@ export const EmployeeProvider = ({ children }) => {
 
     const edit = (id, update) => {
         setLoading(true)
-        instance.put(`employee/${id}`, update)
+        api.put(`employee/${id}`, update)
             .then((res) => {
                 setEmployee([...employee, res.data])
                 getOne(id)

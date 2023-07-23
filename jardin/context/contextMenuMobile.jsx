@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
-import instance from "../config/axios/instance";
+import { api } from "../config/axios/instance"
 import { alertConfirmation, alertDeleted, alertError } from "../components/alert"
 import Swal from 'sweetalert2';
 
@@ -32,7 +32,7 @@ export const MenuMobileProvider = ({ children }) => {
 
     const getAll = () => {
         setLoading(true)
-        instance.get(`publication/all`)
+        api.get(`publication/all`)
             .then((res) => {
                 setPublish(res.data)
                 setTotalPublications(res.data.length)
@@ -46,7 +46,7 @@ export const MenuMobileProvider = ({ children }) => {
     }
     const add = (data) => {
         setLoading(true)
-        instance.post(`publication`, data)
+        api.post(`publication`, data)
 
             .then((res) => {
                 setPublish([...publish, res.data])
@@ -62,7 +62,7 @@ export const MenuMobileProvider = ({ children }) => {
 
     }
     const getOne = (id) => {
-        const res = instance.get(`publication/${id}`)
+        const res = api.get(`publication/${id}`)
             .then((res) => {
                 setPublish([res.data])
                 setvaluesForm({
@@ -81,7 +81,7 @@ export const MenuMobileProvider = ({ children }) => {
 
     const edit = (id, update) => {
         setLoading(true)
-        instance.put(`publication/${id}`, update)
+        api.put(`publication/${id}`, update)
             .then((res) => {
                 setPublish([...publish, res.data])
                 getOne(id)
@@ -105,7 +105,7 @@ export const MenuMobileProvider = ({ children }) => {
             showLoaderOnConfirm: true,
         }).then((result) => {
             if (result.isConfirmed) {
-                instance.delete(`publication/${id}`)
+                api.delete(`publication/${id}`)
                     .then((res) => {
                         alertConfirmation("Borrado con exito")
                         getAll()

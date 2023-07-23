@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react";
 
-import instance from "../config/axios/instance";
+import { api } from "../config/axios/instance";
 import { alertConfirmation, alertDeleted, alertError } from "../components/alert"
 import Swal from 'sweetalert2';
 
@@ -18,7 +18,7 @@ export const PublicationProvider = ({ children }) => {
 
     const getAll = () => {
         setLoading(true)
-        instance.get(`publication/all`)
+        api.get(`publication/all`)
             .then((res) => {
                 setPublish(res.data)
                 console.log(res.data)
